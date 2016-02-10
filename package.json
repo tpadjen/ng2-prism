@@ -1,0 +1,31 @@
+{
+  "name": "ng2-prism",
+  "version": "1.0.6",
+  "description": "An example repository for building your own Angular 2 library",
+  "main": "ng2-prism.js",
+  "scripts": {
+    "watch": "tsc -w",
+    "build": "rm -rf dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhades/ng2-prism.git"
+  },
+  "keywords": [
+    "Angular",
+    "2",
+    "Prism"
+  ],
+  "author": "Tim Padjen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tpadjen/ng2-prism/issues"
+  },
+  "homepage": "https://github.com/tpadjen/ng2-prism#readme",
+  "devDependencies": {
+    "typescript": "^1.7.5"
+  },
+  "dependencies": {
+    "angular2": "2.0.0-beta.3"
+  }
+}
