@@ -1,18 +1,18 @@
 import {Component, ElementRef, Input, ViewEncapsulation} from 'angular2/core';
 
-import Prism from 'prism';
+var Prism = require('prismjs');
 
 // import any language files that all components should recognize
-import 'prism/components/prism-bash';
-import 'prism/components/prism-javascript';
+require('prismjs/components/prism-bash');
+require('prismjs/components/prism-javascript');
 
 // plugins
-import 'prism/plugins/line-numbers/prism-line-numbers';
-import 'prism/plugins/normalize-whitespace/prism-normalize-whitespace';
+require('prismjs/plugins/line-numbers/prism-line-numbers');
+require('prismjs/plugins/normalize-whitespace/prism-normalize-whitespace');
 
 // css
-import 'prism/themes/prism-okaidia.css!';
-import 'prism/plugins/line-numbers/prism-line-numbers.css!';
+var okaidia = require('prismjs/themes/prism-okaidia.css');
+var lineNumbers = require('prismjs/plugins/line-numbers/prism-line-numbers.css');
 
 @Component({
   selector: 'codeblock',
@@ -26,7 +26,7 @@ import 'prism/plugins/line-numbers/prism-line-numbers.css!';
   `,
 
   // remove the line-numbers right border
-  styles: [`
+  styles: [okaidia, lineNumbers, `
     pre.line-numbers {
       padding-left: 3.4em;
     }
