@@ -30,8 +30,8 @@ require('prismjs/plugins/normalize-whitespace/prism-normalize-whitespace');
 
   // remove the line-numbers right border
   styleUrls: [
-    '../node_modules/prismjs/themes/prism-okaidia.css',
-    '../node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css'
+    'node_modules/prismjs/themes/prism-okaidia.css',
+    'node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css'
   ],
   styles: [`
     .codeblock pre.line-numbers {
