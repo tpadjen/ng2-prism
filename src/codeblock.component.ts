@@ -10,10 +10,6 @@ require('prismjs/components/prism-javascript');
 require('prismjs/plugins/line-numbers/prism-line-numbers');
 require('prismjs/plugins/normalize-whitespace/prism-normalize-whitespace');
 
-// css
-var okaidia = require('prismjs/themes/prism-okaidia.css');
-var lineNumbers = require('prismjs/plugins/line-numbers/prism-line-numbers.css');
-
 @Component({
   selector: 'codeblock',
   template: `
@@ -26,7 +22,11 @@ var lineNumbers = require('prismjs/plugins/line-numbers/prism-line-numbers.css')
   `,
 
   // remove the line-numbers right border
-  styles: [okaidia, lineNumbers, `
+  styleUrls: [
+    'node_modules/prismjs/themes/prism-okaidia.css',
+    'node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css'
+  ],
+  styles: [`
     pre.line-numbers {
       padding-left: 3.4em;
     }
