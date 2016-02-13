@@ -9,7 +9,7 @@ ng2-prism requires **angular2 beta3**, **rxjs**, and the gh-pages branch of **pr
 ### jspm
 
 ```
-$ jspm i angular2 rxjs prismjs@gh-pages --save
+$ jspm i angular2 rxjs prism@gh-pages npm:ng2-prism
 ```
 
 ### npm
@@ -22,9 +22,19 @@ $ npm i angular2 rxjs git://github.com/PrismJS/prism.git#gh-pages ng2-prism --sa
 
 ### jspm and systemjs
 
-jspm automatically sets the paths necessary to load the imported dependencies.
+The npm and jspm prism packages have two different names, so you must add a line to your SystemJS config under the `map` section:
 
-### systemjs only
+```json
+map: {
+  // ...
+  "prismjs": "github:PrismJS/prism@gh-pages",
+  // ...
+}
+```
+
+Load this config before importing your app bundle.
+
+### systemjs only (installed with npm)
 
 Systemjs needs to know the path to the imported dependencies. Use `map`, and make sure `defaultJSExtensions` is set to `true`. Here is an example config, for use with the angular2 quickstart:
 
