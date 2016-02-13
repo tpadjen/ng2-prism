@@ -1,6 +1,6 @@
 import {Component, ElementRef, Input, ViewEncapsulation} from 'angular2/core';
 
-var Prism = require('prismjs');
+var Prism = require('prismjs/prism');
 
 // import any language files that all components should recognize
 require('prismjs/components/prism-bash');
