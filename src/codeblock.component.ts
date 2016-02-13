@@ -13,12 +13,14 @@ require('prismjs/plugins/normalize-whitespace/prism-normalize-whitespace');
 @Component({
   selector: 'codeblock',
   template: `
-    <h2>{{language}}</h2>
-    <pre>
-      <code>
-        <ng-content></ng-content>
-      </code>
-    </pre>
+    <div class="codeblock">
+      <h2>{{language}}</h2>
+      <pre>
+        <code>
+          <ng-content></ng-content>
+        </code>
+      </pre>
+    </div>
   `,
 
   // remove the line-numbers right border
@@ -27,11 +29,11 @@ require('prismjs/plugins/normalize-whitespace/prism-normalize-whitespace');
     'node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css'
   ],
   styles: [`
-    pre.line-numbers {
+    .codeblock pre.line-numbers {
       padding-left: 3.4em;
     }
 
-    pre.line-numbers .line-numbers-rows {
+    .codeblock pre.line-numbers .line-numbers-rows {
       left: -3.4em;
       border: none;
     }
