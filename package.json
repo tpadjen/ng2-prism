@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jhades/ng2-prism.git"
+    "url": "git+https://github.com/tpadjen/ng2-prism.git"
   },
   "keywords": [
     "Angular",
