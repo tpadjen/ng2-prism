@@ -12,6 +12,12 @@ ng2-prism requires **angular2 beta3**, **rxjs**, and the gh-pages branch of **pr
 $ jspm i angular2 rxjs prism@gh-pages npm:ng2-prism
 ```
 
+Currently, one must also install prism through npm to allow css to load:
+
+```
+$ npm i git://github.com/PrismJS/prism.git#gh-pages
+```
+
 ### npm
 
 ```
