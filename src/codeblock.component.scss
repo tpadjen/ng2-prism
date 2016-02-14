@@ -1,14 +1,4 @@
 @import '../prism/themes/prism';
-@import '../prism/plugins/line-numbers/prism-line-numbers';
-
-.codeblock pre.line-numbers {
-  padding-left: 3.4em;
-
-  .line-numbers-rows {
-    left: -3.4em;
-    border: none;
-  }
-}
 
 .coy {
   @import '../prism/themes/prism-coy';
@@ -38,3 +28,13 @@
   @import '../prism/themes/prism-twilight';
 }
 
+@import '../prism/plugins/line-numbers/prism-line-numbers';
+
+.codeblock pre.line-numbers {
+  padding-left: 3.4em;
+
+  .line-numbers-rows {
+    left: -3.4em;
+    border: none;
+  }
+}
