@@ -19,7 +19,6 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
   selector: 'codeblock',
   template: `
     <div class="codeblock">
-      <h2>{{language}}</h2>
       <pre>
         <code>
           <ng-content></ng-content>
