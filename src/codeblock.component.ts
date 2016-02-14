@@ -28,10 +28,8 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
     </div>
   `,
 
-  // remove the line-numbers right border
-  styleUrls: [
-    'node_modules/ng2-prism/bundle/codeblock.component.css'
-  ],
+  // CSS injected in build step
+  styles: [`{{CSS}}`],
 
   // necessary to make component styles apply because unique ng attributes
   // aren't applied to elements added by Prism.highlight

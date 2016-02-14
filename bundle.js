@@ -3,16 +3,21 @@ var Builder = require('systemjs-builder');
 var sass = require('node-sass');
 var fs = require('fs');
 
-var buildSass = function() {
+var replaceCSS = function(source, css) {
+  return source.replace("{{CSS}}", css.toString('utf8').replace(/\"/g,'\\"').trim());
+};
+
+var buildSass = function(js) {
   sass.render({
-    file: 'src/codeblock.component.scss'
+    file: 'src/codeblock.component.scss',
+    outputStyle: 'compressed'
   }, function(error, result) {
     if(!error){
-      fs.writeFile('bundle/codeblock.component.css', result.css, function(err){
+      fs.writeFile('bundle/codeblock.component.js', replaceCSS(js, result.css), function(err){
         if(!err){
-          console.log("CSS compiled");
+          console.log("CSS injected");
         } else {
-          console.log("Could not write css file");
+          console.log("Could not write css to js file");
           console.log(err);  
         }
       });
@@ -26,17 +31,17 @@ var buildSass = function() {
 
 var builder = new Builder('.', './config.js');
 
-builder.buildStatic('bundle/codeblock.component.js', 
-    'bundle/codeblock.component.js', 
+builder.buildStatic('bundle/codeblock.component.js',
     {format: 'cjs', config: {
       map: {
         "prism": "node_modules/prismjs"
       }
     }})
 
-      .then(function() {
+      .then(function(output) {
+        // console.log(output);
         console.log("Javascript bundled");
-        buildSass();
+        buildSass(output.source);
       })
 
       .catch(function(err) {
