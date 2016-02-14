@@ -5,7 +5,7 @@
   "main": "codeblock.js",
   "scripts": {
     "watch": "tsc -w",
-    "build": "rm -rf dist && tsc"
+    "build": "rm -rf bundle && tsc && node bundle.js"
   },
   "repository": {
     "type": "git",
@@ -24,14 +24,16 @@
   },
   "homepage": "https://github.com/tpadjen/ng2-prism#readme",
   "devDependencies": {
-    "typescript": "1.7.5",
     "angular2": "2.0.0-beta.6",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.33.3",
+    "jspm": "^0.16.27",
+    "prismjs": "git://github.com/PrismJS/prism.git#gh-pages",
     "reflect-metadata": "^0.1.3",
     "rxjs": "5.0.0-beta.0",
-    "zone.js": "^0.5.14",
-    "prismjs": "git://github.com/PrismJS/prism.git#gh-pages"
+    "systemjs-builder": "^0.15.7",
+    "typescript": "1.7.5",
+    "zone.js": "^0.5.14"
   },
   "peerDependencies": {
     "angular2": "2.0.0-beta.6",
@@ -41,5 +43,15 @@
     "rxjs": "5.0.0-beta.0",
     "zone.js": "^0.5.14",
     "prismjs": "git://github.com/PrismJS/prism.git#gh-pages"
+  },
+  "jspm": {
+    "dependencies": {
+      "angular2": "npm:angular2@^2.0.0-beta.6",
+      "prism": "github:PrismJS/prism@gh-pages",
+      "ts": "github:frankwallis/plugin-typescript@^3.0.3"
+    },
+    "devDependencies": {
+      "typescript": "npm:typescript@^1.6.2"
+    }
   }
 }

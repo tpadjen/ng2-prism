@@ -5,15 +5,15 @@ declare var require: any;
 
 import {Component, ElementRef, Input, ViewEncapsulation} from 'angular2/core';
 
-var Prism = require('prismjs/prism');
+var Prism = require('prism/prism');
 
 // import any language files that all components should recognize
-require('prismjs/components/prism-bash');
-require('prismjs/components/prism-javascript');
+require('prism/components/prism-bash');
+require('prism/components/prism-javascript');
 
 // plugins
-require('prismjs/plugins/line-numbers/prism-line-numbers');
-require('prismjs/plugins/normalize-whitespace/prism-normalize-whitespace');
+require('prism/plugins/line-numbers/prism-line-numbers');
+require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 
 @Component({
   selector: 'codeblock',

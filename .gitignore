@@ -4,3 +4,4 @@ jspm_packages
 .idea
 dist
 build
+bundle
