@@ -1,1 +1,1 @@
-export * from './dist/codeblock.component';
+export * from './bundle/codeblock.component';
