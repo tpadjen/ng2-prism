@@ -12,10 +12,13 @@ var buildSass = function() {
         if(!err){
           console.log("CSS compiled");
         } else {
-          console.log("Sass compilation error");
-          console.log(err);
+          console.log("Could not write css file");
+          console.log(err);  
         }
       });
+    } else {
+      console.log("Sass compilation error");
+      console.log(error);
     }
   });
 };
@@ -25,7 +28,11 @@ var builder = new Builder('.', './config.js');
 
 builder.buildStatic('bundle/codeblock.component.js', 
     'bundle/codeblock.component.js', 
-    {format: 'cjs'})
+    {format: 'cjs', config: {
+      map: {
+        "prism": "node_modules/prismjs"
+      }
+    }})
 
       .then(function() {
         console.log("Javascript bundled");

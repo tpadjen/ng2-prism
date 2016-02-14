@@ -15,7 +15,6 @@ System.config({
 
   map: {
     "angular2": "npm:angular2@2.0.0-beta.6",
-    "prism": "github:PrismJS/prism@gh-pages",
     "typescript": "npm:typescript@1.8.0",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
