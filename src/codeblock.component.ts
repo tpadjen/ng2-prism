@@ -36,11 +36,17 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 })
 export class CodeblockComponent {
 
-  _language: string = 'bash';
+  _language: string;
 
   @Input() set language(lang: string) {
     this._language = lang || 'bash';
     this.highlight();
+  }
+
+  ngOnInit() {
+    if (!this._language) {
+      this.language = "bash";
+    }
   }
 
   get language() {
