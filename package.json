@@ -47,8 +47,7 @@
   "jspm": {
     "dependencies": {
       "angular2": "npm:angular2@^2.0.0-beta.6",
-      "prism": "github:PrismJS/prism@gh-pages",
-      "ts": "github:frankwallis/plugin-typescript@^3.0.3"
+      "prism": "github:PrismJS/prism@gh-pages"
     },
     "devDependencies": {
       "typescript": "npm:typescript@^1.6.2"

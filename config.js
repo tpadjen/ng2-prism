@@ -1,48 +1,22 @@
 System.config({
   baseURL: "/",
   defaultJSExtensions: true,
-  transpiler: "typescript",
-  typescriptOptions: {
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "removeComments": true,
-    "sourceMap": true,
-    "outDir": "dist",
-    "declaration": true
-  },
+  transpiler: false,
   paths: {
     "npm:*": "jspm_packages/npm/*",
     "github:*": "jspm_packages/github/*"
   },
 
   meta: {
-    'angular2/*': {
-      build: false
-    }
-  },
-  
-  packages: {
-    "src": {
-      "defaultExtension": "ts",
-      "meta": {
-        "*.ts": {
-          "loader": "ts"
-        }
-      }
+    "angular2/*": {
+      "build": false
     }
   },
 
   map: {
     "angular2": "npm:angular2@2.0.0-beta.6",
     "prism": "github:PrismJS/prism@gh-pages",
-    "ts": "github:frankwallis/plugin-typescript@3.0.3",
     "typescript": "npm:typescript@1.8.0",
-    "github:frankwallis/plugin-typescript@3.0.3": {
-      "typescript": "npm:typescript@1.9.0-dev.20160214"
-    },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },

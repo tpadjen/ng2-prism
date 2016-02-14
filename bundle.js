@@ -3,7 +3,7 @@ var Builder = require('systemjs-builder');
 
 var builder = new Builder('.', './config.js');
 
-builder.buildStatic('src/codeblock.component.ts', 
+builder.buildStatic('bundle/codeblock.component.js', 
     'bundle/codeblock.component.js', 
     {format: 'cjs'})
 
