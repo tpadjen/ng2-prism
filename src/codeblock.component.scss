@@ -1,0 +1,40 @@
+@import '../prism/themes/prism';
+@import '../prism/plugins/line-numbers/prism-line-numbers';
+
+.codeblock pre.line-numbers {
+  padding-left: 3.4em;
+
+  .line-numbers-rows {
+    left: -3.4em;
+    border: none;
+  }
+}
+
+.coy {
+  @import '../prism/themes/prism-coy';
+}
+
+.dark {
+  @import '../prism/themes/prism-dark';
+}
+
+.funky {
+  @import '../prism/themes/prism-funky';
+}
+
+.okaidia {
+  @import '../prism/themes/prism-okaidia';
+}
+
+.solarizedlight {
+  @import '../prism/themes/prism-solarizedlight';
+}
+
+.tomorrow {
+  @import '../prism/themes/prism-tomorrow';
+}
+
+.twilight {
+  @import '../prism/themes/prism-twilight';
+}
+

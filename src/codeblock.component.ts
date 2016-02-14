@@ -30,19 +30,8 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 
   // remove the line-numbers right border
   styleUrls: [
-    'node_modules/ng2-prism/prism/themes/prism-okaidia.css',
-    'node_modules/ng2-prism/prism/plugins/line-numbers/prism-line-numbers.css'
+    'node_modules/ng2-prism/bundle/codeblock.component.css'
   ],
-  styles: [`
-    .codeblock pre.line-numbers {
-      padding-left: 3.4em;
-    }
-
-    .codeblock pre.line-numbers .line-numbers-rows {
-      left: -3.4em;
-      border: none;
-    }
-  `],
 
   // necessary to make component styles apply because unique ng attributes
   // aren't applied to elements added by Prism.highlight
