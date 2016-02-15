@@ -133,6 +133,18 @@ export class CodeblockComponent {
     return this.el.querySelector('pre');
   }
 
+  _theme: string = "standard";
+
+  @Input() set theme(theme: string) {
+    this._theme = theme;
+    CodeblockComponent.THEMES.forEach(t => this.el.classList.remove(t));
+    this.el.classList.add(theme);
+  }
+
+  get theme() {
+    return this._theme;
+  }
+
   ngOnInit() {
     if (!this._language) {
       this._language = "bash";

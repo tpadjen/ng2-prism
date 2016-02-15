@@ -99,11 +99,15 @@ Noted on Dynamic loading:
 
 ### Themes
 
-Add a class with the theme name to the `codeblock` element:
+Add a `theme` attribute to the `codeblock` element:
 
 ```html
-<codeblock language="javascript" class="dark">
+<codeblock language="javascript" theme="dark">
   // dark themed
+</codeblock>
+
+<codeblock language="javascript" [theme]="selectedTheme">
+  // uses whichever theme is currently stored in the selectedTheme variable
 </codeblock>
 
 ``` 
@@ -120,13 +124,6 @@ Your theme options are:
   * twilight
 
 The list of themes is available at runtime with `CodeblockComponent.THEMES`.
-
-To change the theme dynamically (`selectedTheme` is a variable):
-```html
-<codeblock [class]="selectedTheme"></codeblock>
-                    or
-<codeblock class="{{selectedTheme}}"></codeblock>
-```
 
 ### HTML
 
