@@ -39,6 +39,7 @@ System.config({
     "css": "github:frankwallis/plugin-css@master",
     "ng2-prism": "npm:ng2-prism@1.3.1",
     "node_modules/prismjs": "github:PrismJS/prism@gh-pages",
+    "normalize.css": "github:necolas/normalize.css@3.0.3",
     "reflect-metadata": "npm:reflect-metadata@0.1.2",
     "rxjs": "npm:rxjs@5.0.0-beta.2",
     "ts": "github:frankwallis/plugin-typescript@3.0.2",
@@ -96,6 +97,9 @@ System.config({
     },
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
+    },
+    "github:necolas/normalize.css@3.0.3": {
+      "css": "github:systemjs/plugin-css@0.1.20"
     },
     "npm:amdefine@1.0.0": {
       "fs": "github:jspm/nodelibs-fs@0.1.2",
