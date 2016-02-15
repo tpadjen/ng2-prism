@@ -113,16 +113,49 @@ Your theme options are:
 
 ### HTML
 
-To embed `HTML` use the language **markup** and change any opening tag angle brackets, <, to the html entity version:
+To embed `HTML` use the language **markup**.
+
+If you use standard `HTML` tags, and carefully close each one, you can write it as normal inside a `codeblock`:
+
+```html
+<codeblock language="markup">
+  <ul class="favorites">
+    <li>These are</li>
+    <li>a few of</li>
+    <li>my favorite</li>
+    <li>things.</li>
+  </ul>
+</codeblock>
+
+If you want to write a fragment of `HTML` with some unmatched tags the angular interpreter is going to fail to load your template. You must change any opening or closing tag angle brackets, <, to the html entity version:
 
 `< => &lt;`
 
 ```html
 <codeblock language="markup">
-  &lt;codeblock language="javascript">
-    var x = function() {
-      console.log("b");
-    }
+  &lt;html>
+    &lt;head>
+    &lt;title>Angular 2 QuickStart&lt;/title>
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1">
+
+    &lt;!-- 1. Load libraries -->
+    &lt;!-- IE required polyfills, in this exact order -->
+    &lt;script src="node_modules/es6-shim/es6-shim.min.js">&lt;/script>
+    &lt;script src="node_modules/systemjs/dist/system-polyfills.js">&lt;/script>
+    ...
+</codeblock>
+
+```
+
+Dynamically loaded files do not have this limitation.
+
+Any `Angular2 Components` that manipulate the DOM, such as a `codeblock` or an `ngIf`, should also be escaped:
+
+```html
+<codeblock language="markup">
+  &lt;codeblock language="markup">
+    &lt;section *ngIf="true" >A&lt;/section>
+    &lt;section *ngIf="false">B&lt;/section>
   &lt;/codeblock>
 </codeblock>
 ```

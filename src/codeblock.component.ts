@@ -75,13 +75,12 @@ export class CodeblockComponent {
         text => {
           this._language = this.extensions[ext[1]] || ext[1];
           if (this._language == 'markup') text = this._processMarkup(text);
-          console.log(text);
           this.code.innerHTML = text;
           this.highlight();
         },
         error => {
-          console.log("Error downloading " + source);
-          console.log(error);
+          // console.log("Error downloading " + source);
+          // console.log(error);
           this.code.innerHTML = source + " not found";
           this.el.hidden = false;
         });
@@ -119,6 +118,10 @@ export class CodeblockComponent {
   highlight() {
     this._setLanguageClasses();
 
+    if (this._language == 'markup') {
+      this.code.innerHTML = this._processMarkup(this.code.innerHTML)
+    }
+
     var elements = this.el.querySelectorAll(
       `code[class*="language-"],
       [class*="language-"] code,
@@ -142,6 +145,7 @@ export class CodeblockComponent {
     this.el.hidden = true;
   }
 
+  // markup needs to have all opening < changed to &lt; to render correctly inside pre tags
   _processMarkup(text) {
     return text.replace(/(<)([!\/A-Za-z].*?>)/g, '&lt;$2');
   }
