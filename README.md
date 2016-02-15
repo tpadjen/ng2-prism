@@ -110,7 +110,7 @@ Add a class with the theme name to the `codeblock` element:
 
 Your theme options are:
 
-  * prism default (no class)
+  * standard
   * coy
   * dark
   * funky
@@ -118,6 +118,8 @@ Your theme options are:
   * solarizedlight
   * tomorrow
   * twilight
+
+The list of themes is available at runtime with `CodeblockComponent.THEMES`.
 
 To change the theme dynamically (`selectedTheme` is a variable):
 ```html

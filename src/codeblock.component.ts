@@ -55,6 +55,17 @@ export class CodeblockComponent {
     'psm1': 'powershell'
   };
 
+  static THEMES = [
+    "standard",
+    "coy",
+    "dark",
+    "funky",
+    "okaidia",
+    "solarizedlight",
+    "tomorrow",
+    "twilight"
+  ];
+
   constructor(private _elementRef: ElementRef, private _http: Http) { }
 
   _lineNumbers: boolean = true;
