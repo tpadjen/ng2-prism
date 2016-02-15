@@ -95,6 +95,41 @@
   </div>
 </example>
 
+<h3>Dynamic Loading</h3>
+<p>Use the <code>src</code> attribute to set a file to download as the source code for a <code>codeblock</code>. The language of the <code>codeblock</code> will be determined from the file extension, unless a language is specified.</p>
+<example>
+  <div code>
+    <codeblock language="markup" theme="okaidia">
+      &lt;codeblock src="app/example/example.component.ts">
+      &lt;/codeblock>
+    </codeblock>
+  </div>
+  <div highlighted>
+    <codeblock src="app/example/example.component.ts">
+    </codeblock>
+  </div>
+</example>
+<example>
+  <div code>
+    <codeblock language="markup" theme="okaidia">
+      &lt;codeblock language="ruby"
+        src="app/example/example.component.ts">
+      &lt;/codeblock>
+    </codeblock>
+  </div>
+  <div highlighted>
+    <codeblock language="ruby" src="app/example/example.component.ts">
+    </codeblock>
+  </div>
+</example>
+
+<h4 class="info">Notes on Dynamic loading</h4>
+<ul>
+  <li>The codeblock will automatically update on changes to src. These updates are not throttled by the codeblock.</li>
+  <li>The src attribute must have a file extension.</li>
+  <li>Everything inside the dynamic codeblock will be erased.</li>
+</ul>
+
 <h3>Line numbers</h3>
 <p>Line numbers are on by default, bind the value <code>false</code> to the property <code>lineNumbers</code> to remove them.</p>
 <example>
