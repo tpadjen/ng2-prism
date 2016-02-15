@@ -34,6 +34,12 @@ footer {
   max-width: 90vw;
 }
 
+.solo .codeblock {
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
 
 // ::-webkit-scrollbar {
 //     -webkit-appearance: none;

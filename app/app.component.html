@@ -111,3 +111,34 @@
     </codeblock>
   </div>
 </example>
+
+<h3>Themes</h3>
+<p>Use the <code>theme</code> property to stylize your <code>codeblocks</code>.</p>
+<example>
+  <div code>
+    <codeblock language="markup" theme="okaidia">
+      &lt;codeblock theme="solarizedlight">
+        if (done) {
+          console.log("Finished");
+        }
+      &lt;/codeblock>
+    </codeblock>
+  </div>
+  <div highlighted>
+    <codeblock language="javascript" theme="solarizedlight">
+      if (done) {
+        console.log("Finished");
+      }
+    </codeblock>
+  </div>
+</example>
+<div class="select-theme">
+  Preview a Theme:
+  <select name="select" [(ngModel)]="selectedTheme">
+    <option *ngFor="#theme of themes" value="{{theme}}">{{theme}}</option>
+  </select>
+</div>
+<codeblock
+  [theme]="selectedTheme"
+  src="app/example/example.component.ts"
+  class="solo"></codeblock>

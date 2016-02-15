@@ -1,0 +1,26 @@
+p {
+  padding-left: 14px;
+}
+
+.select-theme {
+  margin: 20px 0 0 0; text-align: center; font-size: 1.2rem;
+}
+
+.select-theme select {
+  margin-left: 10px;
+}
+
+select {
+  -webkit-appearance: menulist-button;
+  // height: 50px;
+  line-height: 1.5rem;
+  font-size: 1.3rem;
+}
+
+.theme-name {
+  margin-bottom: 0; text-align:center; font-size: 1.4rem;
+}
+
+.solo {
+  width: 90%; margin: 0 auto;
+}
