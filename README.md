@@ -81,13 +81,21 @@ Add a `codeblock` to the template and specify its language:
 
 ### Dynamic Loading
 
-Use the `src` attribute to set a file to download as the source code for the `codeblock`. The language of the `codeblock` will be determined from the file extension.
+Use the `src` attribute to set a file to download as the source code for a `codeblock`. The language of the `codeblock` will be determined from the file extension, unless a language is specified.
 
 ```html
+<!-- automatically loads as javascript -->
 <codeblock src="path/to/main.js"></codeblock>
+
+<!-- tries to highlight the downloaded file as typescript --> 
+<codeblock language="typescript" src="path/to/main.js"></codeblock>
 ```
 
-The `codeblock` will automatically update on changes to `src`.
+Noted on Dynamic loading:
+  
+  * The `codeblock` will automatically update on changes to `src`. These updates are not throttled by the codeblock.
+  * The `src` attribute must have a file extension.
+  * Everything inside the dynamic codeblock will be erased.
 
 ### Themes
 

@@ -39,6 +39,7 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 export class CodeblockComponent {
 
   _language: string;
+  _languageSet: boolean = false;
 
   extensions = {
     'js': 'javascript',
@@ -56,6 +57,7 @@ export class CodeblockComponent {
   constructor(private _elementRef: ElementRef, private _http: Http) { }
 
   @Input() set language(lang: string) {
+    this._languageSet = lang && lang.length > 0 ? true : false;
     this._language = lang || 'bash';
     this.highlight();
   }
@@ -65,16 +67,17 @@ export class CodeblockComponent {
 
     if (source == undefined || source == null || source.length < 1) return;
 
-    let ext = source.match(/\.(\w+)$/);
+    let extMatches = source.match(/\.(\w+)$/);
 
-    if (!ext) return;
+    if (!extMatches) return;
+    let fileLanguage = this.extensions[extMatches[1]] || extMatches[1];
 
     this._http.get(source)
       .map(res => res.text())
       .subscribe(
         text => {
-          this._language = this.extensions[ext[1]] || ext[1];
-          if (this._language == 'markup') text = this._processMarkup(text);
+          if (!this._languageSet) this._language = fileLanguage;
+          if (fileLanguage == 'markup') text = this._processMarkup(text);
           this.code.innerHTML = text;
           this.highlight();
         },
@@ -109,10 +112,9 @@ export class CodeblockComponent {
 
   ngOnInit() {
     if (!this._language) {
-      this.language = "bash";
+      this._language = "bash";
+      this.highlight();
     }
-
-    this.src
   }
 
   highlight() {
