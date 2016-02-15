@@ -10,11 +10,15 @@ System.config({
   meta: {
     "angular2/*": {
       "build": false
+    },
+    "rxjs/*": {
+      "build": false
     }
   },
 
   map: {
     "angular2": "npm:angular2@2.0.0-beta.6",
+    "rxjs": "npm:rxjs@5.0.0-beta.2",
     "typescript": "npm:typescript@1.8.0",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
@@ -272,6 +276,10 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:rxjs@5.0.0-beta.0": {
+      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:rxjs@5.0.0-beta.2": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },

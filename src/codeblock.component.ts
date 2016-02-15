@@ -4,6 +4,8 @@ declare var require: any;
 
 
 import {Component, ElementRef, Input, ViewEncapsulation} from 'angular2/core';
+import {Http} from 'angular2/http';
+import 'rxjs/add/operator/map';
 
 var Prism = require('prism/prism');
 
@@ -38,16 +40,53 @@ export class CodeblockComponent {
 
   _language: string;
 
+  extensions = {
+    'js': 'javascript',
+    'ts': 'typescript',
+    'html': 'markup',
+    'svg': 'markup',
+    'xml': 'markup',
+    'md': 'markdown',
+    'py': 'python',
+    'rb': 'ruby',
+    'ps1': 'powershell',
+    'psm1': 'powershell'
+  };
+
+  constructor(private _elementRef: ElementRef, private _http: Http) { }
+
   @Input() set language(lang: string) {
     this._language = lang || 'bash';
     this.highlight();
   }
 
-  ngOnInit() {
-    if (!this._language) {
-      this.language = "bash";
-    }
+  @Input() set src(source: string) {
+    this._empty();
+
+    if (source == undefined || source == null || source.length < 1) return;
+
+    let ext = source.match(/\.(\w+)$/);
+
+    if (!ext) return;
+
+    this._http.get(source)
+      .map(res => res.text())
+      .subscribe(
+        text => {
+          this._language = this.extensions[ext[1]] || ext[1];
+          if (this._language == 'markup') text = this._processMarkup(text);
+          console.log(text);
+          this.code.innerHTML = text;
+          this.highlight();
+        },
+        error => {
+          console.log("Error downloading " + source);
+          console.log(error);
+          this.code.innerHTML = source + " not found";
+          this.el.hidden = false;
+        });
   }
+
 
   get language() {
     return this._language;
@@ -61,7 +100,21 @@ export class CodeblockComponent {
     return this._elementRef.nativeElement;
   }
 
-  constructor(private _elementRef: ElementRef) { }
+  get code() {
+    return this.el.querySelector('code');
+  }
+
+  get pre() {
+    return this.el.querySelector('pre');
+  }
+
+  ngOnInit() {
+    if (!this._language) {
+      this.language = "bash";
+    }
+
+    this.src
+  }
 
   highlight() {
     this._setLanguageClasses();
@@ -75,11 +128,22 @@ export class CodeblockComponent {
     for (var i=0, element; element = elements[i++];) {
       Prism.highlightElement(element, false, null);
     }
+
+    this.el.hidden = false;
   }
 
   _setLanguageClasses() {
-    this.el.querySelector('pre').className = "line-numbers " + this.languageSelector;
-    this.el.querySelector('code').className = this.languageSelector + " " + this._language;
+    this.pre.className = "line-numbers " + this.languageSelector;
+    this.code.className = this.languageSelector + " " + this._language;
+  }
+
+  _empty() {
+    this.code.innerHTML = "";
+    this.el.hidden = true;
+  }
+
+  _processMarkup(text) {
+    return text.replace(/(<)([\/A-Za-z].*?>)/g, '&lt;$2');
   }
 
 }

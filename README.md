@@ -24,7 +24,7 @@ No additional setup necessary.
 
 ### systemjs only (installed with npm)
 
-Systemjs needs to know the path to `ng2-prism`, along with the typical angular dependencies. Use `map`, and make sure `defaultJSExtensions` is set to `true`. Here is an example config, for use with the angular2 quickstart:
+Systemjs needs to know the path to `ng2-prism`, along with the typical angular dependencies (including http). Use `map`, and make sure `defaultJSExtensions` is set to `true`. Here is an example config, for use with the angular2 quickstart:
 
 ```html
 <script>
@@ -69,7 +69,7 @@ Include the component in the directives array:
 })
 ```
 
-Add a codeblock to the template and specify its language:
+Add a `codeblock` to the template and specify its language:
 
 ```html
 <codeblock language="ruby">
@@ -79,9 +79,19 @@ Add a codeblock to the template and specify its language:
 </codeblock>
 ```
 
+### Dynamic Loading
+
+Use the `src` attribute to set a file to download as the source code for the `codeblock`. The language of the `codeblock` will be determined from the file extension.
+
+```html
+<codeblock src="path/to/main.js"></codeblock>
+```
+
+The `codeblock` will automatically update on changes to `src`.
+
 ### Themes
 
-Add a class with the theme name to the codeblock element:
+Add a class with the theme name to the `codeblock` element:
 
 ```html
 <codeblock language="javascript" class="dark">
