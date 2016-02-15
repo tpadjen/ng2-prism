@@ -1,5 +1,5 @@
-app/main.js
-app/main.js.map
+#app/main.js
+#app/main.js.map
 node_modules/
 jspm_packages/
 bundle/
