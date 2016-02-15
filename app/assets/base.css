@@ -1,4 +1,8 @@
-h1 {
+body {
+  background: #eee;
+}
+
+h1, h2, h3, h4, h5, p {
   margin-top: 0;
 }
 
@@ -9,6 +13,7 @@ header {
 
 .main {
   min-height: 400px;
+  background: white;
 }
 
 footer {
@@ -17,8 +22,25 @@ footer {
   min-height: 56px;
 }
 
+
+
 .container {
   max-width: 50em;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 10px;
 }
+
+.codeblock {
+  max-width: 90vw;
+}
+
+
+// ::-webkit-scrollbar {
+//     -webkit-appearance: none;
+//     width: 7px;
+// }
+// ::-webkit-scrollbar-thumb {
+//     border-radius: 2px;
+//     background-color: rgba(0,0,0,.5);
+//     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+// }
