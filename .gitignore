@@ -1,7 +1,4 @@
-npm-debug.log
-node_modules
-jspm_packages
-.idea
-dist
-build
-bundle
+app/main.js
+app/main.js.map
+node_modules/
+jspm_packages/

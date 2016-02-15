@@ -1,16 +1,12 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "removeComments": true,
-    "sourceMap": false,
-    "outDir": "bundle",
-    "declaration": true
+    "moduleResolution": "node"
   },
-  "files": [
-    "src/codeblock.component.ts"
+  "exclude": [
+    "node_modules",
+    "jspm_packages"
   ]
 }
