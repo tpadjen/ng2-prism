@@ -142,3 +142,31 @@
   [theme]="selectedTheme"
   src="app/example/example.component.ts"
   class="solo"></codeblock>
+
+<h3>HTML</h3>
+<p>Use the <code>markup</code> language for HTML.</p>
+<p>If you use standard HTML tags, and carefully close each one, you can write it as normal inside a <code>codeblock</code>.</p>
+<example>
+  <div code>
+    <codeblock language="markup" theme="okaidia">
+      &lt;codeblock language="markup">
+        &lt;ul class="favorites">
+          &lt;li>These are&lt;/li>
+          &lt;li>a few of&lt;/li>
+          &lt;li>my favorite&lt;/li>
+          &lt;li>things.&lt;/li>
+        &lt;/ul>
+      &lt;/codeblock>
+    </codeblock>
+  </div>
+  <div highlighted>
+    <codeblock language="markup">
+      <ul class="favorites">
+        <li>These are</li>
+        <li>a few of</li>
+        <li>my favorite</li>
+        <li>things.</li>
+      </ul>
+    </codeblock>
+  </div>
+</example>

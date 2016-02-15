@@ -9,6 +9,7 @@ import 'ng2-prism/languages/prism-java';
 import 'ng2-prism/languages/prism-go';
 import 'ng2-prism/languages/prism-python';
 import 'ng2-prism/languages/prism-typescript';
+import 'ng2-prism/languages/prism-markup';
 
 @Component({
   selector: 'ng2-prism-app',
