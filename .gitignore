@@ -2,6 +2,7 @@ npm-debug.log
 node_modules
 jspm_packages
 .idea
+app
 dist
 build
 bundle
