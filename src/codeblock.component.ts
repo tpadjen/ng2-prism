@@ -143,7 +143,7 @@ export class CodeblockComponent {
   }
 
   _processMarkup(text) {
-    return text.replace(/(<)([\/A-Za-z].*?>)/g, '&lt;$2');
+    return text.replace(/(<)([!\/A-Za-z].*?>)/g, '&lt;$2');
   }
 
 }
