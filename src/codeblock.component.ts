@@ -56,6 +56,8 @@ export class CodeblockComponent {
 
   constructor(private _elementRef: ElementRef, private _http: Http) { }
 
+  @Input() lineNumbers: string = "true";
+
   @Input() set language(lang: string) {
     this._languageSet = lang && lang.length > 0 ? true : false;
     this._language = lang || 'bash';
@@ -138,7 +140,8 @@ export class CodeblockComponent {
   }
 
   _setLanguageClasses() {
-    this.pre.className = "line-numbers " + this.languageSelector;
+    let ln = this.lineNumbers != "false" ? "line-numbers " : "";
+    this.pre.className = ln + this.languageSelector;
     this.code.className = this.languageSelector + " " + this._language;
   }
 
