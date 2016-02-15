@@ -51,3 +51,8 @@ footer {
 //     background-color: rgba(0,0,0,.5);
 //     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 // }
+
+.subtitle {
+  margin-left: 1.0rem;
+  font-weight: 400;
+}
