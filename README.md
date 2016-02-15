@@ -181,4 +181,4 @@ Ng2-prism automatically adds line numbers to codeblocks. To disable them bind a 
 ```html
 <codeblock [lineNumbers]="false"></codeblock>
                     or
-<codeblock lineNumbers="{{someBoolean}}"></codeblock>
+<codeblock [lineNumbers]="someBooleanExpression"></codeblock>

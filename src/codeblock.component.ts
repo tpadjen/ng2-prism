@@ -18,10 +18,6 @@ require('prism/plugins/line-numbers/prism-line-numbers');
 require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 
 
-var toType = function(obj) {
-  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
-}
-
 @Component({
   selector: 'codeblock',
   template: `
@@ -63,18 +59,13 @@ export class CodeblockComponent {
 
   _lineNumbers: boolean = true;
 
-  @Input() set lineNumbers(value: any) {
-    if (toType(value) == 'boolean') {
-      this._lineNumbers = value;
-    } else {
-      this._lineNumbers = value == "true";
-    }
-
+  @Input() set lineNumbers(value: boolean) {
+    this._lineNumbers = value;
     this.highlight(false);
   }
 
-  get lineNumbers(): any {
-    return this._lineNumbers + "";
+  get lineNumbers(): boolean {
+    return this._lineNumbers;
   }
 
   @Input() set language(lang: string) {
