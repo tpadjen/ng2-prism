@@ -68,11 +68,13 @@ export class CodeblockComponent {
 
   constructor(private _elementRef: ElementRef, private _http: Http) { }
 
+  _highlighted: boolean = false;
+
   _lineNumbers: boolean = true;
 
   @Input() set lineNumbers(value: boolean) {
     this._lineNumbers = value;
-    this.highlight(false);
+    if (this._language) this.highlight();
   }
 
   get lineNumbers(): boolean {
@@ -82,7 +84,7 @@ export class CodeblockComponent {
   @Input() set language(lang: string) {
     this._languageSet = lang && lang.length > 0 ? true : false;
     this._language = lang || 'bash';
-    this.highlight(false);
+    this.highlight();
   }
 
   @Input() set src(source: string) {
@@ -146,17 +148,13 @@ export class CodeblockComponent {
   }
 
   ngOnInit() {
-    if (!this._language) {
-      this._language = "bash";
-      this.highlight();
-    }
+    if (!this._highlighted) this.highlight();
   }
 
-  // can't redo markup if already highlighted
-  highlight(redoMarkup: boolean = true) {
+  highlight() {
     this._setLanguageClasses();
 
-    if (redoMarkup && this._language == 'markup') {
+    if (!this._highlighted && this._language == 'markup') {
       this.code.innerHTML = this._processMarkup(this.code.innerHTML)
     }
 
@@ -171,6 +169,7 @@ export class CodeblockComponent {
     }
 
     this.el.hidden = false;
+    this._highlighted = true;
   }
 
   _setLanguageClasses() {
