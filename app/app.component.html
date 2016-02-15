@@ -1,0 +1,52 @@
+<h2>Usage</h2>
+<example>
+  <p pre>Use a <code>codeblock</code> element to highlight the code within.</p>
+  <div code>
+    <codeblock language="markup" theme="okaidia">
+      &lt;codeblock language="javascript">
+        console.log("Hello');
+      &lt;/codeblock>
+    </codeblock>
+  </div>
+  <div highlighted>
+    <codeblock language="javascript">
+      console.log("Hello');
+    </codeblock>
+  </div>
+</example>
+
+<h3>Whitespace</h3>
+<example>
+  <p pre>Whitespace is normalized, just use consistent indentation inside a <code>codeblock</code>.</p>
+  <div code>
+    <codeblock language="markup" theme="okaidia">
+      &lt;codeblock language="ruby">
+        p "Hello"
+        p "Goodbye"
+      &lt;/codeblock>
+    </codeblock>
+  </div>
+  <div highlighted>
+    <codeblock language="ruby">
+      p "Hello"
+      p "Goodbye"
+    </codeblock>
+  </div>
+</example>
+
+<example>
+  <div code>
+    <codeblock language="markup" theme="okaidia">
+      &lt;codeblock language="ruby">
+              p "Hello"
+              p "Goodbye"
+      &lt;/codeblock>
+    </codeblock>
+  </div>
+  <div highlighted>
+    <codeblock language="ruby">
+              p "Hello"
+              p "Goodbye"
+    </codeblock>
+  </div>
+</example>
