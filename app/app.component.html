@@ -1,6 +1,6 @@
 <h2>Usage</h2>
+<p>Use a <code>codeblock</code> element to highlight the code within.</p>
 <example>
-  <p pre>Use a <code>codeblock</code> element to highlight the code within.</p>
   <div code>
     <codeblock language="markup" theme="okaidia">
       &lt;codeblock language="javascript">
@@ -15,9 +15,54 @@
   </div>
 </example>
 
-<h3>Whitespace</h3>
+<h3>Language</h3>
+<p>Use the <code>language</code> property to set the highlighting language. Use any of the 100+ <a href="http://prismjs.com/#languages-list">supported languages</a>.</p>
 <example>
-  <p pre>Whitespace is normalized, just use consistent indentation inside a <code>codeblock</code>.</p>
+  <div code>
+    <codeblock language="markup" theme="okaidia">
+      &lt;codeblock language="java">
+        System.out.println("java");
+      &lt;/codeblock>
+    </codeblock>
+  </div>
+  <div highlighted>
+    <codeblock language="java">
+      System.out.println("java");
+    </codeblock>
+  </div>
+</example>
+<example>
+  <div code>
+    <codeblock language="markup" theme="okaidia">
+      &lt;codeblock language="python">
+        print "python"
+      &lt;/codeblock>
+    </codeblock>
+  </div>
+  <div highlighted>
+    <codeblock language="python">
+      print "python"
+    </codeblock>
+  </div>
+</example>
+<example>
+  <div code>
+    <codeblock language="markup" theme="okaidia">
+      &lt;codeblock language="go">
+        fmt.Println("go")
+      &lt;/codeblock>
+    </codeblock>
+  </div>
+  <div highlighted>
+    <codeblock language="go">
+      fmt.Println("go")
+    </codeblock>
+  </div>
+</example>
+
+<h3>Whitespace</h3>
+<p>Whitespace is normalized, just use consistent indentation inside a <code>codeblock</code>.</p>
+<example>
   <div code>
     <codeblock language="markup" theme="okaidia">
       &lt;codeblock language="ruby">
@@ -33,7 +78,6 @@
     </codeblock>
   </div>
 </example>
-
 <example>
   <div code>
     <codeblock language="markup" theme="okaidia">

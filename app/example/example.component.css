@@ -21,4 +21,9 @@
 .col h1 {
   font-size: 1em;
   font-weight: 300;
+  margin: 0.4em 0;
+}
+
+.result {
+  text-align: right;
 }
