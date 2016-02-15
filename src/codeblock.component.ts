@@ -17,6 +17,7 @@ require('prism/components/prism-javascript');
 require('prism/plugins/line-numbers/prism-line-numbers');
 require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 
+
 @Component({
   selector: 'codeblock',
   template: `
@@ -56,7 +57,7 @@ export class CodeblockComponent {
 
   constructor(private _elementRef: ElementRef, private _http: Http) { }
 
-  @Input() lineNumbers: string = "true";
+  @Input() lineNumbers: boolean = true;
 
   @Input() set language(lang: string) {
     this._languageSet = lang && lang.length > 0 ? true : false;
@@ -140,7 +141,7 @@ export class CodeblockComponent {
   }
 
   _setLanguageClasses() {
-    let ln = this.lineNumbers != "false" ? "line-numbers " : "";
+    let ln = this.lineNumbers ? "line-numbers " : "";
     this.pre.className = ln + this.languageSelector;
     this.code.className = this.languageSelector + " " + this._language;
   }
