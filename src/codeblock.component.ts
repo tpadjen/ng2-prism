@@ -18,6 +18,10 @@ require('prism/plugins/line-numbers/prism-line-numbers');
 require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 
 
+var toType = function(obj) {
+  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+}
+
 @Component({
   selector: 'codeblock',
   template: `
@@ -57,12 +61,26 @@ export class CodeblockComponent {
 
   constructor(private _elementRef: ElementRef, private _http: Http) { }
 
-  @Input() lineNumbers: boolean = true;
+  _lineNumbers: boolean = true;
+
+  @Input() set lineNumbers(value: any) {
+    if (toType(value) == 'boolean') {
+      this._lineNumbers = value;
+    } else {
+      this._lineNumbers = value == "true";
+    }
+
+    this.highlight(false);
+  }
+
+  get lineNumbers(): any {
+    return this._lineNumbers + "";
+  }
 
   @Input() set language(lang: string) {
     this._languageSet = lang && lang.length > 0 ? true : false;
     this._language = lang || 'bash';
-    this.highlight();
+    this.highlight(false);
   }
 
   @Input() set src(source: string) {
@@ -120,10 +138,11 @@ export class CodeblockComponent {
     }
   }
 
-  highlight() {
+  // can't redo markup if already highlighted
+  highlight(redoMarkup: boolean = true) {
     this._setLanguageClasses();
 
-    if (this._language == 'markup') {
+    if (redoMarkup && this._language == 'markup') {
       this.code.innerHTML = this._processMarkup(this.code.innerHTML)
     }
 
@@ -141,7 +160,7 @@ export class CodeblockComponent {
   }
 
   _setLanguageClasses() {
-    let ln = this.lineNumbers ? "line-numbers " : "";
+    let ln = this._lineNumbers ? "line-numbers " : "";
     this.pre.className = ln + this.languageSelector;
     this.code.className = this.languageSelector + " " + this._language;
   }

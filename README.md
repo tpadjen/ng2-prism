@@ -119,6 +119,13 @@ Your theme options are:
   * tomorrow
   * twilight
 
+To change the theme dynamically (`selectedTheme` is a variable):
+```html
+<codeblock [class]="selectedTheme"></codeblock>
+                    or
+<codeblock class="{{selectedTheme}}"></codeblock>
+```
+
 ### HTML
 
 To embed `HTML` use the language **markup**.
@@ -167,3 +174,11 @@ Any `Angular2 Components` that manipulate the DOM, such as a `codeblock` or an `
   &lt;/codeblock>
 </codeblock>
 ```
+
+### Line Numbers
+
+Ng2-prism automatically adds line numbers to codeblocks. To disable them bind a `lineNumbers` attribute to `false`:
+```html
+<codeblock [lineNumbers]="false"></codeblock>
+                    or
+<codeblock lineNumbers="{{someBoolean}}"></codeblock>
