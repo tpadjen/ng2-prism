@@ -2,8 +2,11 @@
   font-size: 1.4em;
 }
 
-.content {
-  padding: 0 20px;
+
+@media (min-width: 34em) {
+  .content {
+    padding: 0 20px;
+  }
 }
 
 .blocks {
