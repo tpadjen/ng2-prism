@@ -29,3 +29,7 @@ select {
 .solo {
   width: 90%; margin: 0 auto;
 }
+
+.feature {
+  margin-bottom: 2rem;
+}

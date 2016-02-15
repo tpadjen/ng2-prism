@@ -1,247 +1,256 @@
 <h2>Usage</h2>
-<p>Use a <code>codeblock</code> element to highlight the code within.</p>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock language="javascript">
+<section class="feature">
+  <p>Use a <code>codeblock</code> element to highlight the code within.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock language="javascript">
+          console.log("Hello');
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="javascript">
         console.log("Hello');
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock language="javascript">
-      console.log("Hello');
-    </codeblock>
-  </div>
-</example>
-
-<h3>Language</h3>
-<p>Use the <code>language</code> property to set the highlighting language. Use any of the 100+ <a href="http://prismjs.com/#languages-list">supported languages</a>.</p>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock language="java">
+      </codeblock>
+    </div>
+  </example>
+</section>
+<section class="feature">
+  <h3>Language</h3>
+  <p>Use the <code>language</code> property to set the highlighting language. Use any of the 100+ <a href="http://prismjs.com/#languages-list">supported languages</a>.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock language="java">
+          System.out.println("java");
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="java">
         System.out.println("java");
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock language="java">
-      System.out.println("java");
-    </codeblock>
-  </div>
-</example>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock language="python">
+      </codeblock>
+    </div>
+  </example>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock language="python">
+          print "python"
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="python">
         print "python"
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock language="python">
-      print "python"
-    </codeblock>
-  </div>
-</example>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock language="go">
+      </codeblock>
+    </div>
+  </example>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock language="go">
+          fmt.Println("go")
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="go">
         fmt.Println("go")
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock language="go">
-      fmt.Println("go")
-    </codeblock>
-  </div>
-</example>
-
-<h3>Whitespace</h3>
-<p>Whitespace is normalized, just use consistent indentation inside a <code>codeblock</code>.</p>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock language="ruby">
+      </codeblock>
+    </div>
+  </example>
+</section>
+<section class="feature">
+  <h3>Whitespace</h3>
+  <p>Whitespace is normalized, just use consistent indentation inside a <code>codeblock</code>.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock language="ruby">
+          p "Hello"
+          p "Goodbye"
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="ruby">
         p "Hello"
         p "Goodbye"
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock language="ruby">
-      p "Hello"
-      p "Goodbye"
-    </codeblock>
-  </div>
-</example>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock language="ruby">
-              p "Hello"
-              p "Goodbye"
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock language="ruby">
-              p "Hello"
-              p "Goodbye"
-    </codeblock>
-  </div>
-</example>
+      </codeblock>
+    </div>
+  </example>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock language="ruby">
+                p "Hello"
+                p "Goodbye"
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="ruby">
+                p "Hello"
+                p "Goodbye"
+      </codeblock>
+    </div>
+  </example>
+</section>
+<section class="feature">
+  <h3>Dynamic Loading</h3>
+  <p>Use the <code>src</code> attribute to set a file to download as the source code for a <code>codeblock</code>. The language of the <code>codeblock</code> will be determined from the file extension, unless a language is specified.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock src="app/example/example.component.ts">
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock src="app/example/example.component.ts">
+      </codeblock>
+    </div>
+  </example>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock language="ruby"
+          src="app/example/example.component.ts">
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="ruby" src="app/example/example.component.ts">
+      </codeblock>
+    </div>
+  </example>
 
-<h3>Dynamic Loading</h3>
-<p>Use the <code>src</code> attribute to set a file to download as the source code for a <code>codeblock</code>. The language of the <code>codeblock</code> will be determined from the file extension, unless a language is specified.</p>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock src="app/example/example.component.ts">
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock src="app/example/example.component.ts">
-    </codeblock>
-  </div>
-</example>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock language="ruby"
-        src="app/example/example.component.ts">
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock language="ruby" src="app/example/example.component.ts">
-    </codeblock>
-  </div>
-</example>
-
-<h4 class="info">Notes on Dynamic loading</h4>
-<ul>
-  <li>The codeblock will automatically update on changes to src. These updates are not throttled by the codeblock.</li>
-  <li>The src attribute must have a file extension.</li>
-  <li>Everything inside the dynamic codeblock will be erased.</li>
-</ul>
-
-<h3>Line numbers</h3>
-<p>Line numbers are on by default, bind the value <code>false</code> to the property <code>lineNumbers</code> to remove them.</p>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock [lineNumbers]="false">
-        No Line numbers
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock [lineNumbers]="false">
-      No line numbers
-    </codeblock>
-  </div>
-</example>
-
-<h3>Themes</h3>
-<p>Use the <code>theme</code> property to stylize your <code>codeblocks</code>.</p>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock theme="solarizedlight">
+  <h4 class="info">Notes on Dynamic loading</h4>
+  <ul>
+    <li>The codeblock will automatically update on changes to src. These updates are not throttled by the codeblock.</li>
+    <li>The src attribute must have a file extension.</li>
+    <li>Everything inside the dynamic codeblock will be erased.</li>
+  </ul>
+</section>
+<section class="feature">
+  <h3>Line numbers</h3>
+  <p>Line numbers are on by default, bind the value <code>false</code> to the property <code>lineNumbers</code> to remove them.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock [lineNumbers]="false">
+          No Line numbers
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock [lineNumbers]="false">
+        No line numbers
+      </codeblock>
+    </div>
+  </example>
+</section>
+<section class="feature">
+  <h3>Themes</h3>
+  <p>Use the <code>theme</code> property to stylize your <code>codeblocks</code>.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock theme="solarizedlight">
+          if (done) {
+            console.log("Finished");
+          }
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="javascript" theme="solarizedlight">
         if (done) {
           console.log("Finished");
         }
-      &lt;/codeblock>
-    </codeblock>
+      </codeblock>
+    </div>
+  </example>
+  <div class="select-theme">
+    Preview a Theme:
+    <select name="select" [(ngModel)]="selectedTheme">
+      <option *ngFor="#theme of themes" value="{{theme}}">{{theme}}</option>
+    </select>
   </div>
-  <div highlighted>
-    <codeblock language="javascript" theme="solarizedlight">
-      if (done) {
-        console.log("Finished");
-      }
-    </codeblock>
-  </div>
-</example>
-<div class="select-theme">
-  Preview a Theme:
-  <select name="select" [(ngModel)]="selectedTheme">
-    <option *ngFor="#theme of themes" value="{{theme}}">{{theme}}</option>
-  </select>
-</div>
-<codeblock
-  [theme]="selectedTheme"
-  src="app/example/example.component.ts"
-  class="solo"></codeblock>
+  <codeblock
+    [theme]="selectedTheme"
+    src="app/example/example.component.ts"
+    class="solo"></codeblock><br>
 
-<h3>HTML</h3>
-<p>Use the <code>markup</code> language for HTML. If you use standard tags, and carefully close each one, you can write it as normal inside a <code>codeblock</code>.</p>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock language="markup">
+</section>
+<section class="feature">
+  <h3>HTML</h3>
+  <p>Use the <code>markup</code> language for HTML. If you use standard tags, and carefully close each one, you can write it as normal inside a <code>codeblock</code>.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock language="markup">
+          &lt;ul class="favorites">
+            &lt;li>These are&lt;/li>
+            &lt;li>a few of&lt;/li>
+            &lt;li>my favorite&lt;/li>
+            &lt;li>things.&lt;/li>
+          &lt;/ul>
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="markup">
         &lt;ul class="favorites">
           &lt;li>These are&lt;/li>
           &lt;li>a few of&lt;/li>
           &lt;li>my favorite&lt;/li>
           &lt;li>things.&lt;/li>
         &lt;/ul>
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock language="markup">
-      &lt;ul class="favorites">
-        &lt;li>These are&lt;/li>
-        &lt;li>a few of&lt;/li>
-        &lt;li>my favorite&lt;/li>
-        &lt;li>things.&lt;/li>
-      &lt;/ul>
-    </codeblock>
-  </div>
-</example>
-<p>If you want to write a fragment of `HTML` with some unmatched tags the angular interpreter is going to fail to load your template. You must change any opening or closing tag angle brackets, <code><</code>, to the html entity version <code>&#38;lt;</code>.</p>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock language="markup">
-        &#38;lt;html>
-          &#38;lt;head>
-          &#38;lt;title>Title&#38;lt;/title>
+      </codeblock>
+    </div>
+  </example>
+  <p>If you want to write a fragment of `HTML` with some unmatched tags the angular interpreter is going to fail to load your template. You must change any opening or closing tag angle brackets, <code><</code>, to the html entity version <code>&#38;lt;</code>.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock language="markup">
+          &#38;lt;html>
+            &#38;lt;head>
+            &#38;lt;title>Title&#38;lt;/title>
+            ...
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="markup">
+        &lt;html>
+          &lt;head>
+          &lt;title>Title&lt;/title>
           ...
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock language="markup">
-      &lt;html>
-        &lt;head>
-        &lt;title>Title&lt;/title>
-        ...
-    </codeblock>
-  </div>
-</example>
-<p>Dynamically loaded files do not have this limitation.</p>
-<p>Any Angular2 Components that manipulate the DOM, such as a <code>codeblock</code> or an <code>ngIf</code>, should also be escaped.</p>
-<example>
-  <div code>
-    <codeblock language="markup" theme="okaidia">
-      &lt;codeblock language="markup">
-        &#38;lt;div *ngIf="true" >A&#38;lt;/div>
-        &#38;lt;div *ngIf="false">B&#38;lt;/div>
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-  <div highlighted>
-    <codeblock language="markup">
-      &lt;codeblock language="markup">
-        &lt;div *ngIf="true" >A&lt;/div>
-        &lt;div *ngIf="false">B&lt;/div>
-      &lt;/codeblock>
-    </codeblock>
-  </div>
-</example>
+      </codeblock>
+    </div>
+  </example>
+  <p>Dynamically loaded files do not have this limitation.</p>
+  <p>Any Angular2 Components that manipulate the DOM, such as a <code>codeblock</code> or an <code>ngIf</code>, should also be escaped.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="okaidia">
+        &lt;codeblock language="markup">
+          &#38;lt;div *ngIf="true" >A&#38;lt;/div>
+          &#38;lt;div *ngIf="false">B&#38;lt;/div>
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="markup">
+        &lt;codeblock language="markup">
+          &lt;div *ngIf="true" >A&lt;/div>
+          &lt;div *ngIf="false">B&lt;/div>
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+  </example>
+</section>
