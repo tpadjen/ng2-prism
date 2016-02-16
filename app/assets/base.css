@@ -31,6 +31,33 @@ footer {
   min-height: 56px;
 }
 
+footer .identicon {
+  height: 36px;
+  float: left;
+  margin-right: 6px;
+  position: relative;
+  top: 4px;
+
+}
+
+.made-with {
+  position: relative;
+  top: -6px;
+  line-height: 26px;
+}
+
+.grow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  overflow: auto;
+  zoom: 1;
+}
+
+.grow:hover {
+  -webkit-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  transform: scale(1.3);
+}
 
 
 .container {
@@ -79,6 +106,7 @@ footer {
   position: absolute;
   right: 10px;
   top: 20px;
+  transition: all 0.3s ease;
 }
 
 .github:visited {
@@ -87,6 +115,9 @@ footer {
 
 .github:hover {
   background: #1E95BD;
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .github i {
