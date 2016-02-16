@@ -37,6 +37,10 @@ select {
 hr {
   width: 50%;
   margin: 26px auto 20px auto;
+  border-style: solid;
+  border-color: #9EAFB5;
+  background-color; #9EAFB5;
+  color: #9EAFB5;
 }
 
 example + p {
