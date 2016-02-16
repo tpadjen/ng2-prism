@@ -1,0 +1,7 @@
+/* */ 
+"format cjs";
+// brick does some funny stuff with property descriptors
+// see:
+//
+// this file is intentionally empty; if `lib/brick.js` doesn't error, then we're cool
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYnJpY2suc3BlYy5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Rlc3QvaW50ZWdyYXRpb24vYnJpY2suc3BlYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSx3REFBd0Q7QUFDeEQsT0FBTztBQUNQLEVBQUU7QUFDRixxRkFBcUYiLCJzb3VyY2VzQ29udGVudCI6WyIvLyBicmljayBkb2VzIHNvbWUgZnVubnkgc3R1ZmYgd2l0aCBwcm9wZXJ0eSBkZXNjcmlwdG9yc1xuLy8gc2VlOlxuLy9cbi8vIHRoaXMgZmlsZSBpcyBpbnRlbnRpb25hbGx5IGVtcHR5OyBpZiBgbGliL2JyaWNrLmpzYCBkb2Vzbid0IGVycm9yLCB0aGVuIHdlJ3JlIGNvb2xcbiJdfQ==
