@@ -190,7 +190,7 @@
   <p>Use the <code>markup</code> language for HTML. If you use standard tags, and carefully close each one, you can write it as normal inside a <code>codeblock</code>.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia">
+      <codeblock language="markup" theme="okaidia" [lineNumbers]="false">
         &lt;codeblock language="markup">
           &lt;ul class="favorites">
             &lt;li>These are&lt;/li>
@@ -202,7 +202,7 @@
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="markup">
+      <codeblock language="markup" [lineNumbers]="false">
         &lt;ul class="favorites">
           &lt;li>These are&lt;/li>
           &lt;li>a few of&lt;/li>
@@ -215,7 +215,7 @@
   <p>If you want to write a fragment of `HTML` with some unmatched tags the angular interpreter is going to fail to load your template. You must change any opening or closing tag angle brackets, <code><</code>, to the html entity version <code>&#38;lt;</code>.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia">
+      <codeblock language="markup" theme="okaidia" [lineNumbers]="false">
         &lt;codeblock language="markup">
           &#38;lt;html>
             &#38;lt;head>
@@ -225,7 +225,7 @@
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="markup">
+      <codeblock language="markup" [lineNumbers]="false">
         &lt;html>
           &lt;head>
           &lt;title>Title&lt;/title>
@@ -237,7 +237,7 @@
   <p>Any Angular2 Components that manipulate the DOM, such as a <code>codeblock</code> or an <code>ngIf</code>, should also be escaped.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia">
+      <codeblock language="markup" theme="okaidia" [lineNumbers]="false">
         &lt;codeblock language="markup">
           &#38;lt;div *ngIf="true" >A&#38;lt;/div>
           &#38;lt;div *ngIf="false">B&#38;lt;/div>
@@ -245,7 +245,7 @@
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="markup">
+      <codeblock language="markup" [lineNumbers]="false">
         &lt;codeblock language="markup">
           &lt;div *ngIf="true" >A&lt;/div>
           &lt;div *ngIf="false">B&lt;/div>
