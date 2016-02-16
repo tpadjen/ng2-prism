@@ -33,4 +33,12 @@ select {
 .feature {
   margin-bottom: 2rem;
 }
-hr {  margin: 26px auto 20px auto;}
+
+hr {
+  width: 50%;
+  margin: 26px auto 20px auto;
+}
+
+example + p {
+  margin-top: 2rem;
+}
