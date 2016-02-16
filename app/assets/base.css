@@ -3,6 +3,14 @@ body {
   overflow-x: hidden;
 }
 
+a {
+  color: #237691;
+}
+
+a:visited {
+  color: #9EAFB5;
+}
+
 h1, h2, h3, h4, h5, p {
   margin-top: 0;
 }
@@ -29,6 +37,7 @@ footer {
   max-width: 50em;
   margin: 0 auto;
   padding: 20px 10px;
+  position: relative;
 }
 
 .codeblock {
@@ -55,4 +64,35 @@ footer {
 .subtitle {
   margin-left: 1.0rem;
   font-weight: 400;
+}
+
+.github {
+  display: inline-block;
+  background: #237691;
+  color: white;
+  text-decoration: none;
+  padding: 12px;
+  padding-top: 10px;
+  padding-bottom: 0px;
+  border-radius: 8px;
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+  top: 20px;
+}
+
+.github:visited {
+  color: white;
+}
+
+.github:hover {
+  background: #1E95BD;
+}
+
+.github i {
+  float: left;
+  margin-right: 10px;
+  font-size: 30px;
+  position: relative;
+  top: -4px;
 }
