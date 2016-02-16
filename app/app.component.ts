@@ -19,7 +19,7 @@ import 'ng2-prism/languages/prism-markup';
 })
 export class AppComponent {
 
- themes = CodeblockComponent.THEMES;
- selectedTheme: string = "standard";
+  themes = CodeblockComponent.THEMES;
+  selectedTheme: string = "standard";
 
 }
