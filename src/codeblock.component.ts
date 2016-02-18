@@ -3,7 +3,13 @@
 declare var require: any;
 
 
-import {Component, ElementRef, Input, ViewEncapsulation} from 'angular2/core';
+import {
+  Component,
+  AfterViewChecked,
+  ElementRef,
+  Input,
+  ViewEncapsulation
+} from 'angular2/core';
 import {Http} from 'angular2/http';
 import 'rxjs/add/operator/map';
 
@@ -22,8 +28,8 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
   selector: 'codeblock',
   template: `
     <div class="codeblock">
-      <pre>
-        <code>
+      <pre [class]="preClasses">
+        <code [class]="codeClasses">
           <ng-content></ng-content>
         </code>
       </pre>
@@ -37,7 +43,7 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
   // aren't applied to elements added by Prism.highlight
   encapsulation: ViewEncapsulation.None
 })
-export class CodeblockComponent {
+export class CodeblockComponent implements AfterViewChecked {
 
   _language: string;
   _languageSet: boolean = false;
@@ -72,15 +78,30 @@ export class CodeblockComponent {
 
   _lineNumbers: boolean = true;
 
+
+  _changed:boolean = false;
+
+  ngAfterViewChecked() {
+    if (this._changed) {
+      this._changed = false;
+      if (this._language) this.highlight();
+    }
+  }
+
   @Input() set lineNumbers(value: boolean) {
-    this._lineNumbers = value;
-    if (this._language) this.highlight();
+    if (this._lineNumbers != value) {
+      this._changed = true;
+      this._lineNumbers = value;
+    }
   }
 
   get lineNumbers(): boolean {
     return this._lineNumbers;
   }
 
+  get lineNumbersClass(): string {
+    return this._lineNumbers ? "line-numbers " : "";
+  }
 
   @Input() set src(source: string) {
     this._empty();
@@ -99,7 +120,7 @@ export class CodeblockComponent {
           if (!this._languageSet) this._language = fileLanguage;
           if (fileLanguage == 'markup') text = this._processMarkup(text);
           this.code.innerHTML = text;
-          this.highlight();
+          this._changed = true;
         },
         error => {
           // console.log("Error downloading " + source);
@@ -112,7 +133,7 @@ export class CodeblockComponent {
   @Input() set language(lang: string) {
     this._languageSet = lang && lang.length > 0 ? true : false;
     this._language = lang || 'bash';
-    this.highlight();
+    this._changed = true;
   }
 
   get language() {
@@ -131,8 +152,16 @@ export class CodeblockComponent {
     return this.el.querySelector('code');
   }
 
+  get codeClasses():string {
+    return this.languageSelector + " " + this._language;
+  }
+
   get pre() {
     return this.el.querySelector('pre');
+  }
+
+  get preClasses():string {
+    return this.lineNumbersClass + ' ' + this.languageSelector;
   }
 
   _theme: string = "standard";
@@ -147,13 +176,7 @@ export class CodeblockComponent {
     return this._theme;
   }
 
-  ngOnInit() {
-    if (!this._highlighted) this.highlight();
-  }
-
   highlight() {
-    this._setLanguageClasses();
-
     if (!this._highlighted && this._language == 'markup') {
       this.code.innerHTML = this._processMarkup(this.code.innerHTML)
     }
@@ -170,12 +193,6 @@ export class CodeblockComponent {
 
     this.el.hidden = false;
     this._highlighted = true;
-  }
-
-  _setLanguageClasses() {
-    let ln = this._lineNumbers ? "line-numbers " : "";
-    this.pre.className = ln + this.languageSelector;
-    this.code.className = this.languageSelector + " " + this._language;
   }
 
   _empty() {
