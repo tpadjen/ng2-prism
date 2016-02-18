@@ -7,6 +7,7 @@ import {
   Component,
   AfterViewChecked,
   ElementRef,
+  HostBinding,
   Input,
   ViewEncapsulation
 } from 'angular2/core';
@@ -45,21 +46,10 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 })
 export class CodeblockComponent implements AfterViewChecked {
 
-  _language: string;
-  _languageSet: boolean = false;
-
-  extensions = {
-    'js': 'javascript',
-    'ts': 'typescript',
-    'html': 'markup',
-    'svg': 'markup',
-    'xml': 'markup',
-    'md': 'markdown',
-    'py': 'python',
-    'rb': 'ruby',
-    'ps1': 'powershell',
-    'psm1': 'powershell'
-  };
+  // @Input() language
+  // @Input() src
+  // @Input() lineNumbers
+  @HostBinding('class') @Input() theme:string = "standard";
 
   static THEMES = [
     "standard",
@@ -74,63 +64,35 @@ export class CodeblockComponent implements AfterViewChecked {
 
   constructor(private _elementRef: ElementRef, private _http: Http) { }
 
-  _highlighted: boolean = false;
-
-  _lineNumbers: boolean = true;
-
-
-  _changed:boolean = false;
-
   ngAfterViewChecked() {
     if (this._changed) {
       this._changed = false;
-      if (this._language) this.highlight();
+      if (this._language) this._highlight();
     }
   }
 
-  @Input() set lineNumbers(value: boolean) {
+
+  /**
+  * @Input() lineNumbers
+  *
+  */
+  @Input() set lineNumbers(value:boolean) {
     if (this._lineNumbers != value) {
       this._changed = true;
       this._lineNumbers = value;
     }
   }
 
-  get lineNumbers(): boolean {
+  get lineNumbers():boolean {
     return this._lineNumbers;
   }
 
-  get lineNumbersClass(): string {
-    return this._lineNumbers ? "line-numbers " : "";
-  }
 
-  @Input() set src(source: string) {
-    this._empty();
-
-    if (source == undefined || source == null || source.length < 1) return;
-
-    let extMatches = source.match(/\.(\w+)$/);
-
-    if (!extMatches) return;
-    let fileLanguage = this.extensions[extMatches[1]] || extMatches[1];
-
-    this._http.get(source)
-      .map(res => res.text())
-      .subscribe(
-        text => {
-          if (!this._languageSet) this._language = fileLanguage;
-          if (fileLanguage == 'markup') text = this._processMarkup(text);
-          this.code.innerHTML = text;
-          this._changed = true;
-        },
-        error => {
-          // console.log("Error downloading " + source);
-          // console.log(error);
-          this.code.innerHTML = source + " not found";
-          this.el.hidden = false;
-        });
-  }
-
-  @Input() set language(lang: string) {
+  /**
+  * @Input() language
+  *
+  */
+  @Input() set language(lang:string) {
     this._languageSet = lang && lang.length > 0 ? true : false;
     this._language = lang || 'bash';
     this._changed = true;
@@ -140,48 +102,86 @@ export class CodeblockComponent implements AfterViewChecked {
     return this._language;
   }
 
-  get languageSelector() {
+
+  /**
+  * @Input() src
+  *
+  */
+  @Input() set src(source:string) {
+    this._empty();
+
+    if (source == undefined || source == null || source.length < 1) return;
+
+    let extMatches = source.match(/\.(\w+)$/);
+
+    if (!extMatches) return;
+    
+    let lang = CodeblockComponent.EXTENSION_MAP[extMatches[1]] || extMatches[1];
+    this._fetchSource(source, lang);
+  }
+
+  static EXTENSION_MAP = {
+    'js': 'javascript',
+    'ts': 'typescript',
+    'html': 'markup',
+    'svg': 'markup',
+    'xml': 'markup',
+    'md': 'markdown',
+    'py': 'python',
+    'rb': 'ruby',
+    'ps1': 'powershell',
+    'psm1': 'powershell'
+  };
+
+
+  /**
+  * Styling classes
+  */
+  get languageClass() {
     return 'language-' + this._language;
   }
 
-  get el() {
-    return this._elementRef.nativeElement;
-  }
-
-  get code() {
-    return this.el.querySelector('code');
+  get lineNumbersClass():string {
+    return this._lineNumbers ? "line-numbers " : "";
   }
 
   get codeClasses():string {
-    return this.languageSelector + " " + this._language;
-  }
-
-  get pre() {
-    return this.el.querySelector('pre');
+    return this.languageClass + " " + this._language;
   }
 
   get preClasses():string {
-    return this.lineNumbersClass + ' ' + this.languageSelector;
+    return this.lineNumbersClass + ' ' + this.languageClass;
   }
 
-  _theme: string = "standard";
 
-  @Input() set theme(theme: string) {
-    this._theme = theme;
-    CodeblockComponent.THEMES.forEach(t => this.el.classList.remove(t));
-    this.el.classList.add(theme);
+  /************ Private **************/
+
+  _language:string;
+  _languageSet:boolean = false;
+  _highlighted:boolean = false;
+  _lineNumbers:boolean = true;
+  _changed:boolean = false;
+
+
+  /**
+  * Select native elements
+  */
+  get _el() {
+    return this._elementRef.nativeElement;
   }
 
-  get theme() {
-    return this._theme;
+  get _code() {
+    return this._el.querySelector('code');
   }
+  
 
-  highlight() {
+
+  _highlight() {
     if (!this._highlighted && this._language == 'markup') {
-      this.code.innerHTML = this._processMarkup(this.code.innerHTML)
+      this._code.innerHTML = this._processMarkup(this._code.innerHTML)
     }
 
-    var elements = this.el.querySelectorAll(
+    var elements = this._el.querySelectorAll(
       `code[class*="language-"],
       [class*="language-"] code,
       code[class*="lang-"],
@@ -191,18 +191,36 @@ export class CodeblockComponent implements AfterViewChecked {
       Prism.highlightElement(element, false, null);
     }
 
-    this.el.hidden = false;
+    this._el.hidden = false;
     this._highlighted = true;
   }
 
   _empty() {
-    this.code.innerHTML = "";
-    this.el.hidden = true;
+    this._code.innerHTML = "";
+    this._el.hidden = true;
   }
 
   // markup needs to have all opening < changed to &lt; to render correctly inside pre tags
   _processMarkup(text) {
     return text.replace(/(<)([!\/A-Za-z].*?>)/g, '&lt;$2');
+  }
+
+  _fetchSource(source, fileLanguage) {
+    this._http.get(source)
+      .map(res => res.text())
+      .subscribe(
+        text => {
+          if (!this._languageSet) this._language = fileLanguage;
+          if (fileLanguage == 'markup') text = this._processMarkup(text);
+          this._code.innerHTML = text;
+          this._changed = true;
+        },
+        error => {
+          // console.log("Error downloading " + source);
+          // console.log(error);
+          this._code.innerHTML = source + " not found";
+          this._el.hidden = false;
+        });
   }
 
 }
