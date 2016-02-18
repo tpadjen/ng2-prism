@@ -81,11 +81,6 @@ export class CodeblockComponent {
     return this._lineNumbers;
   }
 
-  @Input() set language(lang: string) {
-    this._languageSet = lang && lang.length > 0 ? true : false;
-    this._language = lang || 'bash';
-    this.highlight();
-  }
 
   @Input() set src(source: string) {
     this._empty();
@@ -114,6 +109,11 @@ export class CodeblockComponent {
         });
   }
 
+  @Input() set language(lang: string) {
+    this._languageSet = lang && lang.length > 0 ? true : false;
+    this._language = lang || 'bash';
+    this.highlight();
+  }
 
   get language() {
     return this._language;
