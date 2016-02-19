@@ -222,6 +222,10 @@ export class CodeblockComponent implements AfterViewChecked {
   get _code() {
     return this._el.querySelector('code');
   }
+
+  get _pre() {
+    return this._el.querySelector('pre');
+  }
   
 
 
@@ -239,6 +243,8 @@ export class CodeblockComponent implements AfterViewChecked {
     for (var i=0, element; element = elements[i++];) {
       Prism.highlightElement(element, false, null);
     }
+
+    if (this._shell && this.output) { this._fixPromptOutputPadding(); }
 
     this._el.hidden = false;
     this._highlighted = true;
@@ -270,6 +276,29 @@ export class CodeblockComponent implements AfterViewChecked {
           this._code.innerHTML = source + " not found";
           this._el.hidden = false;
         });
+  }
+
+  // padding is off on output shells because of floated left prompt
+  // this adds it back
+  _fixPromptOutputPadding() {
+    let promptWidth = this._code.querySelector('.command-line-prompt').clientWidth;
+    let prePadding = parseInt(this._getStyle(this._pre, 'padding-left').replace('px', ''));
+    this._pre.style.paddingRight = (2*prePadding + promptWidth/2) + 'px';
+  }
+
+  // get the actually applied style of an element
+  _getStyle(oElm, strCssRule){
+    var strValue = "";
+    if(document.defaultView && document.defaultView.getComputedStyle){
+      strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
+    }
+    else if(oElm.currentStyle){
+      strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1){
+        return p1.toUpperCase();
+      });
+      strValue = oElm.currentStyle[strCssRule];
+    }
+    return strValue;
   }
 
 }
