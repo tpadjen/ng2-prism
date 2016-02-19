@@ -7,25 +7,48 @@
 </section>
 <h2>Usage</h2>
 <section class="feature">
+  <p>Import the <code>CodeblockComponent</code>.</p>
+  <codeblock language="typescript">
+    import {CodeblockComponent} from 'ng2-prism/codeblock';
+  </codeblock><br>
 
-</section>
-<h2>Features</h2>
-<section class="feature">
-  <p>Use a <code>codeblock</code> element to highlight the code within.</p>
+  <p>Import the Prismjs language definition for your <code>codeblock</code>.</p>
+  <codeblock language="typescript">
+    import 'ng2-prism/languages/prism-javascript';
+  </codeblock><br>
+
+  <p>Include the <code>CodeblockComponent</code> in the <code>directives</code> array.</p>
+  <codeblock language="typescript">
+    @Component({
+      selector: 'my-component',
+      // ...
+      directives: [CodeblockComponent]
+    })
+  </codeblock><br>
+
+  <p>Add a <code>codeblock</code> to the template and specify its <code>language</code>.</p>
   <example>
     <div code>
       <codeblock language="markup" theme="okaidia">
-        &lt;codeblock language="javascript">
-          console.log("Hello');
+        &lt;codeblock language="ruby">
+          def my_new_method
+            p "So Impressive!"
+          end
         &lt;/codeblock>
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="javascript">
-        console.log("Hello');
+      <codeblock language="ruby">
+        def my_new_method
+          p "So Impressive!"
+        end
       </codeblock>
     </div>
   </example>
+</section>
+<h2>Features</h2>
+<section class="feature">
+
 </section>
 <section class="feature">
   <h3>Language</h3>
