@@ -38,3 +38,13 @@
     border: none;
   }
 }
+
+@import '../node_modules/prismjs/plugins/command-line/prism-command-line';
+
+.codeblock pre.command-line {
+
+  .command-line-prompt {
+    margin-right: 0;
+    border-right: none;
+  }
+}

@@ -181,3 +181,64 @@ Ng2-prism automatically adds line numbers to codeblocks. To disable them bind a 
 <codeblock [lineNumbers]="false"></codeblock>
                     or
 <codeblock [lineNumbers]="someBooleanExpression"></codeblock>
+```
+
+### Shell
+
+Use the `shell` attribute to display a shell prompt. Pass in the type of shell, either `bash` or `powershell`.
+
+```html
+<codeblock shell="bash">
+  ls
+</codeblock>
+
+<codeblock shell="powershell">
+  dir
+</codeblock>
+```
+
+The `language` attribute is ignored on `shell` `codeblocks`.
+
+The default `theme` for shells is `okaidia`. 
+
+#### Prompt
+
+Change the `prompt` to whatever you want:
+
+```html
+<codeblock shell="bash" prompt="#">cd ..</codeblock>
+# cd ..
+
+<codeblock shell="bash" prompt="[user@host] $">cd ..</codeblock>
+[user@host] $ cd ..
+```
+
+#### Output
+
+Shells can have certain lines treated as console output, so they don't have a prompt. Use the `output` attribute. It accepts a comma-separated list of lines or line ranges:
+
+```html
+<codeblock shell="bash" output="2,4,5,7-10">
+  cd ../..
+  This is output
+  mkdir hello
+  so is
+  this
+  rm -rf hello
+  more output
+  more output
+  more output
+  more output
+</codeblock>
+
+$ cd ../..
+  This is output
+$ mkdir hello
+  so is
+  this
+$ rm -rf hello
+  more output
+  more output
+  more output
+  more output
+```

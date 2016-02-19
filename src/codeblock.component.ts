@@ -22,6 +22,7 @@ require('prism/components/prism-javascript');
 
 // plugins
 require('prism/plugins/line-numbers/prism-line-numbers');
+require('prism/plugins/command-line/prism-command-line');
 require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 
 
@@ -29,7 +30,10 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
   selector: 'codeblock',
   template: `
     <div class="codeblock">
-      <pre [class]="preClasses">
+      <pre [class]="preClasses" 
+        [attr.data-prompt]="prompt"
+        [attr.data-output]="output"
+      >
         <code [class]="codeClasses">
           <ng-content></ng-content>
         </code>
@@ -49,18 +53,12 @@ export class CodeblockComponent implements AfterViewChecked {
   // @Input() language
   // @Input() src
   // @Input() lineNumbers
-  @HostBinding('class') @Input() theme:string = "standard";
-
-  static THEMES = [
-    "standard",
-    "coy",
-    "dark",
-    "funky",
-    "okaidia",
-    "solarizedlight",
-    "tomorrow",
-    "twilight"
-  ];
+  // @Input() theme
+  
+  // Command line
+  // @Input() shell:string;
+  @Input() prompt:string = '$';
+  @Input() output:string;
 
   constructor(private _elementRef: ElementRef, private _http: Http) { }
 
@@ -93,6 +91,7 @@ export class CodeblockComponent implements AfterViewChecked {
   *
   */
   @Input() set language(lang:string) {
+    if (this._shell) return;
     this._languageSet = lang && lang.length > 0 ? true : false;
     this._language = lang || 'bash';
     this._changed = true;
@@ -102,6 +101,32 @@ export class CodeblockComponent implements AfterViewChecked {
     return this._language;
   }
 
+
+  /**
+  * @Input() theme
+  *
+  */
+  @HostBinding('class') @Input() get theme():string { 
+    if (this._theme) return this._theme;
+
+    return this._shell ? this.DEFAULT_SHELL_THEME : this.DEFAULT_THEME;
+  }
+
+  set theme(theme:string) { this._theme = theme; }
+  
+  static THEMES = [
+    "standard",
+    "coy",
+    "dark",
+    "funky",
+    "okaidia",
+    "solarizedlight",
+    "tomorrow",
+    "twilight"
+  ];
+
+  DEFAULT_THEME       = "standard";
+  DEFAULT_SHELL_THEME = "okaidia";
 
   /**
   * @Input() src
@@ -135,6 +160,23 @@ export class CodeblockComponent implements AfterViewChecked {
 
 
   /**
+  * @Input() shell
+  *
+  */
+  @Input() set shell(shell:string) {
+    if (shell) {
+      this._language = shell;
+      this._languageSet = true;
+      this._shell = true;
+      this.lineNumbers = false;
+      this._changed = true;
+    } else {
+      this._shell = false;
+    }
+  }
+
+
+  /**
   * Styling classes
   */
   get languageClass() {
@@ -145,12 +187,16 @@ export class CodeblockComponent implements AfterViewChecked {
     return this._lineNumbers ? "line-numbers " : "";
   }
 
+  get shellClass():string {
+    return this._shell ? "command-line" : "";
+  }
+
   get codeClasses():string {
     return this.languageClass + " " + this._language;
   }
 
   get preClasses():string {
-    return this.lineNumbersClass + ' ' + this.languageClass;
+    return this.lineNumbersClass + ' ' + this.languageClass + ' ' + this.shellClass;
   }
 
 
@@ -160,7 +206,9 @@ export class CodeblockComponent implements AfterViewChecked {
   _languageSet:boolean = false;
   _highlighted:boolean = false;
   _lineNumbers:boolean = true;
+  _theme:string;
   _changed:boolean = false;
+  _shell:boolean = false;
 
 
   /**
