@@ -5,7 +5,8 @@
   "main": "codeblock.js",
   "scripts": {
     "watch": "tsc -w",
-    "build": "rm -rf bundle && tsc && node bundle.js"
+    "build": "rm -rf bundle && tsc && node bundle.js",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
