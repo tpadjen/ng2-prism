@@ -52,7 +52,7 @@ Systemjs needs to know the path to `ng2-prism`, along with the typical angular d
 Import the component:
 
 ```ts
-import {CodeblockComponent} from './path/to/component';
+import {CodeblockComponent} from 'ng2-prism/codeblock';
 ```
 
 Import the Prismjs language definition for your codeblock:
