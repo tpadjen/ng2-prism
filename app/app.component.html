@@ -1,4 +1,15 @@
+<h2>Setup</h2>
+<section class="feature">
+  <h3>jspm</h3>
+  <codeblock shell="bash">jspm i npm:ng2-prism</codeblock>
+  <h3>npm</h3>
+  <codeblock shell="bash">npm i ng2-prism --save</codeblock>
+</section>
 <h2>Usage</h2>
+<section class="feature">
+
+</section>
+<h2>Features</h2>
 <section class="feature">
   <p>Use a <code>codeblock</code> element to highlight the code within.</p>
   <example>
@@ -252,6 +263,124 @@
       <codeblock language="markup" [lineNumbers]="false">
         &lt;div *ngIf="true" >A&lt;/div>
         &lt;div *ngIf="false">B&lt;/div>
+      </codeblock>
+    </div>
+  </example>
+</section>
+<section class="feature">
+  <h3>Shell</h3>
+  <p>Use the <code>shell</code> attribute to display a shell prompt. Pass in the type of shell, either <code>bash</code> or <code>powershell</code>.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="standard">
+        &lt;codeblock shell="bash">
+          ls
+        &lt;/codeblock>
+
+        &lt;codeblock shell="powershell">
+          dir
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock shell="bash">
+        ls
+      </codeblock>
+
+      <codeblock shell="powershell">
+        dir
+      </codeblock>
+    </div>
+  </example>
+  <p>The <code>language</code> attribute is ignored on <code>shell</code> <code>codeblocks</code>.</p>
+  <p>The default <code>theme</code> for shells is <code>okaidia</code>.</p>
+  <h4>Prompt</h4>
+  <p>Change the <code>prompt</code> to whatever you want.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="standard">
+        &lt;codeblock
+          shell="bash"
+          prompt="#">
+          cd ..
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock shell="bash" prompt="#">cd ..</codeblock>
+    </div>
+  </example>
+  <hr>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="standard">
+        &lt;codeblock
+          shell="bash"
+          prompt="[user@host] $">
+          cd ..
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock shell="bash" prompt="[user@host] $">cd ..</codeblock>
+    </div>
+  </example><br>
+  <h4>Output</h4>
+  <p>Shells can have certain lines treated as console output, so they don't have a prompt. Use the <code>output</code> attribute. It accepts a comma-separated list of lines or line ranges.</p>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="standard">
+        &lt;codeblock shell="bash" output="2-5">
+          git status
+          On branch master
+          Your branch is ahead of 'origin/master' by 1 commit.
+            (use "git push" to publish your local commits)
+          nothing to commit, working directory clean
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock shell="bash" output="2-5">
+        git status
+        On branch master
+        Your branch is ahead of 'origin/master' by 1 commit.
+          (use "git push" to publish your local commits)
+        nothing to commit, working directory clean
+      </codeblock>
+    </div>
+  </example>
+  <hr>
+  <example>
+    <div code>
+      <codeblock language="markup" theme="standard">
+        &lt;codeblock shell="bash"
+          output="2,4,5,7-10">
+          cd ../..
+          This is output
+          mkdir hello
+          so is
+          this
+          rm -rf hello
+          more output
+          more output
+          more output
+          more output
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock shell="bash"
+        output="2,4,5,7-10">
+        cd ../..
+        This is output
+        mkdir hello
+        so is
+        this
+        rm -rf hello
+        more output
+        more output
+        more output
+        more output
       </codeblock>
     </div>
   </example>
