@@ -18,6 +18,7 @@ var Prism = require('prism/prism');
 
 // import any language files that all components should recognize
 require('prism/components/prism-bash');
+require('prism/components/prism-powershell');
 require('prism/components/prism-javascript');
 
 // plugins
