@@ -30,7 +30,7 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 @Component({
   selector: 'codeblock',
   template: `
-    <div class="codeblock">
+    <div class="codeblock {{theme}}">
       <pre [class]="preClasses" 
         [attr.data-prompt]="prompt"
         [attr.data-output]="output"
@@ -107,7 +107,7 @@ export class CodeblockComponent implements AfterViewChecked {
   * @Input() theme
   *
   */
-  @HostBinding('class') @Input() get theme():string { 
+  @Input() get theme():string { 
     if (this._theme) return this._theme;
 
     return this._shell ? this.DEFAULT_SHELL_THEME : this.DEFAULT_THEME;
