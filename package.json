@@ -1,6 +1,6 @@
 {
   "name": "ng2-prism",
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "An example repository for building your own Angular 2 library",
   "main": "codeblock.js",
   "scripts": {
