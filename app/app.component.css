@@ -34,6 +34,11 @@ select {
   margin-bottom: 2rem;
 }
 
+.feature h4 {
+  text-align: center;
+  margin-top: 20px;
+}
+
 hr {
   width: 50%;
   margin: 26px auto 20px auto;
