@@ -4,6 +4,8 @@ var rimraf = require('rimraf');
 // Build language directives from template
 // and insert exports into
 //  * tsconfig
+//  * languages.js
+//  * languages.d.ts
 
 rimraf.sync('src/languages');
 fs.mkdirSync('src/languages');
@@ -43,11 +45,7 @@ var ts = tsconfig.replace(/([\s\S]*)(files": \[\n)([\s\S]+)(\][\s\S]*)/,
 fs.writeFileSync('tsconfig.json', ts);
 
 var inject = function(filename, list) {
-  var contents = fs.readFileSync(filename, 'utf8');
-  var injected = contents.replace(
-      /([\s\S]*)(\/\* Injected by script \*\/\n)([\s\S]+)(\/\* end \*\/)([\s\S]*)/, 
-                            "$1$2" + list.join("\n") + "\n" + "$4$5");
-  fs.writeFileSync(filename, injected);  
+  fs.writeFileSync(filename, list.join("\n"));  
 }
 
 inject('languages.js', jsExports);
