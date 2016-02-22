@@ -9,10 +9,23 @@ export class LinkDirective {
   constructor(private _listService: LinklistService, private el:ElementRef) { }
 
   ngOnInit() {
+    let elem = this.el.nativeElement;
+
     let link: any = {
-      id: this.el.nativeElement.id,
-      text: this.el.nativeElement.innerHTML,
-      level: this.el.nativeElement.localName == "h2" ? 0 : 1
+      id: elem.id,
+      text: elem.innerHTML,
+      level: elem.localName == "h2" ? 0 : 1,
+      element: elem,
+      getPosition() {
+        let y = 0;
+
+        let e = this.element;
+        while(e) {
+          y += (e.offsetTop - e.scrollTop + e.clientTop);
+          e = e.offsetParent;
+        }
+        return y;
+      }
     }
     this._listService.push(link);
   }

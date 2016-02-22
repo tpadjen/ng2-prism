@@ -13793,10 +13793,15 @@ $__System.register("a6", ["1a", "a7"], function(exports_1, context_1) {
         LinklistComponent.prototype.padding = function(item) {
           return item.level * this.indent + 'px';
         };
+        LinklistComponent.prototype.sectionSelected = function(item, $event) {
+          $event.preventDefault();
+          this.hideMenu = true;
+          window.scrollTo(0, item.getPosition() - 24);
+        };
         __decorate([core_1.Input(), __metadata('design:type', Number)], LinklistComponent.prototype, "indent", void 0);
         LinklistComponent = __decorate([core_1.Component({
           selector: 'linklist',
-          template: "\n    <div class=\"background\" [class.hidden]=\"hideMenu\" (click)=\"hideMenu = true\"></div>\n    <button (click)=\"hideMenu = !hideMenu\">Sections <i class=\"fa fa-caret-down\"></i></button>\n    <ul [class.hidden]=\"hideMenu\">\n      <li *ngFor=\"#item of listService.list\">\n        <a href=\"#{{item.id}}\" (click)=\"hideMenu = true\"><span [style.padding-left]=\"padding(item)\">{{item.text}}</span></a>\n      </li>\n    </ul>\n  ",
+          template: "\n    <div class=\"background\" [class.hidden]=\"hideMenu\" (click)=\"hideMenu = true\"></div>\n    <button (click)=\"hideMenu = !hideMenu\">Sections <i class=\"fa fa-caret-down\"></i></button>\n    <ul [class.hidden]=\"hideMenu\">\n      <li *ngFor=\"#item of listService.list\">\n        <a href=\"#{{item.id}}\" (click)=\"sectionSelected(item, $event)\"><span [style.padding-left]=\"padding(item)\">{{item.text}}</span></a>\n      </li>\n    </ul>\n  ",
           styleUrls: ["app/linklist/linklist.component.css"]
         }), __metadata('design:paramtypes', [(typeof(_a = typeof linklist_service_1.LinklistService !== 'undefined' && linklist_service_1.LinklistService) === 'function' && _a) || Object])], LinklistComponent);
         return LinklistComponent;
@@ -13883,10 +13888,21 @@ $__System.register("a8", ["1a", "a7"], function(exports_1, context_1) {
           this.el = el;
         }
         LinkDirective.prototype.ngOnInit = function() {
+          var elem = this.el.nativeElement;
           var link = {
-            id: this.el.nativeElement.id,
-            text: this.el.nativeElement.innerHTML,
-            level: this.el.nativeElement.localName == "h2" ? 0 : 1
+            id: elem.id,
+            text: elem.innerHTML,
+            level: elem.localName == "h2" ? 0 : 1,
+            element: elem,
+            getPosition: function() {
+              var y = 0;
+              var e = this.element;
+              while (e) {
+                y += (e.offsetTop - e.scrollTop + e.clientTop);
+                e = e.offsetParent;
+              }
+              return y;
+            }
           };
           this._listService.push(link);
         };

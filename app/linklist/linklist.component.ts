@@ -8,7 +8,7 @@ import {LinklistService} from "./linklist.service";
     <button (click)="hideMenu = !hideMenu">Sections <i class="fa fa-caret-down"></i></button>
     <ul [class.hidden]="hideMenu">
       <li *ngFor="#item of listService.list">
-        <a href="#{{item.id}}" (click)="hideMenu = true"><span [style.padding-left]="padding(item)">{{item.text}}</span></a>
+        <a href="#{{item.id}}" (click)="sectionSelected(item, $event)"><span [style.padding-left]="padding(item)">{{item.text}}</span></a>
       </li>
     </ul>
   `,
@@ -25,5 +25,10 @@ export class LinklistComponent {
     return item.level*this.indent + 'px';
   }
 
+  sectionSelected(item, $event) {
+    $event.preventDefault();
+    this.hideMenu = true;
+    window.scrollTo(0, item.getPosition() - 24);
+  }
 
 }
