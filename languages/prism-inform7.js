@@ -1,1 +1,1 @@
-import 'ng2-prism/node_modules/prismjs/components/prism-inform7';
+require('ng2-prism/node_modules/prismjs/components/prism-inform7');

@@ -1,2 +1,2 @@
-import 'ng2-prism/node_modules/prismjs/components/prism-c';
-import 'ng2-prism/node_modules/prismjs/components/prism-bison';
+require('ng2-prism/node_modules/prismjs/components/prism-c');
+require('ng2-prism/node_modules/prismjs/components/prism-bison');

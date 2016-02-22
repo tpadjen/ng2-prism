@@ -1,1 +1,1 @@
-import 'ng2-prism/node_modules/prismjs/components/prism-rest';
+require('ng2-prism/node_modules/prismjs/components/prism-rest');

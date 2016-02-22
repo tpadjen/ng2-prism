@@ -1,1 +1,1 @@
-import 'ng2-prism/node_modules/prismjs/components/prism-tcl';
+require('ng2-prism/node_modules/prismjs/components/prism-tcl');

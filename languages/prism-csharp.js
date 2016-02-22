@@ -1,1 +1,1 @@
-import 'ng2-prism/node_modules/prismjs/components/prism-csharp';
+require('ng2-prism/node_modules/prismjs/components/prism-csharp');

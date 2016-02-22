@@ -4,7 +4,7 @@ var fs = require('fs');
 var rimraf = require('rimraf');
 
 function buildImport(lang) {
-  return "import 'ng2-prism/node_modules/prismjs/components/prism-" + lang + "';\n";
+  return "require('ng2-prism/node_modules/prismjs/components/prism-" + lang + "');\n";
 }
 
 console.log("Cleaning languages folder");

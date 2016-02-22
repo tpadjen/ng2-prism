@@ -1,1 +1,1 @@
-import 'ng2-prism/node_modules/prismjs/components/prism-elixir';
+require('ng2-prism/node_modules/prismjs/components/prism-elixir');

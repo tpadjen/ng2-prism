@@ -1,1 +1,1 @@
-import 'ng2-prism/node_modules/prismjs/components/prism-asciidoc';
+require('ng2-prism/node_modules/prismjs/components/prism-asciidoc');

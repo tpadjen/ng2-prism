@@ -1,1 +1,1 @@
-import 'ng2-prism/node_modules/prismjs/components/prism-fortran';
+require('ng2-prism/node_modules/prismjs/components/prism-fortran');
