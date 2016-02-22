@@ -186,14 +186,16 @@ You may optional specify a `language` attribute instead of using a directive:
 </codeblock>
 ```
 
-The language can then be dynamically changed:
-```html
-<codeblock [language]="modern ? typescript : javascript">
-  console.log("Huzzah");
-</codeblock>
-```
-
 If you choose to use the `language` attribute the language must still be imported, but you do not have to list it under the directives array because the template does not need to know about it.
+
+*Currently all languages are imported when **any** language is imported*. To import only the language you want:
+```js
+// if you want the directive:
+import {Ruby} from 'ng2-prism/bundle/languages/ruby';
+
+// If you just want the language:
+import 'ng2-prism/bundle/languages/ruby';
+```
 
 ### Line Numbers
 
