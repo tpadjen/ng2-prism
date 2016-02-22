@@ -5,7 +5,7 @@
   "main": "codeblock.js",
   "scripts": {
     "watch": "tsc -w",
-    "build": "rm -rf bundle && tsc && node bundle.js",
+    "build": "npm run import-langs && rm -rf bundle && tsc && node bundle.js",
     "import-langs": "node tasks/importPrismLanguages.js",
     "prepublish": "npm run build"
   },
