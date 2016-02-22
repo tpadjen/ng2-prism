@@ -2,6 +2,10 @@ import {Component} from 'angular2/core';
 
 import {ExampleComponent} from './example/example.component';
 
+import {LinklistService} from './linklist/linklist.service';
+import {LinklistComponent} from './linklist/linklist.component';
+import {LinkDirective} from './linklist/link.directive';
+
 import {Codeblock} from 'ng2-prism/codeblock';
 
 import {Ruby} from       'ng2-prism/bundle/languages/ruby';
@@ -25,8 +29,11 @@ import {Markup} from     'ng2-prism/bundle/languages/markup';
     Python,
     Javascript,
     Typescript,
-    Markup
-  ]
+    Markup,
+    LinklistComponent,
+    LinkDirective
+  ],
+  providers: [LinklistService]
 })
 export class AppComponent {
 

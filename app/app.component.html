@@ -1,11 +1,13 @@
-<h2>Setup</h2>
+<linklist indent="16" class="section-list"></linklist>
+
+<h2 link id="setup">Setup</h2>
 <section class="feature">
   <h3>jspm</h3>
   <codeblock shell="bash">jspm i npm:ng2-prism</codeblock>
   <h3>npm</h3>
   <codeblock shell="bash">npm i ng2-prism --save</codeblock>
 </section>
-<h2>Usage</h2>
+<h2 link id="usage">Usage</h2>
 <section class="feature">
   <p>Import the <code>Codeblock</code>.</p>
   <codeblock typescript>
@@ -46,12 +48,10 @@
     </div>
   </example>
 </section>
-<h2>Features</h2>
-<section class="feature">
 
-</section>
+<h2 link id="features">Features</h2>
 <section class="feature">
-  <h3>Language</h3>
+  <h3 link id="language">Language</h3>
   <p>Use any of the 100+ <a href="http://prismjs.com/#languages-list">supported languages</a>.</p>
   <example>
     <div code>
@@ -124,7 +124,7 @@
   </codeblock>
 </section>
 <section class="feature">
-  <h3>Whitespace</h3>
+  <h3 link id="whitespace">Whitespace</h3>
   <p>Whitespace is normalized, just use consistent indentation inside a <code>codeblock</code>.</p>
   <example>
     <div code>
@@ -161,7 +161,7 @@
   </example>
 </section>
 <section class="feature">
-  <h3>Dynamic Loading</h3>
+  <h3 link id="dynamic">Dynamic Loading</h3>
   <p>Use the <code>src</code> attribute to set a file to download as the source code for a <code>codeblock</code>. The language of the <code>codeblock</code> will be determined from the file extension, unless a language is specified.</p>
   <example>
     <div code>
@@ -198,7 +198,7 @@
   </ul>
 </section>
 <section class="feature">
-  <h3>Line Numbers</h3>
+  <h3 link id="line-numbers">Line Numbers</h3>
   <p>Line numbers are on by default, bind the value <code>false</code> to the property <code>lineNumbers</code> to remove them.</p>
   <example>
     <div code>
@@ -216,7 +216,7 @@
   </example>
 </section>
 <section class="feature">
-  <h3>Themes</h3>
+  <h3 link id="themes">Themes</h3>
   <p>Use the <code>theme</code> property to stylize your <code>codeblocks</code>.</p>
   <example>
     <div code>
@@ -252,7 +252,7 @@
 
 </section>
 <section class="feature">
-  <h3>HTML</h3>
+  <h3 link id="html">HTML</h3>
   <p>Use the <code>markup</code> language for HTML. If you use standard tags, and carefully close each one, you can write it as normal inside a <code>codeblock</code>.</p>
   <example>
     <div code>
@@ -319,7 +319,7 @@
   </example>
 </section>
 <section class="feature">
-  <h3>Shell</h3>
+  <h3 link id="shell">Shell</h3>
   <p>Use the <code>shell</code> attribute to display a shell prompt. Pass in the type of shell, either <code>bash</code> or <code>powershell</code>.</p>
   <example>
     <div code>
