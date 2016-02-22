@@ -1,1 +1,1 @@
-exports.CodeblockComponent = require('./bundle/codeblock.component').CodeblockComponent;
+exports.Codeblock = require('./bundle/codeblock.component').CodeblockComponent;
