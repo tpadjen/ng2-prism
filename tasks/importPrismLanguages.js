@@ -14,6 +14,7 @@ fs.mkdirSync('languages');
 var requireImports = {
   bison: 'c',
   cpp: 'c',
+  crystal: 'ruby',
   objectivec: 'c',
   scala: 'java',
 };
