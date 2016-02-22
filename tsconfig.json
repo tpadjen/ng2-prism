@@ -29,7 +29,6 @@
     "src/languages/c.ts",
     "src/languages/clike.ts",
     "src/languages/coffeescript.ts",
-    "src/languages/core.ts",
     "src/languages/cpp.ts",
     "src/languages/crystal.ts",
     "src/languages/csharp.ts",

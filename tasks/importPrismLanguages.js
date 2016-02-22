@@ -18,6 +18,10 @@ var requireImports = {
   scala: 'java',
 };
 
+var excludes = {
+  core: true
+};
+
 var languages = fs.readdirSync('node_modules/prismjs/components')
                   .map(function(file) {
                     var match = file.match(/prism-(\w+)\.js$/);
@@ -29,6 +33,8 @@ var languages = fs.readdirSync('node_modules/prismjs/components')
 
 process.stdout.write("Importing languages");
 languages.forEach(function(lang) {
+  if (excludes[lang]) return;
+
   process.stdout.write(".");
   var file = "languages/" + lang + ".js";
   var original = 'node_modules/prismjs/components/prism-' + lang + '.js';
