@@ -19,8 +19,8 @@ var languages = fs.readdirSync('languages')
                   });
 
 var languageTemplate = fs.readFileSync('src/language-template.ts', 'utf8');
-// var  jsExports = [];
-// var dtsExports = [];
+var  jsExports = [];
+var dtsExports = [];
 var tsFiles = ["src/codeblock.component.ts"];
 
 languages.forEach(function(language) {
@@ -30,9 +30,9 @@ languages.forEach(function(language) {
   var filename = "src/languages/" + language + ".ts";
   tsFiles.push(filename);
   fs.writeFileSync(filename, data);
-  // jsExports.push("exports." + title + " = require('./bundle/languages/" + 
-  //                 language + ".directive')." +  title + ';');
-  // dtsExports.push("export * from './bundle/languages/" + language + ".directive';");
+  jsExports.push("exports." + title + " = require('./languages/" + 
+                  language + "')." +  title + ';');
+  dtsExports.push("export * from './languages/" + language + "';");
 });
 
 tsFiles = tsFiles.map(function(file) { return '"' + file + '"'; });
@@ -42,15 +42,15 @@ var ts = tsconfig.replace(/([\s\S]*)(files": \[\n)([\s\S]+)(\][\s\S]*)/,
                           "$1$2    " + tsFiles.join(",\n    ") + "\n" + "  $4");
 fs.writeFileSync('tsconfig.json', ts);
 
-// var inject = function(filename, list) {
-//   var contents = fs.readFileSync(filename, 'utf8');
-//   var injected = contents.replace(
-//       /([\s\S]*)(\/\* Injected by script \*\/\n)([\s\S]+)(\/\* end \*\/)([\s\S]*)/, 
-//                             "$1$2" + list.join("\n") + "\n" + "$4$5");
-//   fs.writeFileSync(filename, injected);  
-// }
+var inject = function(filename, list) {
+  var contents = fs.readFileSync(filename, 'utf8');
+  var injected = contents.replace(
+      /([\s\S]*)(\/\* Injected by script \*\/\n)([\s\S]+)(\/\* end \*\/)([\s\S]*)/, 
+                            "$1$2" + list.join("\n") + "\n" + "$4$5");
+  fs.writeFileSync(filename, injected);  
+}
 
-// inject('codeblock.js', jsExports);
-// inject('codeblock.d.ts', dtsExports);
+inject('languages.js', jsExports);
+inject('languages.d.ts', dtsExports);
 
 console.log("Language directives built");
