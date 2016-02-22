@@ -174,6 +174,27 @@ Any `Angular2 Components` that manipulate the DOM, such as a `codeblock` or an `
 </codeblock>
 ```
 
+### Language
+
+You may optional specify a `language` attribute instead of using a directive:
+
+```html
+<codeblock language="ruby">
+  def my_new_method
+    p "So Impressive!"
+  end
+</codeblock>
+```
+
+The language can then be dynamically changed:
+```html
+<codeblock [language]="modern ? typescript : javascript">
+  console.log("Huzzah");
+</codeblock>
+```
+
+If you choose to use the `language` attribute the language must still be imported, but you do not have to list it under the directives array because the template does not need to know about it.
+
 ### Line Numbers
 
 Ng2-prism automatically adds line numbers to codeblocks. To disable them bind a `lineNumbers` attribute to `false`:
