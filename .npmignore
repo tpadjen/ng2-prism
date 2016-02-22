@@ -1,6 +1,7 @@
 node_modules
 jspm_packages
 src
+tasks
 bundle.js
 config.js
 tsconfig.json
