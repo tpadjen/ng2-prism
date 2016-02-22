@@ -52,27 +52,27 @@ Systemjs needs to know the path to `ng2-prism`, along with the typical angular d
 Import the component:
 
 ```ts
-import {CodeblockComponent} from 'ng2-prism/codeblock';
+import {Codeblock} from 'ng2-prism/codeblock';
 ```
 
-Import the Prismjs language definition for your codeblock:
+Import the language definition for your codeblock:
 ```ts
-import 'ng2-prism/languages/prism-ruby';
+import {Ruby} from 'ng2-prism/languages';
 ```
 
-Include the component in the directives array:
+Include the component and language directive in the directives array:
 ```ts
 @Component({
   selector: 'my-component',
   // ...
-  directives: [CodeblockComponent]
+  directives: [Codeblock, Ruby]
 })
 ```
 
-Add a `codeblock` to the template and specify its language:
+Add a `codeblock` to the template with the language directive attached:
 
 ```html
-<codeblock language="ruby">
+<codeblock ruby>
   def my_new_method
     p "So Impressive!"
   end
@@ -88,7 +88,7 @@ Use the `src` attribute to set a file to download as the source code for a `code
 <codeblock src="path/to/main.js"></codeblock>
 
 <!-- tries to highlight the downloaded file as typescript --> 
-<codeblock language="typescript" src="path/to/main.js"></codeblock>
+<codeblock typescript src="path/to/main.js"></codeblock>
 ```
 
 Noted on Dynamic loading:
@@ -102,11 +102,11 @@ Noted on Dynamic loading:
 Add a `theme` attribute to the `codeblock` element:
 
 ```html
-<codeblock language="javascript" theme="dark">
+<codeblock javascript theme="dark">
   // dark themed
 </codeblock>
 
-<codeblock language="javascript" [theme]="selectedTheme">
+<codeblock javascript [theme]="selectedTheme">
   // uses whichever theme is currently stored in the selectedTheme variable
 </codeblock>
 
@@ -132,7 +132,7 @@ To embed `HTML` use the language **markup**.
 If you use standard `HTML` tags, and carefully close each one, you can write it as normal inside a `codeblock`:
 
 ```html
-<codeblock language="markup">
+<codeblock markup>
   <ul class="favorites">
     <li>These are</li>
     <li>a few of</li>
@@ -146,7 +146,7 @@ If you want to write a fragment of `HTML` with some unmatched tags the angular i
 `< => &lt;`
 
 ```html
-<codeblock language="markup">
+<codeblock markup>
   &lt;html>
     &lt;head>
     &lt;title>Angular 2 QuickStart&lt;/title>
@@ -166,7 +166,7 @@ Dynamically loaded files do not have this limitation.
 Any `Angular2 Components` that manipulate the DOM, such as a `codeblock` or an `ngIf`, should also be escaped:
 
 ```html
-<codeblock language="markup">
+<codeblock markup>
   &lt;codeblock language="markup">
     &lt;section *ngIf="true" >A&lt;/section>
     &lt;section *ngIf="false">B&lt;/section>
