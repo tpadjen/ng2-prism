@@ -26,9 +26,7 @@ export class LinklistComponent {
   }
 
   sectionSelected(item, $event) {
-    $event.preventDefault();
     this.hideMenu = true;
-    window.scrollTo(0, item.getPosition() - 24);
   }
 
 }

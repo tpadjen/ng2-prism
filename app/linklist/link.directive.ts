@@ -15,17 +15,6 @@ export class LinkDirective {
       id: elem.id,
       text: elem.innerHTML,
       level: elem.localName == "h2" ? 0 : 1,
-      element: elem,
-      getPosition() {
-        let y = 0;
-
-        let e = this.element;
-        while(e) {
-          y += (e.offsetTop - e.scrollTop + e.clientTop);
-          e = e.offsetParent;
-        }
-        return y;
-      }
     }
     this._listService.push(link);
   }
