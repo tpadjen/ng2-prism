@@ -7,30 +7,30 @@
 </section>
 <h2>Usage</h2>
 <section class="feature">
-  <p>Import the <code>CodeblockComponent</code>.</p>
-  <codeblock language="typescript">
-    import {CodeblockComponent} from 'ng2-prism/codeblock';
+  <p>Import the <code>Codeblock</code>.</p>
+  <codeblock typescript>
+    import {Codeblock} from 'ng2-prism/codeblock';
   </codeblock><br>
 
-  <p>Import the Prismjs language definition for your <code>codeblock</code>.</p>
-  <codeblock language="typescript">
-    import 'ng2-prism/languages/prism-javascript';
+  <p>Import the language directive for your <code>codeblock</code>.</p>
+  <codeblock typescript>
+    import {Ruby} from 'ng2-prism/languages';
   </codeblock><br>
 
-  <p>Include the <code>CodeblockComponent</code> in the <code>directives</code> array.</p>
+  <p>Include the <code>Codeblock</code> and language directive in the <code>directives</code> array.</p>
   <codeblock language="typescript">
     @Component({
       selector: 'my-component',
       // ...
-      directives: [CodeblockComponent]
+      directives: [Codeblock, Ruby]
     })
   </codeblock><br>
 
-  <p>Add a <code>codeblock</code> to the template and specify its <code>language</code>.</p>
+  <p>Add a <code>codeblock</code> to the template and apply its <code>language</code> directive.</p>
   <example>
     <div code>
       <codeblock language="markup" theme="okaidia">
-        &lt;codeblock language="ruby">
+        &lt;codeblock ruby>
           def my_new_method
             p "So Impressive!"
           end
@@ -38,7 +38,7 @@
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="ruby">
+      <codeblock ruby>
         def my_new_method
           p "So Impressive!"
         end
@@ -52,10 +52,55 @@
 </section>
 <section class="feature">
   <h3>Language</h3>
-  <p>Use the <code>language</code> property to set the highlighting language. Use any of the 100+ <a href="http://prismjs.com/#languages-list">supported languages</a>.</p>
+  <p>Use any of the 100+ <a href="http://prismjs.com/#languages-list">supported languages</a>.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia">
+      <codeblock markup theme="okaidia">
+        &lt;codeblock java>
+          System.out.println("java");
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock java>
+        System.out.println("java");
+      </codeblock>
+    </div>
+  </example>
+  <hr>
+  <example>
+    <div code>
+      <codeblock markup theme="okaidia">
+        &lt;codeblock python>
+          print "python"
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock python>
+        print "python"
+      </codeblock>
+    </div>
+  </example>
+  <hr>
+  <example>
+    <div code>
+      <codeblock markup theme="okaidia">
+        &lt;codeblock go>
+          fmt.Println("go")
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock go>
+        fmt.Println("go")
+      </codeblock>
+    </div>
+  </example>
+  <p>You may optional specify a <code>language</code> attribute instead of using a directive.</p>
+  <example>
+    <div code>
+      <codeblock markup theme="okaidia">
         &lt;codeblock language="java">
           System.out.println("java");
         &lt;/codeblock>
@@ -67,51 +112,31 @@
       </codeblock>
     </div>
   </example>
-  <hr>
-  <example>
-    <div code>
-      <codeblock language="markup" theme="okaidia">
-        &lt;codeblock language="python">
-          print "python"
-        &lt;/codeblock>
-      </codeblock>
-    </div>
-    <div highlighted>
-      <codeblock language="python">
-        print "python"
-      </codeblock>
-    </div>
-  </example>
-  <hr>
-  <example>
-    <div code>
-      <codeblock language="markup" theme="okaidia">
-        &lt;codeblock language="go">
-          fmt.Println("go")
-        &lt;/codeblock>
-      </codeblock>
-    </div>
-    <div highlighted>
-      <codeblock language="go">
-        fmt.Println("go")
-      </codeblock>
-    </div>
-  </example>
+  <p>If you choose to use the <code>language</code> attribute the language must still be imported, but you do not have to list it under the directives array because the template does not need to know about it.</p>
+  <p><strong>Currently all languages are imported when <em>any</em> language is imported</strong>.</p>
+  <p>To import only the language you want specify the path to the language.</p>
+  <codeblock class="solo" typescript>
+    // if you want the directive:
+    import {Ruby} from 'ng2-prism/bundle/languages/ruby';
+
+    // If you just want the language:
+    import 'ng2-prism/bundle/languages/ruby';
+  </codeblock>
 </section>
 <section class="feature">
   <h3>Whitespace</h3>
   <p>Whitespace is normalized, just use consistent indentation inside a <code>codeblock</code>.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia">
-        &lt;codeblock language="ruby">
+      <codeblock markup theme="okaidia">
+        &lt;codeblock ruby>
           p "Hello"
           p "Goodbye"
         &lt;/codeblock>
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="ruby">
+      <codeblock ruby>
         p "Hello"
         p "Goodbye"
       </codeblock>
@@ -120,15 +145,15 @@
   <hr>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia">
-        &lt;codeblock language="ruby">
+      <codeblock markup theme="okaidia">
+        &lt;codeblock ruby>
                 p "Hello"
                 p "Goodbye"
         &lt;/codeblock>
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="ruby">
+      <codeblock ruby>
                 p "Hello"
                 p "Goodbye"
       </codeblock>
@@ -140,7 +165,7 @@
   <p>Use the <code>src</code> attribute to set a file to download as the source code for a <code>codeblock</code>. The language of the <code>codeblock</code> will be determined from the file extension, unless a language is specified.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia">
+      <codeblock markup theme="okaidia">
         &lt;codeblock src="app/example/example.component.ts">
         &lt;/codeblock>
       </codeblock>
@@ -153,14 +178,14 @@
   <hr>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia">
-        &lt;codeblock language="ruby"
+      <codeblock markup theme="okaidia">
+        &lt;codeblock ruby
           src="app/example/example.component.ts">
         &lt;/codeblock>
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="ruby" src="app/example/example.component.ts">
+      <codeblock ruby src="app/example/example.component.ts">
       </codeblock>
     </div>
   </example>
@@ -177,15 +202,15 @@
   <p>Line numbers are on by default, bind the value <code>false</code> to the property <code>lineNumbers</code> to remove them.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia">
-        &lt;codeblock [lineNumbers]="false">
+      <codeblock markup theme="okaidia">
+        &lt;codeblock ruby [lineNumbers]="false">
           No Line numbers
         &lt;/codeblock>
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="bash" [lineNumbers]="false">
-        No line numbers
+      <codeblock ruby [lineNumbers]="false">
+        # No line numbers
       </codeblock>
     </div>
   </example>
@@ -195,8 +220,10 @@
   <p>Use the <code>theme</code> property to stylize your <code>codeblocks</code>.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia">
-        &lt;codeblock theme="solarizedlight">
+      <codeblock markup theme="okaidia">
+        &lt;codeblock javascript
+          theme="solarizedlight">
+
           if (done) {
             console.log("Finished");
           }
@@ -204,13 +231,14 @@
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="javascript" theme="solarizedlight">
+      <codeblock javascript theme="solarizedlight">
         if (done) {
           console.log("Finished");
         }
       </codeblock>
     </div>
   </example>
+  <hr>
   <div class="select-theme">
     Preview a Theme:
     <select name="select" [(ngModel)]="selectedTheme">
@@ -228,8 +256,8 @@
   <p>Use the <code>markup</code> language for HTML. If you use standard tags, and carefully close each one, you can write it as normal inside a <code>codeblock</code>.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia" [lineNumbers]="false">
-        &lt;codeblock language="markup">
+      <codeblock markup theme="okaidia" [lineNumbers]="false">
+        &lt;codeblock markup>
           &lt;ul class="favorites">
             &lt;li>These are&lt;/li>
             &lt;li>a few of&lt;/li>
@@ -240,7 +268,7 @@
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="markup" [lineNumbers]="false">
+      <codeblock markup [lineNumbers]="false">
         &lt;ul class="favorites">
           &lt;li>These are&lt;/li>
           &lt;li>a few of&lt;/li>
@@ -253,8 +281,8 @@
   <p>If you want to write a fragment of `HTML` with some unmatched tags the angular interpreter is going to fail to load your template. You must change any opening or closing tag angle brackets, <code><</code>, to the html entity version <code>&#38;lt;</code>.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia" [lineNumbers]="false">
-        &lt;codeblock language="markup">
+      <codeblock markup theme="okaidia" [lineNumbers]="false">
+        &lt;codeblock markup>
           &#38;lt;html>
             &#38;lt;head>
             &#38;lt;title>Title&#38;lt;/title>
@@ -263,7 +291,7 @@
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="markup" [lineNumbers]="false">
+      <codeblock markup [lineNumbers]="false">
         &lt;html>
           &lt;head>
           &lt;title>Title&lt;/title>
@@ -275,15 +303,15 @@
   <p>Any Angular2 Components that manipulate the DOM, such as a <code>codeblock</code> or an <code>ngIf</code>, should also be escaped.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="okaidia" [lineNumbers]="false">
-        &lt;codeblock language="markup">
+      <codeblock markup theme="okaidia" [lineNumbers]="false">
+        &lt;codeblock markup>
           &#38;lt;div *ngIf="true" >A&#38;lt;/div>
           &#38;lt;div *ngIf="false">B&#38;lt;/div>
         &lt;/codeblock>
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock language="markup" [lineNumbers]="false">
+      <codeblock markup [lineNumbers]="false">
         &lt;div *ngIf="true" >A&lt;/div>
         &lt;div *ngIf="false">B&lt;/div>
       </codeblock>
@@ -295,7 +323,7 @@
   <p>Use the <code>shell</code> attribute to display a shell prompt. Pass in the type of shell, either <code>bash</code> or <code>powershell</code>.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="standard">
+      <codeblock markup theme="standard">
         &lt;codeblock shell="bash">
           ls
         &lt;/codeblock>
@@ -321,7 +349,7 @@
   <p>Change the <code>prompt</code> to whatever you want.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="standard">
+      <codeblock markup theme="standard">
         &lt;codeblock
           shell="bash"
           prompt="#">
@@ -336,7 +364,7 @@
   <hr>
   <example>
     <div code>
-      <codeblock language="markup" theme="standard">
+      <codeblock markup theme="standard">
         &lt;codeblock
           shell="bash"
           prompt="[user@host] $">
@@ -352,7 +380,7 @@
   <p>Shells can have certain lines treated as console output, so they don't have a prompt. Use the <code>output</code> attribute. It accepts a comma-separated list of lines or line ranges.</p>
   <example>
     <div code>
-      <codeblock language="markup" theme="standard">
+      <codeblock markup theme="standard">
         &lt;codeblock shell="bash" output="2-5">
           git status
           On branch master
@@ -375,7 +403,7 @@
   <hr>
   <example>
     <div code>
-      <codeblock language="markup" theme="standard">
+      <codeblock markup theme="standard">
         &lt;codeblock shell="bash"
           output="2,4,5,7-10">
           cd ../..

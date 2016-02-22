@@ -2,24 +2,35 @@ import {Component} from 'angular2/core';
 
 import {ExampleComponent} from './example/example.component';
 
-import {CodeblockComponent} from 'ng2-prism/codeblock';
+import {Codeblock} from 'ng2-prism/codeblock';
 
-import 'ng2-prism/languages/prism-ruby';
-import 'ng2-prism/languages/prism-java';
-import 'ng2-prism/languages/prism-go';
-import 'ng2-prism/languages/prism-python';
-import 'ng2-prism/languages/prism-typescript';
-import 'ng2-prism/languages/prism-markup';
+import {Ruby} from       'ng2-prism/bundle/languages/ruby';
+import {Java} from       'ng2-prism/bundle/languages/java';
+import {Go} from         'ng2-prism/bundle/languages/go';
+import {Python} from     'ng2-prism/bundle/languages/python';
+import {Javascript} from 'ng2-prism/bundle/languages/javascript';
+import {Typescript} from 'ng2-prism/bundle/languages/typescript';
+import {Markup} from     'ng2-prism/bundle/languages/markup';
 
 @Component({
   selector: 'ng2-prism-app',
   templateUrl: 'app/app.component.html',
   styleUrls: [ `app/app.component.css`],
-  directives: [ExampleComponent, CodeblockComponent]
+  directives: [
+    ExampleComponent,
+    Codeblock,
+    Ruby,
+    Java,
+    Go,
+    Python,
+    Javascript,
+    Typescript,
+    Markup
+  ]
 })
 export class AppComponent {
 
-  themes = CodeblockComponent.THEMES;
+  themes = Codeblock.THEMES;
   selectedTheme: string = "standard";
 
 }
