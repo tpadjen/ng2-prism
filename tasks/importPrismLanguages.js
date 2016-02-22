@@ -4,7 +4,7 @@ var fs = require('fs');
 var rimraf = require('rimraf');
 
 function buildImport(lang) {
-  return "require('ng2-prism/languages/" + lang + "');\n\n";
+  return "require('ng2-prism/bundle/languages/" + lang + "');\n\n";
 }
 
 console.log("Cleaning languages folder");

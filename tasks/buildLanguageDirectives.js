@@ -30,9 +30,9 @@ languages.forEach(function(language) {
   var filename = "src/languages/" + language + ".ts";
   tsFiles.push(filename);
   fs.writeFileSync(filename, data);
-  jsExports.push("exports." + title + " = require('./languages/" + 
+  jsExports.push("exports." + title + " = require('./bundle/languages/" + 
                   language + "')." +  title + ';');
-  dtsExports.push("export * from './languages/" + language + "';");
+  dtsExports.push("export * from './bundle/languages/" + language + "';");
 });
 
 tsFiles = tsFiles.map(function(file) { return '"' + file + '"'; });

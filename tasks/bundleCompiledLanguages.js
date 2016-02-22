@@ -11,13 +11,10 @@ var languages = fs.readdirSync('languages')
                   });
 
 languages.forEach(function(language) {
-  var file = 'languages/' + language + ".js";
-  var requires = fs.readFileSync(file);
-  var directive = fs.readFileSync('bundle/languages/' + language + ".js");
+  var requires = fs.readFileSync('languages/' + language + ".js");
+  var file = "bundle/languages/" + language + ".js";
+  var directive = fs.readFileSync(file);
   fs.writeFileSync(file, requires + "\n\n" + directive);
-  var dts = language + ".d.ts"
-  fs.createReadStream('bundle/languages/' + dts)
-    .pipe(fs.createWriteStream('languages/' + dts));
 });
 
-rimraf.sync('bundle/languages');
+rimraf.sync('languages');
