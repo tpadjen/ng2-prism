@@ -4,7 +4,7 @@ var fs = require('fs');
 var rimraf = require('rimraf');
 
 function buildImport(lang) {
-  return "require('ng2-prism/languages/prism-" + lang + "');\n\n";
+  return "require('ng2-prism/languages/" + lang + "');\n\n";
 }
 
 console.log("Cleaning languages folder");
@@ -30,7 +30,7 @@ var languages = fs.readdirSync('node_modules/prismjs/components')
 process.stdout.write("Importing languages");
 languages.forEach(function(lang) {
   process.stdout.write(".");
-  var file = "languages/prism-" + lang + ".js";
+  var file = "languages/" + lang + ".js";
   var original = 'node_modules/prismjs/components/prism-' + lang + '.js';
   var text = fs.readFileSync(original);
   if (requireImports[lang]) { text = buildImport(requireImports[lang]) + text; }

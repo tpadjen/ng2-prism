@@ -5,8 +5,10 @@
   "main": "codeblock.js",
   "scripts": {
     "watch": "tsc -w",
-    "build": "npm run import-langs && rm -rf bundle && tsc && node bundle.js",
+    "build": "npm run import-langs && npm run build-directives && rm -rf bundle && tsc && node bundle.js && npm run build-langs",
+    "build-directives": "node tasks/buildLanguageDirectives.js",
     "import-langs": "node tasks/importPrismLanguages.js",
+    "build-langs": "node tasks/bundleCompiledLanguages.js",
     "prepublish": "npm run build"
   },
   "repository": {
