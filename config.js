@@ -37,7 +37,7 @@ System.config({
     "angular2": "npm:angular2@2.0.0-beta.6",
     "clean-css": "npm:clean-css@3.4.9",
     "css": "github:frankwallis/plugin-css@master",
-    "ng2-prism": "npm:ng2-prism@2.0.1",
+    "ng2-prism": "npm:ng2-prism@2.0.2",
     "node_modules/prismjs": "github:PrismJS/prism@gh-pages",
     "normalize.css": "github:necolas/normalize.css@3.0.3",
     "reflect-metadata": "npm:reflect-metadata@0.1.2",
@@ -301,7 +301,7 @@ System.config({
       "bn.js": "npm:bn.js@4.10.3",
       "brorand": "npm:brorand@1.0.5"
     },
-    "npm:ng2-prism@2.0.1": {
+    "npm:ng2-prism@2.0.2": {
       "angular2": "npm:angular2@2.0.0-beta.6",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "es6-promise": "npm:es6-promise@3.1.2",
