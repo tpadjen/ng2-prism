@@ -20,6 +20,8 @@ var Prism = require('prism/prism');
 require('prism/components/prism-bash');
 require('prism/components/prism-powershell');
 require('prism/components/prism-javascript');
+Prism.languages.undefined = {};
+
 
 // plugins
 require('prism/plugins/line-numbers/prism-line-numbers');
@@ -66,7 +68,7 @@ export class CodeblockComponent implements AfterViewChecked {
   ngAfterViewChecked() {
     if (this._changed) {
       this._changed = false;
-      if (this._language) this._highlight();
+      this._highlight();
     }
   }
 
@@ -208,7 +210,7 @@ export class CodeblockComponent implements AfterViewChecked {
   _highlighted:boolean = false;
   _lineNumbers:boolean = true;
   _theme:string;
-  _changed:boolean = false;
+  _changed:boolean = true;
   _shell:boolean = false;
 
 

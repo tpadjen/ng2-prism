@@ -176,7 +176,7 @@ Any `Angular2 Components` that manipulate the DOM, such as a `codeblock` or an `
 
 ### Language
 
-You may optional specify a `language` attribute instead of using a directive:
+You may optionally specify a `language` attribute instead of using a directive:
 
 ```html
 <codeblock language="ruby">
@@ -186,9 +186,19 @@ You may optional specify a `language` attribute instead of using a directive:
 </codeblock>
 ```
 
+Codeblocks with no `language` attribute or directive get everything except syntax highlighting:
+
+```html
+<codeblock>
+  Just normal text
+  but themed
+  with line numbers
+</codeblock>
+```
+
 If you choose to use the `language` attribute the language must still be imported, but you do not have to list it under the directives array because the template does not need to know about it.
 
-*Currently all languages are imported when **any** language is imported*. To import only the language you want:
+*Currently all languages are automatically imported when **any** language is imported from ng2-prism/languages*. To import only the language(s) you want:
 ```js
 // if you want the directive:
 import {Ruby} from 'ng2-prism/bundle/languages/ruby';
