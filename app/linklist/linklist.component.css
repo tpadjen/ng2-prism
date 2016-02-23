@@ -44,6 +44,9 @@ ul {
   -webkit-margin-start: 0px;
   -webkit-margin-end: 0px;
   -webkit-padding-start: 0px;
+  -webkit-animation-duration: 0.33s;
+  -moz-animation-duration: 0.33s;
+  animation-duration: 0.33s;
 }
 
 ul li {

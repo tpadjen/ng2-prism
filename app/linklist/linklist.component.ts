@@ -5,8 +5,13 @@ import {LinklistService} from "./linklist.service";
   selector: 'linklist',
   template: `
     <div class="background" [class.hidden]="hideMenu" (click)="hideMenu = true"></div>
-    <button (click)="hideMenu = !hideMenu">Sections <i class="fa fa-caret-down"></i></button>
-    <ul [class.hidden]="hideMenu">
+    <button (click)="buttonClicked()">Sections <i class="fa fa-caret-down"></i></button>
+    <ul [class.hidden]="hideMenu" [class.animated]="animating" [class.fadeIn]="animating"
+      (webkitAnimationEnd)="finishAnimation()"
+      (mozAnimationEnd)="finishAnimation()"
+      (MSAnimationEnd)="finishAnimation()"
+      (oanimationend)="finishAnimation()"
+      (animationend)="finishAnimation()">
       <li *ngFor="#item of listService.list">
         <a href="#{{item.id}}" (click)="sectionSelected(item, $event)"><span [style.padding-left]="padding(item)">{{item.text}}</span></a>
       </li>
@@ -18,6 +23,7 @@ export class LinklistComponent {
 
   @Input() indent: number = 8;
   hideMenu = true;
+  animating = false;
 
   constructor(public listService: LinklistService) { }
 
@@ -27,6 +33,20 @@ export class LinklistComponent {
 
   sectionSelected(item, $event) {
     this.hideMenu = true;
+  }
+
+  buttonClicked() {
+    this.hideMenu = !this.hideMenu;
+    if (!this.hideMenu) {
+      this.animating = true;
+    }
+  }
+
+  finishAnimation() {
+
+    console.log("Animation finished: " + this.animating);
+
+    this.animating = false;
   }
 
 }

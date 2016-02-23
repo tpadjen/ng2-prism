@@ -13789,6 +13789,7 @@ $__System.register("a6", ["1a", "a7"], function(exports_1, context_1) {
           this.listService = listService;
           this.indent = 8;
           this.hideMenu = true;
+          this.animating = false;
         }
         LinklistComponent.prototype.padding = function(item) {
           return item.level * this.indent + 'px';
@@ -13796,10 +13797,20 @@ $__System.register("a6", ["1a", "a7"], function(exports_1, context_1) {
         LinklistComponent.prototype.sectionSelected = function(item, $event) {
           this.hideMenu = true;
         };
+        LinklistComponent.prototype.buttonClicked = function() {
+          this.hideMenu = !this.hideMenu;
+          if (!this.hideMenu) {
+            this.animating = true;
+          }
+        };
+        LinklistComponent.prototype.finishAnimation = function() {
+          console.log("Animation finished: " + this.animating);
+          this.animating = false;
+        };
         __decorate([core_1.Input(), __metadata('design:type', Number)], LinklistComponent.prototype, "indent", void 0);
         LinklistComponent = __decorate([core_1.Component({
           selector: 'linklist',
-          template: "\n    <div class=\"background\" [class.hidden]=\"hideMenu\" (click)=\"hideMenu = true\"></div>\n    <button (click)=\"hideMenu = !hideMenu\">Sections <i class=\"fa fa-caret-down\"></i></button>\n    <ul [class.hidden]=\"hideMenu\">\n      <li *ngFor=\"#item of listService.list\">\n        <a href=\"#{{item.id}}\" (click)=\"sectionSelected(item, $event)\"><span [style.padding-left]=\"padding(item)\">{{item.text}}</span></a>\n      </li>\n    </ul>\n  ",
+          template: "\n    <div class=\"background\" [class.hidden]=\"hideMenu\" (click)=\"hideMenu = true\"></div>\n    <button (click)=\"buttonClicked()\">Sections <i class=\"fa fa-caret-down\"></i></button>\n    <ul [class.hidden]=\"hideMenu\" [class.animated]=\"animating\" [class.fadeIn]=\"animating\"\n      (webkitAnimationEnd)=\"finishAnimation()\"\n      (mozAnimationEnd)=\"finishAnimation()\"\n      (MSAnimationEnd)=\"finishAnimation()\"\n      (oanimationend)=\"finishAnimation()\"\n      (animationend)=\"finishAnimation()\">\n      <li *ngFor=\"#item of listService.list\">\n        <a href=\"#{{item.id}}\" (click)=\"sectionSelected(item, $event)\"><span [style.padding-left]=\"padding(item)\">{{item.text}}</span></a>\n      </li>\n    </ul>\n  ",
           styleUrls: ["app/linklist/linklist.component.css"]
         }), __metadata('design:paramtypes', [(typeof(_a = typeof linklist_service_1.LinklistService !== 'undefined' && linklist_service_1.LinklistService) === 'function' && _a) || Object])], LinklistComponent);
         return LinklistComponent;
