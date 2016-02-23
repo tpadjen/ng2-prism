@@ -96,7 +96,7 @@ export class CodeblockComponent implements AfterViewChecked {
   @Input() set language(lang:string) {
     if (this._shell) return;
     this._languageSet = lang && lang.length > 0 ? true : false;
-    this._language = lang || 'bash';
+    this._language = Prism.languages[lang] ? lang : undefined;
     this._changed = true;
   }
 

@@ -186,7 +186,15 @@ You may optionally specify a `language` attribute instead of using a directive:
 </codeblock>
 ```
 
-Codeblocks with no `language` attribute or directive get everything except syntax highlighting:
+The attribute makes the language easy to change dynamically:
+
+```
+<codeblock [language]="modern ? 'typescript' : 'javascript'">
+  import {Component} from 'angular2/core';
+</codeblock>
+```
+
+Codeblocks without a valid loaded `language` attribute or directive get everything except syntax highlighting:
 
 ```html
 <codeblock>
@@ -194,9 +202,13 @@ Codeblocks with no `language` attribute or directive get everything except synta
   but themed
   with line numbers
 </codeblock>
+
+<codeblock language="spanish">
+  Eso no es un lenguaje de verdad!
+</codeblock>
 ```
 
-If you choose to use the `language` attribute the language must still be imported, but you do not have to list it under the directives array because the template does not need to know about it.
+If you choose to use the `language` attribute the language must still be imported, but you do not have to list it in the directives array because the template does not need to know about it.
 
 *Currently all languages are automatically imported when **any** language is imported from ng2-prism/languages*. To import only the language(s) you want:
 ```js
