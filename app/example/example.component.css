@@ -18,6 +18,9 @@
 
 .col {
   align-content: flex-start;
+  position: relative;
+  margin-bottom: 14px;
+  max-width: 100%;
 }
 
 .col h1 {
