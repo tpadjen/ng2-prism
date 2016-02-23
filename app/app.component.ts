@@ -40,4 +40,6 @@ export class AppComponent {
   themes = Codeblock.THEMES;
   selectedTheme: string = "standard";
 
+  highlighted = true;
+
 }

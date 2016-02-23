@@ -97,7 +97,7 @@
       </codeblock>
     </div>
   </example>
-  <p>You may optional specify a <code>language</code> attribute instead of using a directive.</p>
+  <p>You may optionally specify a <code>language</code> attribute instead of using a directive.</p>
   <example>
     <div code>
       <codeblock markup theme="okaidia">
@@ -112,8 +112,64 @@
       </codeblock>
     </div>
   </example>
+  <p>The attribute makes the language easy to change dynamically.</p>
+  <example>
+    <div code>
+      <codeblock markup theme="okaidia">
+        &lt;input type="checkbox" [(ngModel)]="highlighted"> Highlighted?
+        &lt;codeblock [language]="highlighted ? 'typescript' : nil">
+          import {Component} from 'angular2/core';
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <div class="checkbox">
+        <input type="checkbox" [(ngModel)]="highlighted"> Highlighted?
+      </div>
+      <codeblock [language]="highlighted ? 'typescript' : nil">
+        import {Component} from 'angular2/core';
+      </codeblock>
+    </div>
+  </example>
+  <p><code>Codeblocks</code> without a valid loaded <code>language</code> attribute or directive get everything except syntax highlighting.</p>
+  <example>
+    <div code>
+      <codeblock markup theme="okaidia">
+        &lt;codeblock>
+          Just normal text
+          but themed
+          with line numbers
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock>
+        Just normal text
+        but themed
+        with line numbers
+      </codeblock>
+    </div>
+  </example>
+  <hr>
+  <example>
+    <div code>
+      <codeblock markup theme="okaidia">
+        &lt;codeblock language="spanish">
+          Eso no es un lenguaje de verdad!
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock language="spanish">
+        Eso no es un lenguaje de verdad!
+      </codeblock>
+    </div>
+  </example>
+
   <p>If you choose to use the <code>language</code> attribute the language must still be imported, but you do not have to list it under the directives array because the template does not need to know about it.</p>
-  <p><strong>Currently all languages are imported when <em>any</em> language is imported</strong>.</p>
+  <hr>
+  <p><strong>Currently all languages are loaded when <em>any</em> language is imported from <code>ng2-prism/languages</code></strong>.</p>
+  <hr>
   <p>To import only the language you want specify the path to the language.</p>
   <codeblock class="solo" typescript>
     // if you want the directive:

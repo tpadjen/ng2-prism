@@ -16471,6 +16471,7 @@ $__System.registerDynamic("bf", ["1a", "b9", "be", "3"], true, function($__requi
         $__require('3');
         $__require('4');
         $__require('5');
+        Prism.languages.undefined = {};
         $__require('6');
         $__require('7');
         $__require('8');
@@ -16484,14 +16485,13 @@ $__System.registerDynamic("bf", ["1a", "b9", "be", "3"], true, function($__requi
             this._languageSet = false;
             this._highlighted = false;
             this._lineNumbers = true;
-            this._changed = false;
+            this._changed = true;
             this._shell = false;
           }
           CodeblockComponent.prototype.ngAfterViewChecked = function() {
             if (this._changed) {
               this._changed = false;
-              if (this._language)
-                this._highlight();
+              this._highlight();
             }
           };
           Object.defineProperty(CodeblockComponent.prototype, "lineNumbers", {
@@ -16515,7 +16515,7 @@ $__System.registerDynamic("bf", ["1a", "b9", "be", "3"], true, function($__requi
               if (this._shell)
                 return;
               this._languageSet = lang && lang.length > 0 ? true : false;
-              this._language = lang || 'bash';
+              this._language = Prism.languages[lang] ? lang : undefined;
               this._changed = true;
             },
             enumerable: true,
@@ -31395,6 +31395,7 @@ $__System.register("115", ["1a", "a5", "a8", "a7", "a9", "c0", "c1", "c2", "c3",
         function AppComponent() {
           this.themes = codeblock_1.Codeblock.THEMES;
           this.selectedTheme = "standard";
+          this.highlighted = true;
         }
         AppComponent = __decorate([core_1.Component({
           selector: 'ng2-prism-app',
