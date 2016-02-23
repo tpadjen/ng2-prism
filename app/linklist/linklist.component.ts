@@ -1,29 +1,27 @@
-import {Component, Input} from "angular2/core";
+import {Component, Input, ViewChild} from "angular2/core";
 import {LinklistService} from "./linklist.service";
+import {Animator} from './animator.directive';
 
 @Component({
   selector: 'linklist',
   template: `
-    <div class="background" [class.hidden]="hideMenu" (click)="hideMenu = true"></div>
+    <div class="background" [class.hidden]="menuHidden" (click)="hideMenu()"></div>
     <button (click)="buttonClicked()">Sections <i class="fa fa-caret-down"></i></button>
-    <ul [class.hidden]="hideMenu" [class.animated]="animating" [class.fadeIn]="animating"
-      (webkitAnimationEnd)="finishAnimation()"
-      (mozAnimationEnd)="finishAnimation()"
-      (MSAnimationEnd)="finishAnimation()"
-      (oanimationend)="finishAnimation()"
-      (animationend)="finishAnimation()">
+    <ul [class.hidden]="menuHidden" animate animDuration="0.33" (animEnd)="animEnded($event)">
       <li *ngFor="#item of listService.list">
         <a href="#{{item.id}}" (click)="sectionSelected(item, $event)"><span [style.padding-left]="padding(item)">{{item.text}}</span></a>
       </li>
     </ul>
   `,
-  styleUrls: [`app/linklist/linklist.component.css`]
+  styleUrls: [`app/linklist/linklist.component.css`],
+  directives: [Animator]
 })
 export class LinklistComponent {
 
   @Input() indent: number = 8;
-  hideMenu = true;
-  animating = false;
+  menuHidden = true;
+
+  @ViewChild(Animator) private animator:Animator;
 
   constructor(public listService: LinklistService) { }
 
@@ -32,21 +30,25 @@ export class LinklistComponent {
   }
 
   sectionSelected(item, $event) {
-    this.hideMenu = true;
+    this.menuHidden = true;
   }
 
   buttonClicked() {
-    this.hideMenu = !this.hideMenu;
-    if (!this.hideMenu) {
-      this.animating = true;
+    if (this.menuHidden) {
+      this.animator.animate('fadeIn');
+    } else {
+      this.animator.finish();
     }
+    this.menuHidden = !this.menuHidden;
   }
 
-  finishAnimation() {
+  hideMenu() {
+    this.menuHidden = true;
+    this.animator.finish();
+  }
 
-    console.log("Animation finished: " + this.animating);
-
-    this.animating = false;
+  animEnded(name) {
+    console.log("Animation finished: " + name);
   }
 
 }
