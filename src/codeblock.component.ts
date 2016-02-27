@@ -9,11 +9,14 @@ import {
   ElementRef,
   HostBinding,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Renderer,
+  ViewChild
 } from 'angular2/core';
 import {Http} from 'angular2/http';
 import 'rxjs/add/operator/map';
 
+let _ = require('underscore/underscore');
 let Prism = require('prism/prism');
 
 // import any language files that all components should recognize
@@ -32,15 +35,12 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 @Component({
   selector: 'codeblock',
   template: `
+    <div #contentEl class="content"><ng-content></ng-content></div>
     <div class="codeblock {{theme}}">
-      <pre [class]="preClasses"
+      <pre #preEl [class]="preClasses"
         [attr.data-prompt]="prompt"
         [attr.data-output]="output"
-      >
-        <code [class]="codeClasses">
-          <ng-content></ng-content>
-        </code>
-      </pre>
+      ></pre>
     </div>
   `,
 
@@ -53,26 +53,74 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 })
 export class CodeblockComponent implements AfterViewChecked {
 
+  /** Inputs **/
   // @Input() language
   // @Input() src
   // @Input() lineNumbers
   // @Input() theme
 
-  // Command line
+  /** Data **/
+  // content - the current content of this component
+  // code    - the last version of content before highlighting
+
+  /** Command line **/
   // @Input() shell:string;
   @Input() prompt: string = '$';
   @Input() output: string;
 
+  /** Truncation **/
   @Input() truncationSize: number = 100000;
   @Input() truncationMessage: string = "\n--- File Truncated ---\n";
 
-  constructor(private _elementRef: ElementRef, private _http: Http) { }
+  /** ViewChildren **/
+  @ViewChild('contentEl') contentEl; // holds and hides the unmodified content
+  @ViewChild('preEl') _pre;          // holds the highlighted code
+
+  /** Lifecycle Events **/
+
+  constructor(
+    private _elementRef: ElementRef,
+    private _renderer: Renderer,
+    private _http: Http) { }
+
+  // update code when content changes
+  ngAfterContentChecked() {
+    if (!this.src) { this.code = this.content; }
+  }
 
   ngAfterViewChecked() {
     if (this._changed) {
       this._changed = false;
+      this._replaceCode();
       this._highlight();
     }
+  }
+
+
+  /**
+  * content
+  *
+  */
+  get content(): string {
+    return this.contentEl ? this.contentEl.nativeElement.innerHTML : '';
+  }
+
+
+  /**
+  * code
+  *
+  */
+  _code: string = ''; // the code from content before highlighting
+
+  set code(code: string) {
+    if (this._code !== code) {
+      this._changed = true;
+      this._code = code;
+    }
+  }
+
+  get code(): string {
+    return this._code;
   }
 
 
@@ -100,7 +148,7 @@ export class CodeblockComponent implements AfterViewChecked {
     if (this._shell) { return; }
     this._languageSet = lang && lang.length > 0 ? true : false;
     this._language = Prism.languages[lang] ? lang : undefined;
-    this._changed = true;
+    this._changed = false;
   }
 
   get language() {
@@ -134,10 +182,13 @@ export class CodeblockComponent implements AfterViewChecked {
   DEFAULT_THEME       = "standard";
   DEFAULT_SHELL_THEME = "okaidia";
 
+
   /**
   * @Input() src
   *
   */
+  _src: string;
+
   @Input() set src(source: string) {
     this._empty();
 
@@ -145,10 +196,34 @@ export class CodeblockComponent implements AfterViewChecked {
 
     let extMatches = source.match(/\.(\w+)$/);
 
-    if (!extMatches) { return; }
+    if (!extMatches) {
+      this._notFound(source);
+      return;
+    }
 
-    let lang = CodeblockComponent.EXTENSION_MAP[extMatches[1]] || extMatches[1];
-    this._fetchSource(source, lang);
+    this._src = source;
+
+    let fileLanguage = CodeblockComponent.EXTENSION_MAP[extMatches[1]] || extMatches[1];
+
+    this._fetchSource(source)
+          .subscribe(
+            text => {
+              if (!this._languageSet) { this._language = fileLanguage; }
+              this.code = text;
+            },
+            error => {
+              this._notFound(source);
+            });
+  }
+
+  _notFound(source) {
+    this.code = source + " not found";
+    this._language = undefined;
+    this._lineNumbers = false;
+  }
+
+  get src(): string {
+    return this._src;
   }
 
   static EXTENSION_MAP = {
@@ -182,9 +257,8 @@ export class CodeblockComponent implements AfterViewChecked {
   }
 
 
-  /**
-  * Styling classes
-  */
+  /** Styling classes **/
+
   get languageClass() {
     return 'language-' + this._language;
   }
@@ -213,7 +287,7 @@ export class CodeblockComponent implements AfterViewChecked {
   _highlighted: boolean = false;
   _lineNumbers: boolean = true;
   _theme: string;
-  _changed: boolean = true;
+  _changed: boolean = false;
   _shell: boolean = false;
 
 
@@ -224,42 +298,47 @@ export class CodeblockComponent implements AfterViewChecked {
     return this._elementRef.nativeElement;
   }
 
-  get _code() {
+  get _codeEl() {
     return this._el.querySelector('code');
   }
 
-  get _pre() {
-    return this._el.querySelector('pre');
+
+  _replaceCode() {
+    this._renderer.setElementProperty(
+      this._pre.nativeElement,
+      'innerHTML',
+      this._buildCodeElement()
+    );
   }
 
+  _buildCodeElement(): string {
+    return `<code class="${this.codeClasses}">${this._processedCode}</code>`;
+  }
 
+  get _processedCode() {
+    return this._isMarkup(this.language) ? _.escape(this.code) : this.code;
+  }
+
+  _isMarkup(language): boolean {
+    return language === 'markup' || language === 'markdown';
+  }
 
   _highlight() {
-    if (!this._highlighted && this._language === 'markup') {
-      this._code.innerHTML = this._processMarkup(this._code.innerHTML);
-    }
+    // if (!this._highlighted && this._language === 'markup') {
+    //   this._code.innerHTML = this._processMarkup(this._code.innerHTML);
+    // }
+    //
+    // this._truncateLargeFiles();
 
-    this._truncateLargeFiles();
+    Prism.highlightElement(this._pre.nativeElement.querySelector('code'), false, null);
 
-    let elements = this._el.querySelectorAll(
-      `code[class*="language-"],
-      [class*="language-"] code,
-      code[class*="lang-"],
-      [class*="lang-"] code`);
-
-    for (let i = 0, element; element = elements[i++]; ) {
-      Prism.highlightElement(element, false, null);
-    }
-
-    if (this._shell && this.output) { this._fixPromptOutputPadding(); }
-
-    this._el.hidden = false;
     this._highlighted = true;
   }
 
   _empty() {
-    this._code.innerHTML = "";
-    this._el.hidden = true;
+    if (this._pre) {
+      this._pre.innerHTML = "";
+    }
   }
 
   // markup needs to have all opening < changed to &lt; to render correctly inside pre tags
@@ -267,28 +346,14 @@ export class CodeblockComponent implements AfterViewChecked {
     return text.replace(/(<)([!\/A-Za-z].*?>)/g, '&lt;$2');
   }
 
-  _fetchSource(source, fileLanguage) {
-    this._http.get(source)
-      .map(res => res.text())
-      .subscribe(
-        text => {
-          if (!this._languageSet) { this._language = fileLanguage; }
-          if (fileLanguage === 'markup') { text = this._processMarkup(text); }
-          this._code.innerHTML = text;
-          this._changed = true;
-        },
-        error => {
-          // console.log("Error downloading " + source);
-          // console.log(error);
-          this._code.innerHTML = source + " not found";
-          this._el.hidden = false;
-        });
+  _fetchSource(source): any {
+    return this._http.get(source).map(res => res.text());
   }
 
   // padding is off on output shells because of floated left prompt
   // this adds it back
   _fixPromptOutputPadding() {
-    let promptWidth = this._code.querySelector('.command-line-prompt').clientWidth;
+    let promptWidth = this._codeEl.querySelector('.command-line-prompt').clientWidth;
     let prePadding = parseInt(this._getStyle(this._pre, 'padding-left').replace('px', ''), 10);
     this._pre.style.paddingRight = (2 * prePadding + promptWidth / 2) + 'px';
   }
@@ -308,8 +373,8 @@ export class CodeblockComponent implements AfterViewChecked {
   }
 
   _truncateLargeFiles() {
-    if (this._code.innerHTML.length > this.truncationSize) {
-      this._code.innerHTML = this._code.innerHTML.slice(0, this.truncationSize) +
+    if (this._codeEl.innerHTML.length > this.truncationSize) {
+      this._codeEl.innerHTML = this._codeEl.innerHTML.slice(0, this.truncationSize) +
                               "\n" + this.truncationMessage + "\n";
     }
   }

@@ -34,8 +34,8 @@
   padding-left: 3.4em;
 
   .line-numbers-rows {
+    border: 0;
     left: -3.4em;
-    border: none;
   }
 }
 
@@ -44,7 +44,11 @@
 .codeblock pre.command-line {
 
   .command-line-prompt {
+    border-right: 0;
     margin-right: 0;
-    border-right: none;
   }
+}
+
+.content {
+  display: none;
 }
