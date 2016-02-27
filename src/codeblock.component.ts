@@ -14,7 +14,7 @@ import {
 import {Http} from 'angular2/http';
 import 'rxjs/add/operator/map';
 
-var Prism = require('prism/prism');
+let Prism = require('prism/prism');
 
 // import any language files that all components should recognize
 require('prism/components/prism-bash');
@@ -33,7 +33,7 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
   selector: 'codeblock',
   template: `
     <div class="codeblock {{theme}}">
-      <pre [class]="preClasses" 
+      <pre [class]="preClasses"
         [attr.data-prompt]="prompt"
         [attr.data-output]="output"
       >
@@ -57,11 +57,14 @@ export class CodeblockComponent implements AfterViewChecked {
   // @Input() src
   // @Input() lineNumbers
   // @Input() theme
-  
+
   // Command line
   // @Input() shell:string;
-  @Input() prompt:string = '$';
-  @Input() output:string;
+  @Input() prompt: string = '$';
+  @Input() output: string;
+
+  @Input() truncationSize: number = 100000;
+  @Input() truncationMessage: string = "\n--- File Truncated ---\n";
 
   constructor(private _elementRef: ElementRef, private _http: Http) { }
 
@@ -77,14 +80,14 @@ export class CodeblockComponent implements AfterViewChecked {
   * @Input() lineNumbers
   *
   */
-  @Input() set lineNumbers(value:boolean) {
-    if (this._lineNumbers != value) {
+  @Input() set lineNumbers(value: boolean) {
+    if (this._lineNumbers !== value) {
       this._changed = true;
       this._lineNumbers = value;
     }
   }
 
-  get lineNumbers():boolean {
+  get lineNumbers(): boolean {
     return this._lineNumbers;
   }
 
@@ -93,8 +96,8 @@ export class CodeblockComponent implements AfterViewChecked {
   * @Input() language
   *
   */
-  @Input() set language(lang:string) {
-    if (this._shell) return;
+  @Input() set language(lang: string) {
+    if (this._shell) { return; }
     this._languageSet = lang && lang.length > 0 ? true : false;
     this._language = Prism.languages[lang] ? lang : undefined;
     this._changed = true;
@@ -109,14 +112,14 @@ export class CodeblockComponent implements AfterViewChecked {
   * @Input() theme
   *
   */
-  @Input() get theme():string { 
-    if (this._theme) return this._theme;
+  @Input() get theme(): string {
+    if (this._theme) { return this._theme; }
 
     return this._shell ? this.DEFAULT_SHELL_THEME : this.DEFAULT_THEME;
   }
 
-  set theme(theme:string) { this._theme = theme; }
-  
+  set theme(theme: string) { this._theme = theme; }
+
   static THEMES = [
     "standard",
     "coy",
@@ -135,15 +138,15 @@ export class CodeblockComponent implements AfterViewChecked {
   * @Input() src
   *
   */
-  @Input() set src(source:string) {
+  @Input() set src(source: string) {
     this._empty();
 
-    if (source == undefined || source == null || source.length < 1) return;
+    if (source === undefined || source == null || source.length < 1) { return; }
 
     let extMatches = source.match(/\.(\w+)$/);
 
-    if (!extMatches) return;
-    
+    if (!extMatches) { return; }
+
     let lang = CodeblockComponent.EXTENSION_MAP[extMatches[1]] || extMatches[1];
     this._fetchSource(source, lang);
   }
@@ -166,7 +169,7 @@ export class CodeblockComponent implements AfterViewChecked {
   * @Input() shell
   *
   */
-  @Input() set shell(shell:string) {
+  @Input() set shell(shell: string) {
     if (shell) {
       this._language = shell;
       this._languageSet = true;
@@ -186,32 +189,32 @@ export class CodeblockComponent implements AfterViewChecked {
     return 'language-' + this._language;
   }
 
-  get lineNumbersClass():string {
+  get lineNumbersClass(): string {
     return this._lineNumbers ? "line-numbers " : "";
   }
 
-  get shellClass():string {
+  get shellClass(): string {
     return this._shell ? "command-line" : "";
   }
 
-  get codeClasses():string {
+  get codeClasses(): string {
     return this.languageClass + " " + this._language;
   }
 
-  get preClasses():string {
+  get preClasses(): string {
     return this.lineNumbersClass + ' ' + this.languageClass + ' ' + this.shellClass;
   }
 
 
   /************ Private **************/
 
-  _language:string;
-  _languageSet:boolean = false;
-  _highlighted:boolean = false;
-  _lineNumbers:boolean = true;
-  _theme:string;
-  _changed:boolean = true;
-  _shell:boolean = false;
+  _language: string;
+  _languageSet: boolean = false;
+  _highlighted: boolean = false;
+  _lineNumbers: boolean = true;
+  _theme: string;
+  _changed: boolean = true;
+  _shell: boolean = false;
 
 
   /**
@@ -228,21 +231,23 @@ export class CodeblockComponent implements AfterViewChecked {
   get _pre() {
     return this._el.querySelector('pre');
   }
-  
+
 
 
   _highlight() {
-    if (!this._highlighted && this._language == 'markup') {
-      this._code.innerHTML = this._processMarkup(this._code.innerHTML)
+    if (!this._highlighted && this._language === 'markup') {
+      this._code.innerHTML = this._processMarkup(this._code.innerHTML);
     }
 
-    var elements = this._el.querySelectorAll(
+    this._truncateLargeFiles();
+
+    let elements = this._el.querySelectorAll(
       `code[class*="language-"],
       [class*="language-"] code,
       code[class*="lang-"],
       [class*="lang-"] code`);
 
-    for (var i=0, element; element = elements[i++];) {
+    for (let i = 0, element; element = elements[i++]; ) {
       Prism.highlightElement(element, false, null);
     }
 
@@ -267,8 +272,8 @@ export class CodeblockComponent implements AfterViewChecked {
       .map(res => res.text())
       .subscribe(
         text => {
-          if (!this._languageSet) this._language = fileLanguage;
-          if (fileLanguage == 'markup') text = this._processMarkup(text);
+          if (!this._languageSet) { this._language = fileLanguage; }
+          if (fileLanguage === 'markup') { text = this._processMarkup(text); }
           this._code.innerHTML = text;
           this._changed = true;
         },
@@ -284,23 +289,29 @@ export class CodeblockComponent implements AfterViewChecked {
   // this adds it back
   _fixPromptOutputPadding() {
     let promptWidth = this._code.querySelector('.command-line-prompt').clientWidth;
-    let prePadding = parseInt(this._getStyle(this._pre, 'padding-left').replace('px', ''));
-    this._pre.style.paddingRight = (2*prePadding + promptWidth/2) + 'px';
+    let prePadding = parseInt(this._getStyle(this._pre, 'padding-left').replace('px', ''), 10);
+    this._pre.style.paddingRight = (2 * prePadding + promptWidth / 2) + 'px';
   }
 
   // get the actually applied style of an element
-  _getStyle(oElm, strCssRule){
-    var strValue = "";
-    if(document.defaultView && document.defaultView.getComputedStyle){
+  _getStyle(oElm, strCssRule) {
+    let strValue = "";
+    if (document.defaultView && document.defaultView.getComputedStyle) {
       strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
-    }
-    else if(oElm.currentStyle){
+    } else if (oElm.currentStyle) {
       strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1){
         return p1.toUpperCase();
       });
       strValue = oElm.currentStyle[strCssRule];
     }
     return strValue;
+  }
+
+  _truncateLargeFiles() {
+    if (this._code.innerHTML.length > this.truncationSize) {
+      this._code.innerHTML = this._code.innerHTML.slice(0, this.truncationSize) +
+                              "\n" + this.truncationMessage + "\n";
+    }
   }
 
 }
