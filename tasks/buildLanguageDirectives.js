@@ -23,7 +23,10 @@ var languages = fs.readdirSync('languages')
 var languageTemplate = fs.readFileSync('src/language-template.ts', 'utf8');
 var  jsExports = [];
 var dtsExports = [];
-var tsFiles = ["src/codeblock.component.ts"];
+var tsFiles = [
+  "src/codeblock.component.ts",
+  "src/src.service.ts"
+];
 
 languages.forEach(function(language) {
   var data = languageTemplate.replace(/{{lang}}/g, language);
@@ -32,7 +35,7 @@ languages.forEach(function(language) {
   var filename = "src/languages/" + language + ".ts";
   tsFiles.push(filename);
   fs.writeFileSync(filename, data);
-  jsExports.push("exports." + title + " = require('./bundle/languages/" + 
+  jsExports.push("exports." + title + " = require('./bundle/languages/" +
                   language + "')." +  title + ';');
   dtsExports.push("export * from './bundle/languages/" + language + "';");
 });
@@ -40,12 +43,12 @@ languages.forEach(function(language) {
 tsFiles = tsFiles.map(function(file) { return '"' + file + '"'; });
 
 var tsconfig = fs.readFileSync('tsconfig.json', 'utf8');
-var ts = tsconfig.replace(/([\s\S]*)(files": \[\n)([\s\S]+)(\][\s\S]*)/, 
+var ts = tsconfig.replace(/([\s\S]*)(files": \[\n)([\s\S]+)(\][\s\S]*)/,
                           "$1$2    " + tsFiles.join(",\n    ") + "\n" + "  $4");
 fs.writeFileSync('tsconfig.json', ts);
 
 var inject = function(filename, list) {
-  fs.writeFileSync(filename, list.join("\n"));  
+  fs.writeFileSync(filename, list.join("\n"));
 }
 
 inject('languages.js', jsExports);

@@ -7,14 +7,14 @@ import {
   Component,
   AfterViewChecked,
   ElementRef,
+  EventEmitter,
   HostBinding,
   Input,
+  Output,
   ViewEncapsulation,
   Renderer,
   ViewChild
 } from 'angular2/core';
-import {Http} from 'angular2/http';
-import 'rxjs/add/operator/map';
 
 let _ = require('underscore/underscore');
 let Prism = require('prism/prism');
@@ -31,6 +31,7 @@ require('prism/plugins/line-numbers/prism-line-numbers');
 require('prism/plugins/command-line/prism-command-line');
 require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 
+import {SrcService} from './src.service';
 
 @Component({
   selector: 'codeblock',
@@ -49,7 +50,9 @@ require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
 
   // necessary to make component styles apply because unique ng attributes
   // aren't applied to elements added by Prism.highlight
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+
+  providers: [SrcService]
 })
 export class CodeblockComponent implements AfterViewChecked {
 
@@ -58,6 +61,9 @@ export class CodeblockComponent implements AfterViewChecked {
   // @Input() src
   // @Input() lineNumbers
   // @Input() theme
+
+  /** Outputs **/
+  @Output() srcChanged: EventEmitter<string> = new EventEmitter();
 
   /** Data **/
   // content - the current content of this component
@@ -81,7 +87,10 @@ export class CodeblockComponent implements AfterViewChecked {
   constructor(
     private _elementRef: ElementRef,
     private _renderer: Renderer,
-    private _http: Http) { }
+    private Src: SrcService) {
+
+      Src.host = this;
+  }
 
   // update code when content changes
   ngAfterContentChecked() {
@@ -116,6 +125,7 @@ export class CodeblockComponent implements AfterViewChecked {
     if (this._code !== code) {
       this._changed = true;
       this._code = code;
+      this._hideLineNumbers = false;
     }
   }
 
@@ -189,38 +199,7 @@ export class CodeblockComponent implements AfterViewChecked {
   */
   _src: string;
 
-  @Input() set src(source: string) {
-    this._empty();
-
-    if (source === undefined || source == null || source.length < 1) { return; }
-
-    let extMatches = source.match(/\.(\w+)$/);
-
-    if (!extMatches) {
-      this._notFound(source);
-      return;
-    }
-
-    this._src = source;
-
-    let fileLanguage = CodeblockComponent.EXTENSION_MAP[extMatches[1]] || extMatches[1];
-
-    this._fetchSource(source)
-          .subscribe(
-            text => {
-              if (!this._languageSet) { this._language = fileLanguage; }
-              this.code = text;
-            },
-            error => {
-              this._notFound(source);
-            });
-  }
-
-  _notFound(source) {
-    this.code = source + " not found";
-    this._language = undefined;
-    this._lineNumbers = false;
-  }
+  @Input() set src(source: string) { this.srcChanged.next(source); }
 
   get src(): string {
     return this._src;
@@ -264,7 +243,7 @@ export class CodeblockComponent implements AfterViewChecked {
   }
 
   get lineNumbersClass(): string {
-    return this._lineNumbers ? "line-numbers " : "";
+    return this._lineNumbers && ! this._hideLineNumbers ? "line-numbers " : "";
   }
 
   get shellClass(): string {
@@ -286,6 +265,7 @@ export class CodeblockComponent implements AfterViewChecked {
   _languageSet: boolean = false;
   _highlighted: boolean = false;
   _lineNumbers: boolean = true;
+  _hideLineNumbers: boolean = false;
   _theme: string;
   _changed: boolean = false;
   _shell: boolean = false;
@@ -336,18 +316,36 @@ export class CodeblockComponent implements AfterViewChecked {
   }
 
   _empty() {
-    if (this._pre) {
-      this._pre.innerHTML = "";
-    }
+    if (this._pre) { this._pre.innerHTML = ""; }
+  }
+
+  _notFound(source) {
+    this.code = `${source} not found.`;
+    this._language = undefined;
+    this._hideLineNumbers = true;
+  }
+
+  _noFileGiven() {
+    this.code = `No source file given.`;
+    this._language = undefined;
+    this._hideLineNumbers = true;
+  }
+
+  _notAFile(source) {
+    this.code = `${source} is not a file.`;
+    this._language = undefined;
+    this._hideLineNumbers = true;
+  }
+
+  _showLoading() {
+    this.code = "Loading...";
+    this._language = undefined;
+    this._hideLineNumbers = true;
   }
 
   // markup needs to have all opening < changed to &lt; to render correctly inside pre tags
   _processMarkup(text) {
     return text.replace(/(<)([!\/A-Za-z].*?>)/g, '&lt;$2');
-  }
-
-  _fetchSource(source): any {
-    return this._http.get(source).map(res => res.text());
   }
 
   // padding is off on output shells because of floated left prompt
