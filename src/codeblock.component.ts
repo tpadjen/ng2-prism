@@ -1,7 +1,5 @@
 // Required in angular beta 6
 ///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
-declare var require: any;
-
 
 import {
   Component,
@@ -12,36 +10,27 @@ import {
   Input,
   Output,
   ViewEncapsulation,
-  Renderer,
   ViewChild
 } from 'angular2/core';
 
-let _ = require('underscore/underscore');
-let Prism = require('prism/prism');
-
-// import any language files that all components should recognize
-require('prism/components/prism-bash');
-require('prism/components/prism-powershell');
-require('prism/components/prism-javascript');
-Prism.languages.undefined = {};
-
-
-// plugins
-require('prism/plugins/line-numbers/prism-line-numbers');
-require('prism/plugins/command-line/prism-command-line');
-require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
-
+import {CodeRenderer} from './code-renderer.component';
 import {SrcService} from './src.service';
+
+declare var Prism: any;
 
 @Component({
   selector: 'codeblock',
   template: `
     <div #contentEl class="content"><ng-content></ng-content></div>
     <div class="codeblock {{theme}}">
-      <pre #preEl [class]="preClasses"
-        [attr.data-prompt]="prompt"
-        [attr.data-output]="output"
-      ></pre>
+      <code-renderer
+        [code]="code"
+        [language]="language"
+        [lineNumbers]="displayLineNumbers()"
+        [shell]="shell"
+        [prompt]="prompt"
+        [outputLines]="outputLines">
+      </code-renderer>
     </div>
   `,
 
@@ -51,6 +40,8 @@ import {SrcService} from './src.service';
   // necessary to make component styles apply because unique ng attributes
   // aren't applied to elements added by Prism.highlight
   encapsulation: ViewEncapsulation.None,
+
+  directives: [CodeRenderer],
 
   providers: [SrcService]
 })
@@ -72,24 +63,22 @@ export class CodeblockComponent implements AfterViewChecked {
   /** Command line **/
   // @Input() shell:string;
   @Input() prompt: string = '$';
-  @Input() output: string;
+  @Input() outputLines: string;
 
   /** Truncation **/
-  @Input() truncationSize: number = 100000;
-  @Input() truncationMessage: string = "\n--- File Truncated ---\n";
+  // @Input() truncationSize: number = 100000;
+  // @Input() truncationMessage: string = "\n--- File Truncated ---\n";
 
   /** ViewChildren **/
   @ViewChild('contentEl') contentEl; // holds and hides the unmodified content
-  @ViewChild('preEl') _pre;          // holds the highlighted code
+  @ViewChild(CodeRenderer) codeRenderer;
 
   /** Lifecycle Events **/
 
   constructor(
     private _elementRef: ElementRef,
-    private _renderer: Renderer,
-    private Src: SrcService) {
-
-      Src.host = this;
+    private _srcService: SrcService) {
+      _srcService.host = this;
   }
 
   // update code when content changes
@@ -100,8 +89,7 @@ export class CodeblockComponent implements AfterViewChecked {
   ngAfterViewChecked() {
     if (this._changed) {
       this._changed = false;
-      this._replaceCode();
-      this._highlight();
+      this.codeRenderer.render();
     }
   }
 
@@ -124,8 +112,8 @@ export class CodeblockComponent implements AfterViewChecked {
   set code(code: string) {
     if (this._code !== code) {
       this._changed = true;
+      this._showingMessage = false;
       this._code = code;
-      this._hideLineNumbers = false;
     }
   }
 
@@ -149,6 +137,10 @@ export class CodeblockComponent implements AfterViewChecked {
     return this._lineNumbers;
   }
 
+  displayLineNumbers(): boolean {
+    return this.lineNumbers && ! this._showingMessage;
+  }
+
 
   /**
   * @Input() language
@@ -162,7 +154,7 @@ export class CodeblockComponent implements AfterViewChecked {
   }
 
   get language() {
-    return this._language;
+    return this._showingMessage ? undefined : this._language;
   }
 
 
@@ -236,145 +228,35 @@ export class CodeblockComponent implements AfterViewChecked {
   }
 
 
-  /** Styling classes **/
-
-  get languageClass() {
-    return 'language-' + this._language;
-  }
-
-  get lineNumbersClass(): string {
-    return this._lineNumbers && ! this._hideLineNumbers ? "line-numbers " : "";
-  }
-
-  get shellClass(): string {
-    return this._shell ? "command-line" : "";
-  }
-
-  get codeClasses(): string {
-    return this.languageClass + " " + this._language;
-  }
-
-  get preClasses(): string {
-    return this.lineNumbersClass + ' ' + this.languageClass + ' ' + this.shellClass;
-  }
-
-
   /************ Private **************/
 
   _language: string;
+  _showingMessage: boolean = false;
   _languageSet: boolean = false;
-  _highlighted: boolean = false;
   _lineNumbers: boolean = true;
-  _hideLineNumbers: boolean = false;
   _theme: string;
   _changed: boolean = false;
   _shell: boolean = false;
 
 
-  /**
-  * Select native elements
-  */
-  get _el() {
-    return this._elementRef.nativeElement;
-  }
-
-  get _codeEl() {
-    return this._el.querySelector('code');
-  }
-
-
-  _replaceCode() {
-    this._renderer.setElementProperty(
-      this._pre.nativeElement,
-      'innerHTML',
-      this._buildCodeElement()
-    );
-  }
-
-  _buildCodeElement(): string {
-    return `<code class="${this.codeClasses}">${this._processedCode}</code>`;
-  }
-
-  get _processedCode() {
-    return this._isMarkup(this.language) ? _.escape(this.code) : this.code;
-  }
-
-  _isMarkup(language): boolean {
-    return language === 'markup' || language === 'markdown';
-  }
-
-  _highlight() {
-    // if (!this._highlighted && this._language === 'markup') {
-    //   this._code.innerHTML = this._processMarkup(this._code.innerHTML);
-    // }
-    //
-    // this._truncateLargeFiles();
-
-    Prism.highlightElement(this._pre.nativeElement.querySelector('code'), false, null);
-
-    this._highlighted = true;
-  }
-
-  _empty() {
-    if (this._pre) { this._pre.innerHTML = ""; }
-  }
-
   _notFound(source) {
+    this._showingMessage = true;
     this.code = `${source} not found.`;
-    this._language = undefined;
-    this._hideLineNumbers = true;
   }
 
   _noFileGiven() {
+    this._showingMessage = true;
     this.code = `No source file given.`;
-    this._language = undefined;
-    this._hideLineNumbers = true;
   }
 
   _notAFile(source) {
+    this._showingMessage = true;
     this.code = `${source} is not a file.`;
-    this._language = undefined;
-    this._hideLineNumbers = true;
   }
 
   _showLoading() {
+    this._showingMessage = true;
     this.code = "Loading...";
-    this._language = undefined;
-    this._hideLineNumbers = true;
-  }
-
-  // markup needs to have all opening < changed to &lt; to render correctly inside pre tags
-  _processMarkup(text) {
-    return text.replace(/(<)([!\/A-Za-z].*?>)/g, '&lt;$2');
-  }
-
-  // padding is off on output shells because of floated left prompt
-  // this adds it back
-  _fixPromptOutputPadding() {
-    let promptWidth = this._codeEl.querySelector('.command-line-prompt').clientWidth;
-    let prePadding = parseInt(this._getStyle(this._pre, 'padding-left').replace('px', ''), 10);
-    this._pre.style.paddingRight = (2 * prePadding + promptWidth / 2) + 'px';
-  }
-
-  // get the actually applied style of an element
-  _getStyle(oElm, strCssRule) {
-    let strValue = "";
-    if (document.defaultView && document.defaultView.getComputedStyle) {
-      strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
-    } else if (oElm.currentStyle) {
-      strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1){
-        return p1.toUpperCase();
-      });
-      strValue = oElm.currentStyle[strCssRule];
-    }
-    return strValue;
-  }
-
-  _truncateLargeFiles() {
-    if (this._codeEl.innerHTML.length > this.truncationSize) {
-      this._codeEl.innerHTML = this._codeEl.innerHTML.slice(0, this.truncationSize) +
-                              "\n" + this.truncationMessage + "\n";
-    }
   }
 
 }

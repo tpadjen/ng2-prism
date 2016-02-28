@@ -12,6 +12,7 @@
   },
   "files": [
     "src/codeblock.component.ts",
+    "src/code-renderer.component.ts",
     "src/src.service.ts",
     "src/languages/abap.ts",
     "src/languages/actionscript.ts",

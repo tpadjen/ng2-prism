@@ -25,6 +25,7 @@ var  jsExports = [];
 var dtsExports = [];
 var tsFiles = [
   "src/codeblock.component.ts",
+  "src/code-renderer.component.ts",
   "src/src.service.ts"
 ];
 
