@@ -228,6 +228,30 @@ export class CodeblockComponent implements AfterViewChecked {
   }
 
 
+  /** Methods **/
+
+  /**
+  * message(text: string)
+  *
+  *  Display the text inside the codeblock instead of code.
+  *  Used for errors and warnings during file loading.
+  *
+  */
+  message(text: string) {
+    this._showingMessage = true;
+    this.code = text;
+  }
+
+  /**
+  * loading()
+  *
+  *  Display a loading indicator
+  *
+  */
+  loading() {
+    this.message("Loading...");
+  }
+
   /**
   * bind(text)
   *
@@ -253,26 +277,5 @@ export class CodeblockComponent implements AfterViewChecked {
   _theme: string;
   _changed: boolean = false;
   _shell: boolean = false;
-
-
-  _notFound(source) {
-    this._showingMessage = true;
-    this.code = `${source} not found.`;
-  }
-
-  _noFileGiven() {
-    this._showingMessage = true;
-    this.code = `No source file given.`;
-  }
-
-  _notAFile(source) {
-    this._showingMessage = true;
-    this.code = `${source} is not a file.`;
-  }
-
-  _showLoading() {
-    this._showingMessage = true;
-    this.code = "Loading...";
-  }
 
 }

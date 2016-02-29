@@ -5,6 +5,7 @@ import {
 import {Http} from 'angular2/http';
 
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/empty';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -32,19 +33,27 @@ export class SrcService implements OnDestroy {
     this._handleSrcChanges();
   }
 
+  get host(): CodeblockComponent {
+    return this._host;
+  }
+
   _srcChangedSubscription;
 
   _handleSrcChanges() {
-    this._srcChangedSubscription = this._host.srcChanged
+    this._srcChangedSubscription = this.host.srcChanged
       .filter(source => { return this._emptySources(source); })
       .map(source => { return this._addExtensionMatches(source); })
       .filter(req => { return this._nonFiles(req); })
       .distinctUntilChanged()
-      .do(() => { this._showLoading(); })
+      .do(() => { this.host.loading(); })
       .debounceTime(this.debounceTime)
-      .do(req => { this._setHostSrc(req); })
+      .do((req: any) => { this.host._src = req.source; })
       .switchMap(req => { return this._fetchSrc(req); })
-      .retry()
+      .catch((error) => {
+        this.host.message("Error: Could not download file.");
+        console.error(error);
+        return Observable.empty();
+      })
       .subscribe(
         res => { this._handleResponseSuccess(res); },
         error => { this._handleResponseError(error); }
@@ -69,27 +78,19 @@ export class SrcService implements OnDestroy {
   _nonFiles(req) {
     if (!req.extMatches) {
       if (req.source && req.source.length > 0) {
-        this._host._notAFile(req.source);
+        this.host.message(`${req.source} is not a file.`);
       } else {
-        this._host._noFileGiven();
+        this.host.message(`No source file given.`);
       }
       return false;
     }
     return true;
   }
 
-  _showLoading() {
-    this._host._showLoading();
-  }
-
-  _setHostSrc(req) {
-    this._host._src = req.source;
-  }
-
   _fetchSrc(req) {
     return this._http.get(req.source)
                 .catch((error) => {
-                  this._host._notFound(req.source);
+                  this.host.message(`${req.source} not found.`);
                   return Observable.empty();
                 })
                 .map(res => {
@@ -103,13 +104,13 @@ export class SrcService implements OnDestroy {
 
   _handleResponseSuccess(res) {
     let fileLang = CodeblockComponent.EXTENSION_MAP[res.extMatches[1]] || res.extMatches[1];
-    if (!this._host._languageSet) { this._host._language = fileLang; }
-    this._host.code = res.text;
+    if (!this.host._languageSet) { this.host._language = fileLang; }
+    this.host.code = res.text;
   }
 
   _handleResponseError(error) {
-    console.log("SrcService Error");
-    console.log(error);
+    console.error("SrcService Error");
+    console.error(error);
   }
 
 }
