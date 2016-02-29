@@ -228,6 +228,22 @@ export class CodeblockComponent implements AfterViewChecked {
   }
 
 
+  /**
+  * bind(text)
+  *
+  *  Returns a double curly-braced version of the input string.
+  *  Use this inside a template to display a binding.
+  *
+  *   Example:
+  *     <codeblock markup #cb><span>{{cb.bind('name')}}</span></codeblock>
+  *   Result:
+  *     <span>{{name}}</span>
+  */
+  bind(text: string): string {
+    return `{{${text}}}`;
+  }
+
+
   /************ Private **************/
 
   _language: string;
