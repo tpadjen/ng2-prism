@@ -4,6 +4,7 @@
 import {
   Component,
   AfterViewChecked,
+  AfterContentChecked,
   ElementRef,
   EventEmitter,
   HostBinding,
@@ -26,7 +27,7 @@ declare var Prism: any;
       <code-renderer
         [code]="code"
         [language]="language"
-        [lineNumbers]="displayLineNumbers()"
+        [lineNumbers]="shouldDisplayLineNumbers()"
         [shell]="shell"
         [prompt]="prompt"
         [outputLines]="outputLines">
@@ -45,33 +46,21 @@ declare var Prism: any;
 
   providers: [SrcService]
 })
-export class CodeblockComponent implements AfterViewChecked {
-
-  /** Inputs **/
-  // @Input() language
-  // @Input() src
-  // @Input() lineNumbers
-  // @Input() theme
-
-  /** Outputs **/
-  @Output() srcChanged: EventEmitter<string> = new EventEmitter();
-
-  /** Data **/
-  // content - the current content of this component
-  // code    - the last version of content before highlighting
-
-  /** Command line **/
-  // @Input() shell:string;
-  @Input() prompt: string = '$';
-  @Input() outputLines: string;
-
-  /** Truncation **/
-  // @Input() truncationSize: number = 100000;
-  // @Input() truncationMessage: string = "\n--- File Truncated ---\n";
+export class CodeblockComponent implements
+              AfterViewChecked, AfterContentChecked {
 
   /** ViewChildren **/
-  @ViewChild('contentEl') contentEl; // holds and hides the unmodified content
+
+  /**
+   * The container for the original content of the codeblock. Hidden from view.
+   */
+  @ViewChild('contentEl') contentEl;
+
+  /**
+   * Component that shows the highlighted code.
+   */
   @ViewChild(CodeRenderer) codeRenderer;
+
 
   /** Lifecycle Events **/
 
@@ -81,11 +70,16 @@ export class CodeblockComponent implements AfterViewChecked {
       _srcService.host = this;
   }
 
-  // update code when content changes
+  /**
+   * Update code when content changes
+   */
   ngAfterContentChecked() {
     if (!this.src) { this.code = this.content; }
   }
 
+  /**
+   * Render code when any input changes
+   */
   ngAfterViewChecked() {
     if (this._changed) {
       this._changed = false;
@@ -94,21 +88,33 @@ export class CodeblockComponent implements AfterViewChecked {
   }
 
 
+  /** Attributes **/
+
   /**
-  * content
-  *
-  */
+   * The current content of the codeblock.
+   *
+   * Example:
+   * ```
+   *   <codeblock javascript>
+   *     // Inside the codeblock
+   *   </codeblock>
+   * ```
+   * Result:
+   * ```
+   *  // Inside the codeblock
+   * ```
+   *
+   * @return {string} - innerHTML of this codeblock's nativeElement
+   */
   get content(): string {
     return this.contentEl ? this.contentEl.nativeElement.innerHTML : '';
   }
 
 
   /**
-  * code
-  *
-  */
-  _code: string = ''; // the code from content before highlighting
-
+   * The code to display in the codeblock. Automatically set to this.content
+   * unless a src attribute is present.
+   */
   set code(code: string) {
     if (this._code !== code) {
       this._changed = true;
@@ -122,10 +128,30 @@ export class CodeblockComponent implements AfterViewChecked {
   }
 
 
+  /** Inputs **/
+
   /**
-  * @Input() lineNumbers
-  *
-  */
+   * Display line numbers for the codeblock. The numbers start at 1 and are
+   * not selected when selecting the main code text.
+   *
+   * Example:
+   * ```
+   *   <codeblock [lineNumbers]="true" markup>
+   *     <h1>Hello</h1>
+   *     <h1>Hi</h1>
+   *     <h1>Aloha</h1>
+   *   </codeblock>
+   * ```
+   *
+   * Result:
+   * ```
+   *   1  <h1>Hello</h1>
+   *   2  <h1>Hi</h1>
+   *   3  <h1>Aloha</h1>
+   * ```
+   *
+   * @param  {boolean} value - whether or not to show line numbers
+   */
   @Input() set lineNumbers(value: boolean) {
     if (this._lineNumbers !== value) {
       this._changed = true;
@@ -137,15 +163,26 @@ export class CodeblockComponent implements AfterViewChecked {
     return this._lineNumbers;
   }
 
-  displayLineNumbers(): boolean {
+  /**
+   * @return {boolean} - whether or not lineNumbers should be displayed
+   */
+  shouldDisplayLineNumbers(): boolean {
     return this.lineNumbers && ! this._showingMessage;
   }
 
 
   /**
-  * @Input() language
-  *
-  */
+   * Set the language used to highlight the code within the codeblock.
+   * Consider using a language directive instead if the language is not
+   * going to change dynamically.
+   *
+   * Example:
+   *    <codeblock language="markup">
+   *      <h1>This is HTML</h1>
+   *    </codeblock>
+   *
+   * @param {string} - language used for highlighting
+   */
   @Input() set language(lang: string) {
     if (this._shell) { return; }
     this._languageSet = lang && lang.length > 0 ? true : false;
@@ -159,18 +196,30 @@ export class CodeblockComponent implements AfterViewChecked {
 
 
   /**
-  * @Input() theme
-  *
-  */
+   * The theme for styling the codeblock. All prismjs themes are available.
+   *
+   * @param  {string} theme - A prismjs theme. Defaults to 'standard'.
+   */
+  set theme(theme: string) { this._theme = theme; }
+
   @Input() get theme(): string {
     if (this._theme) { return this._theme; }
 
     return this._shell ? this.DEFAULT_SHELL_THEME : this.DEFAULT_THEME;
   }
 
-  set theme(theme: string) { this._theme = theme; }
-
-  static THEMES = [
+  /**
+   * A list of the valid codeblock themes.
+   *
+   * Example:
+   * ```
+   *   <select name="select" [(ngModel)]="selectedTheme">
+   *     <option *ngFor="#theme of CodeblockComponent.THEMES"
+   *       value="{{theme}}">{{theme}}</option>
+   *   </select>
+   * ```
+   */
+  static THEMES: Array<string> = [
     "standard",
     "coy",
     "dark",
@@ -186,17 +235,34 @@ export class CodeblockComponent implements AfterViewChecked {
 
 
   /**
-  * @Input() src
-  *
-  */
-  _src: string;
-
+   * Load the code from a remote file. The file must have an extension to be
+   * loaded. Error/warning messages are displayed within the codeblock. The
+   * language is determined from the file extension, unless a language is
+   * provided.
+   *
+   * Examples:
+   * ```
+   *  <codeblock src="index.html"></codeblock>
+   *  <codeblock
+   *    src="https://raw.githubusercontent.com/tpadjen/ng2-prism/master/codeblock.js"
+   *  <codeblock
+   *    src="http://meyerweb.com/eric/tools/css/reset/reset.css"></codeblock>
+   * ```
+   *
+   * @param {string} source - Url for file to use as contents of codeblock
+   */
   @Input() set src(source: string) { this.srcChanged.next(source); }
+
+  _src: string;
 
   get src(): string {
     return this._src;
   }
 
+
+  /**
+   * Map of file extensions to highlighting languages
+   */
   static EXTENSION_MAP = {
     'js': 'javascript',
     'ts': 'typescript',
@@ -212,9 +278,23 @@ export class CodeblockComponent implements AfterViewChecked {
 
 
   /**
-  * @Input() shell
-  *
-  */
+   * Turn this codeblock into a shell display with a prompt.
+   *
+   * Example:
+   * ```
+   *   <codeblock shell="bash">
+   *     cd ..
+   *     mkdir project
+   *   </codeblock>
+   *```
+   * Result:
+   * ```
+   *   $ cd ..
+   *   $ mkdir project
+   * ```
+   *
+   * @param {string} shell - The type of shell, 'bash' or 'powershell'
+   */
   @Input() set shell(shell: string) {
     if (shell) {
       this._language = shell;
@@ -227,42 +307,104 @@ export class CodeblockComponent implements AfterViewChecked {
     }
   }
 
+  /**
+   * The prompt to display in a shell codeblock. Default is $.
+   *
+   * Example:
+   * ```
+   *   <codeblock shell="bash" prompt="#">
+   *     cd ..
+   *   </codeblock>
+   *```
+   * Result:
+   * ```
+   *   # cd ..
+   * ```
+   */
+  @Input() prompt: string = '$';
+
+  /**
+   * Comma separated list of lines or series of lines to treat as output
+   * in a shell codeblock, meaning they do not have a prompt.
+   *
+   * Example:
+   * ```
+   *   <codeblock shell="bash" outputLines="2, 4-6, 8">
+   *     Line 1
+   *     Line 2
+   *     Line 3
+   *     Line 4
+   *     Line 5
+   *     Line 6
+   *     Line 7
+   *     Line 8
+   *   </codeblock>
+   * Result:
+   * ```
+   *   $ Line 1
+   *     Line 2
+   *   $ Line 3
+   *     Line 4
+   *     Line 5
+   *     Line 6
+   *   $ Line 7
+   *     Line 8
+   * ```
+   */
+  @Input() outputLines: string;
+
+  /** Truncation **/
+  // @Input() truncationSize: number = 100000;
+  // @Input() truncationMessage: string = "\n--- File Truncated ---\n";
+
+
+  /** Outputs **/
+
+  /**
+  * @Output() srChanged
+  *
+  *  Emits an event when the src Input has been changed. The SrcService
+  *  subscribes to this event to manage the change.
+  */
+  @Output() srcChanged: EventEmitter<string> = new EventEmitter();
+
 
   /** Methods **/
 
   /**
-  * message(text: string)
-  *
-  *  Display the text inside the codeblock instead of code.
-  *  Used for errors and warnings during file loading.
-  *
-  */
+   * Display the text inside the codeblock instead of code. Used for errors
+   * and warnings during file loading. The language of the codeblock will
+   * be set to undefined when displaying a message.
+   *
+   * @param  {string} text - The message to display.
+   */
   message(text: string) {
     this._showingMessage = true;
     this.code = text;
   }
 
   /**
-  * loading()
-  *
-  *  Display a loading indicator
-  *
-  */
+   * Display a loading message
+   */
   loading() {
     this.message("Loading...");
   }
 
   /**
-  * bind(text)
-  *
-  *  Returns a double curly-braced version of the input string.
-  *  Use this inside a template to display a binding.
-  *
-  *   Example:
-  *     <codeblock markup #cb><span>{{cb.bind('name')}}</span></codeblock>
-  *   Result:
-  *     <span>{{name}}</span>
-  */
+   * Returns a double curly-braced version of the input string.
+   *  Use this inside a template to display a binding.
+   *
+   * Example:
+   * ```
+   *   <codeblock markup #cb><span>{{cb.bind('name')}}</span></codeblock>
+   * ```
+   * Result:
+   * ```
+   *   <span>{{name}}</span>
+   * ```
+   *
+   * @param  {string} text - the text to wrap in curly braces
+   */
   bind(text: string): string {
     return `{{${text}}}`;
   }
@@ -270,6 +412,7 @@ export class CodeblockComponent implements AfterViewChecked {
 
   /************ Private **************/
 
+  _code: string = '';
   _language: string;
   _showingMessage: boolean = false;
   _languageSet: boolean = false;
