@@ -1,0 +1,1 @@
+module.exports = require("npm:ng2-prism@2.1.0/codeblock.js");
