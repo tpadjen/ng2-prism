@@ -87,13 +87,14 @@ Use the `src` attribute to set a file to download as the source code for a `code
 <!-- automatically loads as javascript -->
 <codeblock src="path/to/main.js"></codeblock>
 
-<!-- tries to highlight the downloaded file as typescript --> 
+<!-- tries to highlight the downloaded file as typescript -->
 <codeblock typescript src="path/to/main.js"></codeblock>
 ```
 
 Noted on Dynamic loading:
-  
-  * The `codeblock` will automatically update on changes to `src`. These updates are not throttled by the codeblock.
+
+  * The `codeblock` will automatically update on changes to `src`.
+  * Updates to src are throttled at 300ms to prevent unnecessary http requests, you can change the time by setting `debounceTime` on the codeblock.
   * The `src` attribute must have a file extension.
   * Everything inside the dynamic codeblock will be erased.
 
@@ -110,7 +111,7 @@ Add a `theme` attribute to the `codeblock` element:
   // uses whichever theme is currently stored in the selectedTheme variable
 </codeblock>
 
-``` 
+```
 
 Your theme options are:
 
@@ -244,7 +245,7 @@ Use the `shell` attribute to display a shell prompt. Pass in the type of shell, 
 
 The `language` attribute is ignored on `shell` `codeblocks`.
 
-The default `theme` for shells is `okaidia`. 
+The default `theme` for shells is `okaidia`.
 
 #### Prompt
 

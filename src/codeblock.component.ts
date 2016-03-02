@@ -276,6 +276,16 @@ export class CodeblockComponent implements
     'psm1': 'powershell'
   };
 
+  /**
+   * Set the amount of time in ms to wait before processing changes to the src input.
+   *
+   * This can prevent unnecessary http requests. The default is 300ms.
+   */
+  @Input() set debounceTime(time: any) {
+    let parsed = parseInt(time, 10);
+    if (!isNaN(parsed) && parsed >= 0) { this._srcService.debounceTime = parsed; }
+  }
+
 
   /**
    * Turn this codeblock into a shell display with a prompt.
