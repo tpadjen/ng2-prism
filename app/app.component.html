@@ -248,9 +248,11 @@
 
   <h4 class="info">Notes on Dynamic loading</h4>
   <ul>
-    <li>The codeblock will automatically update on changes to src. These updates are not throttled by the codeblock.</li>
+    <li>The codeblock will automatically update on changes to src.</li>
+    <li>Updates to src are throttled at 300ms to prevent unnecessary http requests, you can change the time by setting <code>debounceTime</code> on the codeblock.</li>
     <li>The src attribute must have a file extension.</li>
-    <li>Everything inside the dynamic codeblock will be erased.</li>
+    <li>Everything inside the <code>codeblock</code> will be replaced by the contents of the source file.</li>
+    <li>The source contents are treated as text only, not DOM elements. Components, directives, and bindings will not be processed by angular2.</li>
   </ul>
 </section>
 <section class="feature">
@@ -356,20 +358,32 @@
     </div>
   </example>
   <p>Dynamically loaded files do not have this limitation.</p>
-  <p>Any Angular2 Components that manipulate the DOM, such as a <code>codeblock</code> or an <code>ngIf</code>, should also be escaped.</p>
+  <p>Angular2 Components, such as a <code>codeblock</code> or an </code>ngIf</code>, will be processed by angular before highlighting. If you want to show their preprocessed version in the highlighted section instead of their results they should be escaped.</p>
   <example>
     <div code>
       <codeblock markup theme="okaidia" [lineNumbers]="false">
         &lt;codeblock markup>
           &#38;lt;div *ngIf="true" >A&#38;lt;/div>
-          &#38;lt;div *ngIf="false">B&#38;lt;/div>
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock markup [lineNumbers]="false">
+        <div *ngIf="true" >A</div>
+      </codeblock>
+    </div>
+  </example>
+  <example>
+    <div code>
+      <codeblock markup theme="okaidia" [lineNumbers]="false">
+        &lt;codeblock markup>
+          &amp;#38;lt;div *ngIf="true" >A&amp;#38;lt;/div>
         &lt;/codeblock>
       </codeblock>
     </div>
     <div highlighted>
       <codeblock markup [lineNumbers]="false">
         &lt;div *ngIf="true" >A&lt;/div>
-        &lt;div *ngIf="false">B&lt;/div>
       </codeblock>
     </div>
   </example>
