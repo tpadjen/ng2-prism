@@ -379,6 +379,15 @@ export class CodeblockComponent implements
    */
   @Input() outputLines: string;
 
+  /**
+   * @deprecated  Use outputLines instead
+   */
+  @Input() set output(lines: string) {
+    console.warn("DEPRECATION WARNING: The CodeblockComponent Input property 'output'" +
+            " is no longer supported and will be removed in a future release. Use 'outputLines'");
+    this.outputLines = lines;
+  }
+
   /** Truncation **/
   // @Input() truncationSize: number = 100000;
   // @Input() truncationMessage: string = "\n--- File Truncated ---\n";
