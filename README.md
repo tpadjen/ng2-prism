@@ -78,6 +78,31 @@ Add a `codeblock` to the template with the language directive attached:
   end
 </codeblock>
 ```
+### Angular2 Bindings
+
+Use angular bindings like normal for variable output.
+
+```html
+<input type="text" [(ngModel)]="name">
+
+// {{name}} will be replaced by whatever is typed in the input
+<codeblock javascript>
+  if (name === '{{name}}') {
+    console.log("Hello, " + name);
+  }
+</codeblock>
+```
+
+If you want to display the binding without processing place a `pre` tag around any of the braces.
+
+```html
+<input type="text" [(ngModel)]="name">
+
+// {{name}} will not be replaced
+<codeblock javascript>
+  <pre>{</pre>{name}}
+</codeblock>
+```
 
 ### Dynamic Loading
 
@@ -96,7 +121,8 @@ Noted on Dynamic loading:
   * The `codeblock` will automatically update on changes to `src`.
   * Updates to src are throttled at 300ms to prevent unnecessary http requests, you can change the time by setting `debounceTime` on the codeblock.
   * The `src` attribute must have a file extension.
-  * Everything inside the dynamic codeblock will be erased.
+  * Everything inside the dynamic codeblock will be replaced by the contents of the source file.
+  * The source contents are treated as text only, not DOM elements. Components, directives, and bindings will not be processed by angular2.
 
 ### Themes
 
@@ -164,15 +190,37 @@ If you want to write a fragment of `HTML` with some unmatched tags the angular i
 
 Dynamically loaded files do not have this limitation.
 
-Any `Angular2 Components` that manipulate the DOM, such as a `codeblock` or an `ngIf`, should also be escaped:
+`Angular2 Components`, such as a `codeblock` or an `ngIf`, will be processed by angular before highlighting. If you want to show their preprocessed version in the highlighted section instead of their results they should be escaped:
 
 ```html
+<!-- Will display 'A' only -->
 <codeblock markup>
-  &lt;codeblock language="markup">
-    &lt;section *ngIf="true" >A&lt;/section>
-    &lt;section *ngIf="false">B&lt;/section>
-  &lt;/codeblock>
+  <section *ngIf="true" >A</section>
+  <section *ngIf="false">B</section>
 </codeblock>
+
+<!-- Will display both section elements -->
+<codeblock markup>
+  &lt;section *ngIf="true" >A&lt;/section>
+  &lt;section *ngIf="false">B&lt;/section>
+</codeblock>
+```
+
+`Pre` tags are removed from markup `codeblocks`. If you want to show bindings without processing you can either build the result inside the binding or use the `bind` method on a local variable assigned to the `codeblock`:
+
+```html
+// build the string you want to  display
+<codeblock markup>
+  &lt;div *ngIf="{{'{{' + expression + '}}'}}">Shown&lt;/div>
+</codeblock>
+
+// or use the bind method
+<codeblock markup #cb>
+  &lt;div *ngIf="{{ cb.bind('expression') }}">Shown&lt;/div>
+</codeblock>
+
+// result
+<div *ngIf="{{expression}}">Shown</div>
 ```
 
 ### Language
@@ -261,10 +309,10 @@ Change the `prompt` to whatever you want:
 
 #### Output
 
-Shells can have certain lines treated as console output, so they don't have a prompt. Use the `output` attribute. It accepts a comma-separated list of lines or line ranges:
+Shells can have certain lines treated as console output, so they don't have a prompt. Use the `outputLines` attribute. It accepts a comma-separated list of lines or line ranges:
 
 ```html
-<codeblock shell="bash" output="2,4,5,7-10">
+<codeblock shell="bash" outputLines="2,4,5,7-10">
   cd ../..
   This is output
   mkdir hello
