@@ -184,7 +184,7 @@ export class CodeblockComponent implements
    * @param {string} - language used for highlighting
    */
   @Input() set language(lang: string) {
-    if (this._shell) { return; }
+    if (this.isShell()) { return; }
     this._languageSet = lang && lang.length > 0 ? true : false;
     this._language = Prism.languages[lang] ? lang : undefined;
     this._changed = false;
@@ -205,7 +205,7 @@ export class CodeblockComponent implements
   @Input() get theme(): string {
     if (this._theme) { return this._theme; }
 
-    return this._shell ? this.DEFAULT_SHELL_THEME : this.DEFAULT_THEME;
+    return this.isShell() ? this.DEFAULT_SHELL_THEME : this.DEFAULT_THEME;
   }
 
   /**
@@ -303,19 +303,35 @@ export class CodeblockComponent implements
    *   $ mkdir project
    * ```
    *
-   * @param {string} shell - The type of shell, 'bash' or 'powershell'
+   * @param {string} shellType - One of CodeblockComponent.SHELL_TYPES
    */
-  @Input() set shell(shell: string) {
-    if (shell) {
-      this._language = shell;
+  @Input() set shell(shellType: string) {
+    if (shellType && CodeblockComponent.SHELL_TYPES.indexOf(shellType) !== -1) {
+      this._language = shellType;
       this._languageSet = true;
-      this._shell = true;
+      this._shellType = shellType;
       this.lineNumbers = false;
       this._changed = true;
     } else {
-      this._shell = false;
+      this._shellType = null;
     }
   }
+
+  get shell(): string {
+    return this._shellType;
+  }
+
+  /**
+   * Is this displayed as a shell?
+   */
+  isShell(): boolean {
+    return this._shellType !== null;
+  }
+
+  /**
+   * Possible shell types
+   */
+  static SHELL_TYPES: Array<string>  = ['bash', 'powershell'];
 
   /**
    * The prompt to display in a shell codeblock. Default is $.
@@ -429,6 +445,6 @@ export class CodeblockComponent implements
   _lineNumbers: boolean = true;
   _theme: string;
   _changed: boolean = false;
-  _shell: boolean = false;
+  _shellType: string = null;
 
 }
