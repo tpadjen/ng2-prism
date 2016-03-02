@@ -13,9 +13,6 @@ System.config({
     },
     "rxjs/*": {
       "build": false
-    },
-    "underscore/*": {
-      "build": false
     }
   },
 
@@ -23,7 +20,6 @@ System.config({
     "angular2": "npm:angular2@2.0.0-beta.6",
     "rxjs": "npm:rxjs@5.0.0-beta.2",
     "typescript": "npm:typescript@1.8.0",
-    "underscore": "npm:underscore@1.8.3",
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },

@@ -7,7 +7,6 @@ import {
   ViewChild
 } from 'angular2/core';
 
-let _ = require('underscore/underscore');
 let Prism = require('prism/prism');
 
 /**
@@ -98,7 +97,7 @@ export class CodeRenderer {
   }
 
 
-  
+
   /**
    * Place the new code element in the template
    */
