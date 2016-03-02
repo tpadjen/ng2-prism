@@ -180,6 +180,48 @@
   </codeblock>
 </section>
 <section class="feature">
+  <h3 link id="binding">Angular2 Binding</h3>
+  <p>Use angular bindings like normal for variable output.</p>
+  <example>
+    <div code>
+      <codeblock markup theme="okaidia" [lineNumbers]="false">
+        Name: &lt;input type="text" [(ngModel)]="name">
+        &lt;codeblock markup [lineNumbers]="false" cb>
+          &lt;codeblock javascript>
+            if (name === '{{cb.bind('name')}}') {
+              console.log("Hello, " + name);
+            }
+          &lt;/codeblock>
+        &lt;/codeblock
+      </codeblock>
+    </div>
+    <div highlighted>
+      Name: <input type="text" [(ngModel)]="name">
+      <codeblock javascript>
+        if (name === '{{name}}') {
+          console.log("Hello, " + name);
+        }
+      </codeblock>
+    </div>
+  </example>
+  <p>If you want to display the binding without processing place a <code>pre</code> tag around any of the braces.</p>
+  <example>
+    <div code>
+      <codeblock markup theme="okaidia" [lineNumbers]="false">
+        &lt;input type="text" [(ngModel)]="name">
+        &lt;codeblock javascript>
+          &lt;pre>{&lt;/pre>{name}}
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock javascript>
+        <pre>{</pre>{name}}
+      </codeblock>
+    </div>
+  </example>
+</section>
+<section class="feature">
   <h3 link id="whitespace">Whitespace</h3>
   <p>Whitespace is normalized, just use consistent indentation inside a <code>codeblock</code>.</p>
   <example>
@@ -387,6 +429,53 @@
       </codeblock>
     </div>
   </example>
+  <p><code>Pre</code> tags are removed from markup <code>codeblocks</code>. If you want to show bindings without processing you can either build the result inside the binding or use the `bind` method on a local variable assigned to the <code>codeblock</code>.
+</p>
+  <example>
+    <div code>
+      <codeblock markup theme="okaidia" [lineNumbers]="false">
+        <!-- build the string you want to  display -->
+        &lt;codeblock markup>
+          &lt;div *ngIf="{{'{{' + expression + '}}'}}">Shown&lt;/div>
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock markup>
+        <div *ngIf="{{'{{' + expression + '}}'}}">Shown</div>
+      </codeblock>
+    </div>
+  </example>
+  <example>
+    <div code>
+      <codeblock markup theme="okaidia" [lineNumbers]="false">
+        <!-- or use the bind method -->
+        &lt;codeblock markup>
+          &lt;div *ngIf="{{'{{' + expression + '}}'}}">Shown&lt;/div>
+        &lt;/codeblock>
+      </codeblock>
+    </div>
+    <div highlighted>
+      <codeblock markup>
+        &lt;div *ngIf="{{'{{' + expression + '}}'}}">Shown&lt;/div>
+      </codeblock>
+    </div>
+  </example>
+
+```html
+// build the string you want to  display
+<codeblock markup>
+  &lt;div *ngIf="{{'{{' + expression + '}}'}}">Shown&lt;/div>
+</codeblock>
+
+// or use the bind method
+<codeblock markup #cb>
+  &lt;div *ngIf="{{ cb.bind('expression') }}">Shown&lt;/div>
+</codeblock>
+
+// result
+<div *ngIf="{{expression}}">Shown</div>
+
 </section>
 <section class="feature">
   <h3 link id="shell">Shell</h3>
