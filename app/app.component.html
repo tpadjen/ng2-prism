@@ -447,11 +447,11 @@
     </div>
   </example><br>
   <h4>Output</h4>
-  <p>Shells can have certain lines treated as console output, so they don't have a prompt. Use the <code>output</code> attribute. It accepts a comma-separated list of lines or line ranges.</p>
+  <p>Shells can have certain lines treated as console output, so they don't have a prompt. Use the <code>outputLines</code> attribute. It accepts a comma-separated list of lines or line ranges.</p>
   <example>
     <div code>
       <codeblock markup theme="standard">
-        &lt;codeblock shell="bash" output="2-5">
+        &lt;codeblock shell="bash" outputLines="2-5">
           git status
           On branch master
           Your branch is ahead of 'origin/master' by 1 commit.
@@ -461,7 +461,7 @@
       </codeblock>
     </div>
     <div highlighted>
-      <codeblock shell="bash" output="2-5">
+      <codeblock shell="bash" outputLines="2-5">
         git status
         On branch master
         Your branch is ahead of 'origin/master' by 1 commit.
@@ -475,7 +475,7 @@
     <div code>
       <codeblock markup theme="standard">
         &lt;codeblock shell="bash"
-          output="2,4,5,7-10">
+          outputLines="2,4,5,7-10">
           cd ../..
           This is output
           mkdir hello
@@ -491,7 +491,7 @@
     </div>
     <div highlighted>
       <codeblock shell="bash"
-        output="2,4,5,7-10">
+        outputLines="2,4,5,7-10">
         cd ../..
         This is output
         mkdir hello
