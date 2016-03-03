@@ -16,6 +16,7 @@ import {Javascript} from 'ng2-prism/bundle/languages/javascript';
 import {Typescript} from 'ng2-prism/bundle/languages/typescript';
 import {Markup} from     'ng2-prism/bundle/languages/markup';
 
+
 @Component({
   selector: 'ng2-prism-app',
   templateUrl: 'app/app.component.html',
@@ -39,7 +40,8 @@ export class AppComponent {
 
   themes = Codeblock.THEMES;
   selectedTheme: string = "standard";
-
+  binding = 'Alice';
+  bindingExpression = "{{cb.bind('expression')}}";
   highlighted = true;
 
 }
