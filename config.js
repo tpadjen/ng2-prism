@@ -35,6 +35,7 @@ System.config({
 
   map: {
     "angular2": "npm:angular2@2.0.0-beta.7",
+    "animate.css": "npm:animate.css@3.5.1",
     "clean-css": "npm:clean-css@3.4.9",
     "css": "github:frankwallis/plugin-css@master",
     "ng2-prism": "npm:ng2-prism@2.1.7",

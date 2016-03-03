@@ -383,5 +383,6 @@
     "zone.js": "npm:zone.js@0.5.15",
     "process": "github:jspm/nodelibs-process@^0.1.0",
     "buffer": "github:jspm/nodelibs-buffer@^0.1.0"
-  }
+  },
+  "npm:animate.css@3.5.1": {}
 }
