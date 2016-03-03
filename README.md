@@ -206,21 +206,15 @@ Dynamically loaded files do not have this limitation.
 </codeblock>
 ```
 
-`Pre` tags are removed from markup `codeblocks`. If you want to show bindings without processing you can either build the result inside the binding or use the `bind` method on a local variable assigned to the `codeblock`:
+If you want to show bindings without processing use the `bind` method on a local variable assigned to the `codeblock`:
 
 ```html
-// build the string you want to  display
-<codeblock markup>
-  &lt;div *ngIf="{{'{{' + expression + '}}'}}">Shown&lt;/div>
-</codeblock>
-
-// or use the bind method
 <codeblock markup #cb>
-  &lt;div *ngIf="{{ cb.bind('expression') }}">Shown&lt;/div>
+  {{ cb.bind('expression') }}
 </codeblock>
 
 // result
-<div *ngIf="{{expression}}">Shown</div>
+{{expression}}
 ```
 
 ### Language
