@@ -1,4 +1,5 @@
 declare var require: any;
+declare var Prism: any;
 
 import {
   Component,
@@ -7,7 +8,6 @@ import {
   ViewChild
 } from 'angular2/core';
 
-let Prism = require('prism/prism');
 
 /**
  * Language files that all components should recognize

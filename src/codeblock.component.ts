@@ -14,10 +14,11 @@ import {
   ViewChild
 } from 'angular2/core';
 
+declare var require: any;
+let Prism = require('prism/prism');
+
 import {CodeRenderer} from './code-renderer.component';
 import {SrcService} from './src.service';
-
-declare var Prism: any;
 
 @Component({
   selector: 'codeblock',
