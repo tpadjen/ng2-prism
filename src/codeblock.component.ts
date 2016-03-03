@@ -188,7 +188,7 @@ export class CodeblockComponent implements
     if (this.isShell()) { return; }
     this._languageSet = lang && lang.length > 0 ? true : false;
     this._language = Prism.languages[lang] ? lang : undefined;
-    this._changed = false;
+    this._changed = true;
   }
 
   get language() {
