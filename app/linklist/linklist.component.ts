@@ -48,7 +48,7 @@ export class LinklistComponent {
   }
 
   animEnded(name) {
-    console.log("Animation finished: " + name);
+    // console.log("Animation finished: " + name);
   }
 
 }
