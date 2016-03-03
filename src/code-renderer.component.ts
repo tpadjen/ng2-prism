@@ -115,6 +115,7 @@ export class CodeRenderer {
   _highlight() {
     // this._truncateLargeFiles();
     Prism.highlightElement(this._pre.nativeElement.querySelector('code'), false, null);
+    if (this.shell && this.outputLines) { this._fixPromptOutputPadding(); }
   }
 
   /**
@@ -204,7 +205,7 @@ export class CodeRenderer {
    * The code element within <pre>
    */
   get _codeEl() {
-    return this._pre.querySelector('code');
+    return this._pre.nativeElement.querySelector('code');
   }
 
   /**
@@ -212,8 +213,9 @@ export class CodeRenderer {
    */
   _fixPromptOutputPadding() {
     let promptWidth = this._codeEl.querySelector('.command-line-prompt').clientWidth;
-    let prePadding = parseInt(this._getStyle(this._pre, 'padding-left').replace('px', ''), 10);
-    this._pre.style.paddingRight = (2 * prePadding + promptWidth / 2) + 'px';
+    let prePadding = parseInt(this._getStyle(this._pre.nativeElement,
+                              'padding-left').replace('px', ''), 10);
+    this._pre.nativeElement.style.paddingRight = (2 * prePadding + promptWidth / 2) + 'px';
   }
 
   /**
