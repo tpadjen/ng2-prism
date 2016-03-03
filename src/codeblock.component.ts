@@ -201,9 +201,11 @@ export class CodeblockComponent implements
    *
    * @param  {string} theme - A prismjs theme. Defaults to 'standard'.
    */
-  set theme(theme: string) { this._theme = theme; }
+  @Input() set theme(theme: string) {
+    this._theme = theme;
+  }
 
-  @Input() get theme(): string {
+  get theme(): string {
     if (this._theme) { return this._theme; }
 
     return this.isShell() ? this.DEFAULT_SHELL_THEME : this.DEFAULT_THEME;
