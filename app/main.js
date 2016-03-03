@@ -13795,7 +13795,7 @@ $__System.register("a7", ["1a", "a8", "a6"], function(exports_1, context_1) {
         __decorate([core_1.ViewChild(animator_directive_1.Animator), __metadata('design:type', (typeof(_a = typeof animator_directive_1.Animator !== 'undefined' && animator_directive_1.Animator) === 'function' && _a) || Object)], LinklistComponent.prototype, "animator", void 0);
         LinklistComponent = __decorate([core_1.Component({
           selector: 'linklist',
-          template: "\n    <div class=\"background\" [class.hidden]=\"menuHidden\" (click)=\"hideMenu()\"></div>\n    <button (click)=\"buttonClicked()\">Sections <i class=\"fa fa-caret-down\"></i></button>\n    <ul [class.hidden]=\"menuHidden\" animate animDuration=\"0.33\" (animEnd)=\"animEnded($event)\">\n      <li *ngFor=\"#item of listService.list\">\n        <a href=\"#{{item.id}}\" (click)=\"sectionSelected(item, $event)\"><span [style.padding-left]=\"padding(item)\">{{item.text}}</span></a>\n      </li>\n    </ul>\n  ",
+          template: "\n    <div class=\"background\" [class.hidden]=\"menuHidden\" (click)=\"hideMenu()\"></div>\n    <button (click)=\"buttonClicked()\">Sections <i class=\"fa fa-caret-down\"></i></button>\n    <ul [class.hidden]=\"menuHidden\" animate animDuration=\"0.33\" (animEnd)=\"animEnded($event)\">\n      <li *ngFor=\"#item of listService.list\">\n        <a\n          href=\"#{{item.id}}\"\n          (click)=\"sectionSelected(item, $event)\"\n        ><span\n          [style.padding-left]=\"padding(item)\"\n        >{{item.text}}</span></a>\n      </li>\n    </ul>\n  ",
           styleUrls: ["app/linklist/linklist.component.css"],
           directives: [animator_directive_1.Animator]
         }), __metadata('design:paramtypes', [(typeof(_b = typeof linklist_service_1.LinklistService !== 'undefined' && linklist_service_1.LinklistService) === 'function' && _b) || Object])], LinklistComponent);
@@ -13884,11 +13884,12 @@ $__System.register("a9", ["1a", "a8"], function(exports_1, context_1) {
           this.el = el;
         }
         LinkDirective.prototype.ngOnInit = function() {
+          console.log(this.el.nativeElement);
           var elem = this.el.nativeElement;
           var link = {
             id: elem.id,
             text: elem.innerHTML,
-            level: elem.localName == "h2" ? 0 : 1
+            level: elem.localName === "h2" ? 0 : 1
           };
           this._listService.push(link);
         };
@@ -17684,9 +17685,14 @@ $__System.registerDynamic("df", ["1a", "b9", "b5", "bb", "be", "c0", "c4", "cf",
             configurable: true
           });
           CodeRenderer.prototype._fixPromptOutputPadding = function() {
-            var promptWidth = this._codeEl.querySelector('.command-line-prompt').clientWidth;
-            var prePadding = parseInt(this._getStyle(this._pre.nativeElement, 'padding-left').replace('px', ''), 10);
-            this._pre.nativeElement.style.paddingRight = (2 * prePadding + promptWidth / 2) + 'px';
+            if (this._codeEl) {
+              var clp = this._codeEl.querySelector('.command-line-prompt');
+              if (clp) {
+                var promptWidth = this._codeEl.querySelector('.command-line-prompt').clientWidth;
+                var prePadding = parseInt(this._getStyle(this._pre.nativeElement, 'padding-left').replace('px', ''), 10);
+                this._pre.nativeElement.style.paddingRight = (2 * prePadding + promptWidth / 2) + 'px';
+              }
+            }
           };
           CodeRenderer.prototype._getStyle = function(oElm, strCssRule) {
             var strValue = "";
