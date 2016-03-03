@@ -23,7 +23,7 @@ import {SrcService} from './src.service';
 @Component({
   selector: 'codeblock',
   template: `
-    <div #contentEl class="content"><ng-content></ng-content></div>
+    <div #contentEl class="codeblock-content"><ng-content></ng-content></div>
     <div class="codeblock {{theme}}">
       <code-renderer
         [code]="code"
