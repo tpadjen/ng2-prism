@@ -24,13 +24,6 @@ MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-prom
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/-internal.js:242:1: Unexpected reserved word export
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/-internal.js:242:8: Semi-colon expected
 
-MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:5:1: Unexpected reserved word export
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:5:8: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:21:1: Unexpected reserved word export
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:21:8: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:25:1: Unexpected reserved word export
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:25:8: Semi-colon expected
-
 MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/enumerator.js:1:1: Unexpected reserved word import
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/enumerator.js:1:8: Semi-colon expected
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/enumerator.js:4:8: Semi-colon expected
@@ -110,6 +103,16 @@ MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-prom
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/all.js:50:8: Unexpected reserved word default
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/all.js:50:16: Semi-colon expected
 
+MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:1:1: Unexpected reserved word import
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:1:8: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:3:10: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:3:13: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:4:8: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:40:1: Unexpected reserved word export
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:40:8: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:40:8: Unexpected reserved word default
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:40:16: Semi-colon expected
+
 MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/race.js:1:1: Unexpected reserved word import
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/race.js:1:8: Semi-colon expected
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/race.js:3:8: Semi-colon expected
@@ -121,34 +124,12 @@ MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-prom
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/race.js:78:8: Unexpected reserved word default
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/race.js:78:16: Semi-colon expected
 
-MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:1:1: Unexpected reserved word import
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:1:8: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:3:10: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:3:13: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:4:8: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:40:1: Unexpected reserved word export
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:40:8: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:40:8: Unexpected reserved word default
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/reject.js:40:16: Semi-colon expected
-
-MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:1:1: Unexpected reserved word import
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:1:8: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:3:11: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:3:14: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:4:8: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:37:1: Unexpected reserved word export
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:37:8: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:37:8: Unexpected reserved word default
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:37:16: Semi-colon expected
-
-MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:1:1: Unexpected reserved word export
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:1:8: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:5:1: Unexpected reserved word export
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:5:8: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:9:1: Unexpected reserved word export
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:9:8: Semi-colon expected
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:22:1: Unexpected reserved word export
-/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:22:8: Semi-colon expected
+MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:5:1: Unexpected reserved word export
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:5:8: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:21:1: Unexpected reserved word export
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:21:8: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:25:1: Unexpected reserved word export
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/asap.js:25:8: Semi-colon expected
 
 MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/then.js:1:1: Unexpected reserved word import
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/then.js:1:8: Semi-colon expected
@@ -160,3 +141,22 @@ MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-prom
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/then.js:11:8: Semi-colon expected
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/then.js:11:8: Unexpected reserved word default
 /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/then.js:11:16: Semi-colon expected
+
+MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:1:1: Unexpected reserved word export
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:1:8: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:5:1: Unexpected reserved word export
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:5:8: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:9:1: Unexpected reserved word export
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:9:8: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:22:1: Unexpected reserved word export
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/utils.js:22:8: Semi-colon expected
+
+MultipleErrors: /Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:1:1: Unexpected reserved word import
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:1:8: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:3:11: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:3:14: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:4:8: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:37:1: Unexpected reserved word export
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:37:8: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:37:8: Unexpected reserved word default
+/Users/tpadjen/.jspm/packages/npm/es6-promise@3.1.2/lib/es6-promise/promise/resolve.js:37:16: Semi-colon expected

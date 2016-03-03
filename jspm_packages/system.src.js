@@ -1,5 +1,5 @@
 /*
- * SystemJS v0.19.18
+ * SystemJS v0.19.23
  */
 (function() {
 function bootstrap() {(function(__global) {
@@ -38,23 +38,15 @@ function bootstrap() {(function(__global) {
   })();
 
   function addToError(err, msg) {
-    var newErr;
-    if (err instanceof Error) {
-      newErr = new Error(err.message, err.fileName, err.lineNumber);
-      if (isBrowser) {
-        newErr.message = err.message + '\n\t' + msg;
-        newErr.stack = err.stack;
-      }
-      else {
-        // node errors only look correct with the stack modified
-        newErr.message = err.message;
-        newErr.stack = err.stack + '\n\t' + msg;
-      }
-    }
-    else {
-      newErr = err + '\n\t' + msg;
-    }
-      
+    var newErr = new Error((err.message || err) + '\n\t' + msg, err.fileName, err.lineNumber);
+    
+    // Node needs stack adjustment for throw to show message
+    if (!isBrowser)
+      newErr.stack = (err.stack || err.message || err) + '\n\t' + msg;
+    
+    // track the original error
+    newErr.originalErr = err.originalErr || err;
+
     return newErr;
   }
 
@@ -855,9 +847,15 @@ function logloads(loads) {
           enumerable: true,
           get: function () {
             return obj[key];
+          },
+          set: function() {
+            throw new Error('Module exports cannot be changed externally.');
           }
         });
       })(pNames[i]);
+
+      if (Object.freeze)
+        Object.freeze(m);
 
       return m;
     },
@@ -1334,21 +1332,37 @@ var __exec;
 
 (function() {
 
-  // System clobbering protection (mostly for Traceur)
-  var curSystem;
-  var callCounter = 0;
+  var hasBtoa = typeof btoa != 'undefined';
+
+  // used to support leading #!/usr/bin/env in scripts as supported in Node
+  var hashBangRegEx = /^\#\!.*/;
+
+  function getSource(load) {
+    var lastLineIndex = load.source.lastIndexOf('\n');
+
+    // wrap ES formats with a System closure for System global encapsulation
+    var wrap = load.metadata.format == 'esm' || load.metadata.format == 'register' || load.metadata.bundle;
+
+    var sourceMap = load.metadata.sourceMap;
+    if (sourceMap) {
+      if (typeof sourceMap != 'object')
+        throw new TypeError('load.metadata.sourceMap must be set to an object.');
+
+      if (sourceMap.mappings)
+        sourceMap.mappings = ';' + sourceMap.mappings;
+    }
+    
+    sourceMap = JSON.stringify(sourceMap);
+
+    return (wrap ? '(function(System, SystemJS) {' : '') + (load.metadata.format == 'cjs' ? load.source.replace(hashBangRegEx, '') : load.source) + (wrap ? '\n})(System, System);' : '')
+        // adds the sourceURL comment if not already present
+        + (load.source.substr(lastLineIndex, 15) != '\n//# sourceURL=' 
+          ? '\n//# sourceURL=' + load.address + (sourceMap ? '!transpiled' : '') : '')
+        // add sourceMappingURL if load.metadata.sourceMap is set
+        + (sourceMap && hasBtoa && '\n//# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(sourceMap))) || '');
+  }
+
   var curLoad;
-  function preExec(loader, load) {
-    if (callCounter++ == 0)
-      curSystem = __global.System;
-    __global.System = __global.SystemJS = loader;
-    curLoad = load;
-  }
-  function postExec() {
-    if (--callCounter == 0)
-      __global.System = __global.SystemJS = curSystem;
-    curLoad = undefined;
-  }
 
   // System.register, System.registerDynamic, AMD define pipeline
   // if currently evalling code here, immediately reduce the registered entry against the load record
@@ -1362,109 +1376,72 @@ var __exec;
     };
   });
 
-  var hasBtoa = typeof btoa != 'undefined';
-
-  // used to support leading #!/usr/bin/env in scripts as supported in Node
-  var hashBangRegEx = /^\#\!.*/;
-
-  function getSource(load, sourceMapOffset) {
-    var lastLineIndex = load.source.lastIndexOf('\n');
-
-    // wrap ES formats with a System closure for System global encapsulation
-    var wrap = load.metadata.format == 'esm' || load.metadata.format == 'register' || load.metadata.bundle;
-
-    var sourceMap = load.metadata.sourceMap;
-    if (sourceMap) {
-      if (typeof sourceMap != 'object')
-        throw new TypeError('load.metadata.sourceMap must be set to an object.');
-
-      if (sourceMapOffset && sourceMap.mappings)
-        sourceMap.mappings = ';' + sourceMap.mappings;
-    }
-    
-    sourceMap = JSON.stringify(sourceMap);
-
-    return (wrap ? '(function(System) {' : '') + (load.metadata.format == 'cjs' ? load.source.replace(hashBangRegEx, '') : load.source) + (wrap ? '\n})(System);' : '')
-        // adds the sourceURL comment if not already present
-        + (load.source.substr(lastLineIndex, 15) != '\n//# sourceURL=' 
-          ? '\n//# sourceURL=' + load.address + (sourceMap ? '!transpiled' : '') : '')
-        // add sourceMappingURL if load.metadata.sourceMap is set
-        + (sourceMap && hasBtoa && '\n//# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(sourceMap))) || '');
+  // System clobbering protection (mostly for Traceur)
+  var curSystem;
+  var callCounter = 0;
+  function preExec(loader, load) {
+    curLoad = load;
+    if (callCounter++ == 0)
+      curSystem = __global.System;
+    __global.System = __global.SystemJS = loader; 
+  }
+  function postExec() {
+    if (--callCounter == 0)
+      __global.System = __global.SystemJS = curSystem;
+    curLoad = undefined;
   }
 
-  function evalExec(load) {
-    if (load.metadata.integrity)
-      throw new TypeError('Subresource integrity checking is not supported in Web Workers or Chrome Extensions.');
+  __exec = function(load) {
+    if ((load.metadata.integrity || load.metadata.nonce) && supportsScriptExec)
+      return scriptExec.call(this, load);
     try {
       preExec(this, load);
-      new Function(getSource(load, true)).call(__global);
+      curLoad = load;
+      (0, eval)(getSource(load));
       postExec();
     }
     catch(e) {
-      postExec();
+      postExec(); 
       throw addToError(e, 'Evaluating ' + load.address);
     }
-  }
+  };
 
-  // use script injection eval to get identical global script behaviour
-  if (typeof document != 'undefined' && document.getElementsByTagName) {
-    var head;
-
+  var supportsScriptExec = false;
+  if (isBrowser && typeof document != 'undefined' && document.getElementsByTagName) {
     var scripts = document.getElementsByTagName('script');
     $__curScript = scripts[scripts.length - 1];
-    __exec = function(load) {
-      if (!this.globalEvaluationScope)
-        return evalExec.call(this, load);
 
-      if (!head)
-        head = document.head || document.body || document.documentElement;
-
-      var script = document.createElement('script');
-      script.text = getSource(load, false);
-      var onerror = window.onerror;
-      var e;
-      window.onerror = function(_e) {
-        e = addToError(_e, 'Evaluating ' + load.address);
-      }
-      preExec(this, load);
-
-      if (load.metadata.integrity)
-        script.setAttribute('integrity', load.metadata.integrity);
-      if (load.metadata.nonce)
-        script.setAttribute('nonce', load.metadata.nonce);
-
-      head.appendChild(script);
-      head.removeChild(script);
-      postExec();
-      window.onerror = onerror;
-      if (e)
-        throw e;
-    };
+    if (!(window.chrome && window.chrome.extension || navigator.userAgent.match(/^Node\.js/)))
+      supportsScriptExec = true;
   }
 
-  // global scoped eval for node
-  else if (typeof require != 'undefined') {
-    var vmModule = 'vm';
-    var vm = require(vmModule);
-    __exec = function vmExec(load) {
-      if (!this.globalEvaluationScope)
-        return evalExec.call(this, load);
+  // script execution via injecting a script tag into the page
+  // this allows CSP integrity and nonce to be set for CSP environments
+  var head;
+  function scriptExec(load) {
+    if (!head)
+      head = document.head || document.body || document.documentElement;
 
-      if (load.metadata.integrity)
-        throw new TypeError('Subresource integrity checking is unavailable in Node.');
-      try {
-        preExec(this, load);
-        vm.runInThisContext(getSource(load, false));
-        postExec();
-      }
-      catch(e) {
-        postExec();
-        throw addToError(e.toString(), 'Evaluating ' + load.address);
-      }
-    };
-  }
-  else {
-    __exec = evalExec;
+    var script = document.createElement('script');
+    script.text = getSource(load, false);
+    var onerror = window.onerror;
+    var e;
+    window.onerror = function(_e) {
+      e = addToError(_e, 'Evaluating ' + load.address);
+    }
+    preExec(this, load);
+
+    if (load.metadata.integrity)
+      script.setAttribute('integrity', load.metadata.integrity);
+    if (load.metadata.nonce)
+      script.setAttribute('nonce', load.metadata.nonce);
+
+    head.appendChild(script);
+    head.removeChild(script);
+    postExec();
+    window.onerror = onerror;
+    if (e)
+      throw e;
   }
 
 })();var absURLRegEx = /^[^\/]+:\/\//;
@@ -1532,20 +1509,12 @@ hookConstructor(function(constructor) {
     // global behaviour flags
     this.warnings = false;
     this.defaultJSExtensions = false;
-    this.globalEvaluationScope = true;
     this.pluginFirst = false;
 
     // by default load ".json" files as json
     // leading * meta doesn't need normalization
     // NB add this in next breaking release
     // this.meta['*.json'] = { format: 'json' };
-
-    // Default settings for globalEvaluationScope:
-    // Disabled for WebWorker, Chrome Extensions and jsdom
-    if (isWorker 
-        || isBrowser && window.chrome && window.chrome.extension 
-        || isBrowser && navigator.userAgent.match(/^Node\.js/))
-      this.globalEvaluationScope = false;
 
     // support the empty module, as a concept
     this.set('@empty', this.newModule({}));
@@ -1576,54 +1545,61 @@ var nodeCoreModules = ['assert', 'buffer', 'child_process', 'cluster', 'console'
   defines the `decanonicalize` function and normalizes everything into
   a URL.
  */
+
+function isPlain(name) {
+ return name[0] != '.' && name[0] != '/' && !name.match(absURLRegEx);
+}
+
+function urlResolve(name, parent) {
+  if (parent)
+    parent = parent.replace(/#/g, '%05');
+  return new URL(name, parent || baseURIObj).href.replace(/%05/g, '#');
+}
+
+// only applies to plain names
+function baseURLResolve(loader, name) {
+  return new URL(name, getBaseURLObj.call(loader)).href;
+}
+
+function coreResolve(name, parentName) {
+  // standard URL resolution
+  if (!isPlain(name))
+    return urlResolve(name, parentName);
+
+  // plain names not starting with './', '://' and '/' go through custom resolution
+  var mapMatch = getMapMatch(this.map, name);
+
+  if (mapMatch) {
+    name = this.map[mapMatch] + name.substr(mapMatch.length);
+
+    if (!isPlain(name))
+      return urlResolve(name);
+  }
+
+  if (this.has(name))
+    return name;
+  // dynamically load node-core modules when requiring `@node/fs` for example
+  if (name.substr(0, 6) == '@node/' && nodeCoreModules.indexOf(name.substr(6)) != -1) {
+    if (!this._nodeRequire)
+      throw new TypeError('Error loading ' + name + '. Can only load node core modules in Node.');
+    this.set(name, this.newModule(getESModule(this._nodeRequire(name.substr(6)))));
+    return name;
+  }
+
+  var pathed = applyPaths(this.paths, name);
+
+  if (pathed && !isPlain(pathed))
+    return urlResolve(pathed);
+
+  return baseURLResolve(this, pathed || name);
+}
+
 hook('normalize', function(normalize) {
-  return function(name, parentName) {
-    // first run map config
-    if (name[0] != '.' && name[0] != '/' && !name.match(absURLRegEx)) {
-      var mapMatch = getMapMatch(this.map, name);
-      if (mapMatch)
-        name = this.map[mapMatch] + name.substr(mapMatch.length);
-    }
-
-    // dynamically load node-core modules when requiring `@node/fs` for example
-    if (name.substr(0, 6) == '@node/' && nodeCoreModules.indexOf(name.substr(6)) != -1) {
-      if (!this._nodeRequire)
-        throw new TypeError('Error loading ' + name + '. Can only load node core modules in Node.');
-      this.set(name, this.newModule(getESModule(this._nodeRequire(name.substr(6)))));
-    }
-    
-    // relative URL-normalization
-    if (name[0] == '.' || name[0] == '/') {
-      if (parentName)
-        name = new URL(name, parentName.replace(/#/g, '%05')).href.replace(/%05/g, '#');
-      else
-        name = new URL(name, baseURIObj).href;
-    }
-
-    // if the module is in the registry already, use that
-    if (this.has(name))
-      return name;
-
-    if (name.match(absURLRegEx)) {
-      // defaultJSExtensions backwards compatibility
-      if (this.defaultJSExtensions && name.substr(name.length - 3, 3) != '.js')
-        name += '.js';
-      return name;
-    }
-
-    // applyPaths implementation provided from ModuleLoader system.js source
-    name = applyPaths(this.paths, name) || name;
-
-    // defaultJSExtensions backwards compatibility
-    if (this.defaultJSExtensions && name.substr(name.length - 3, 3) != '.js')
-      name += '.js';
-
-    // ./x, /x -> page-relative
-    if (name[0] == '.' || name[0] == '/')
-      return new URL(name, baseURIObj).href;
-    // x -> baseURL-relative
-    else
-      return new URL(name, getBaseURLObj.call(this)).href;
+  return function(name, parentName, skipExt) {
+    var resolved = coreResolve.call(this, name, parentName);
+    if (!skipExt && this.defaultJSExtensions && resolved.substr(resolved.length - 3, 3) != '.js' && !isPlain(resolved))
+      resolved += '.js';
+    return resolved;
   };
 });
 
@@ -1874,7 +1850,7 @@ SystemJSLoader.prototype.config = function(cfg) {
         throw new TypeError('"' + p + '" is not a valid package name.');
 
       var defaultJSExtension = loader.defaultJSExtensions && p.substr(p.length - 3, 3) != '.js';
-      var prop = loader.decanonicalize(p);
+      var prop = coreResolve.call(loader, p);
       if (defaultJSExtension && prop.substr(prop.length - 3, 3) == '.js')
         prop = prop.substr(0, prop.length - 3);
 
@@ -1901,7 +1877,6 @@ SystemJSLoader.prototype.config = function(cfg) {
 
   for (var c in cfg) {
     var v = cfg[c];
-    var normalizeProp = false;
 
     if (c == 'baseURL' || c == 'map' || c == 'packages' || c == 'bundles' || c == 'paths' || c == 'warnings' || c == 'packageConfigPaths')
       continue;
@@ -1912,15 +1887,16 @@ SystemJSLoader.prototype.config = function(cfg) {
     else {
       loader[c] = loader[c] || {};
 
-      if (c == 'meta' || c == 'depCache')
-        normalizeProp = true;
-
       for (var p in v) {
         // base-level wildcard meta does not normalize to retain catch-all quality
         if (c == 'meta' && p[0] == '*') {
           loader[c][p] = v[p];
         }
-        else if (normalizeProp) {
+        else if (c == 'meta') {
+          // meta can go through global map
+          loader[c][coreResolve.call(loader, p)] = v[p];
+        }
+        else if (c == 'depCache') {
           var defaultJSExtension = loader.defaultJSExtensions && p.substr(p.length - 3, 3) != '.js';
           var prop = loader.decanonicalize(p);
           if (defaultJSExtension && prop.substr(prop.length - 3, 3) == '.js')
@@ -2254,6 +2230,9 @@ SystemJSLoader.prototype.config = function(cfg) {
   // to be deprecated!
   hook('decanonicalize', function(decanonicalize) {
     return function(name, parentName) {
+      if (this.builder)
+        return decanonicalize.call(this, name, parentName, true);
+
       var decanonicalized = decanonicalize.call(this, name, parentName);
 
       if (!this.defaultJSExtensions)
@@ -3156,7 +3135,12 @@ function createEntry() {
           continue;
         return getModule(entry.normalizedDeps[i], loader);
       }
-      throw new Error('Module ' + name + ' not declared as a dependency.');
+      // try and normalize the dependency to see if we have another form
+      var nameNormalized = loader.normalizeSync(name, entry.name);
+      if (indexOf.call(entry.normalizedDeps, nameNormalized) != -1)
+        return getModule(nameNormalized, loader);
+
+      throw new Error('Module ' + name + ' not declared as a dependency of ' + entry.name);
     }, exports, module);
     
     if (output)
@@ -3346,7 +3330,7 @@ function createEntry() {
  */
 (function() {
   // good enough ES6 module detection regex - format detections not designed to be accurate, but to handle the 99% use case
-  var esmRegEx = /(^\s*|[}\);\n]\s*)(import\s+(['"]|(\*\s+as\s+)?[^"'\(\)\n;]+\s+from\s+['"]|\{)|export\s+\*\s+from\s+["']|export\s+(\{|default|function|class|var|const|let|async\s+function))/;
+  var esmRegEx = /(^\s*|[}\);\n]\s*)(import\s*(['"]|(\*\s+as\s+)?[^"'\(\)\n;]+\s*from\s*['"]|\{)|export\s+\*\s+from\s+["']|export\s*(\{|default|function|class|var|const|let|async\s+function))/;
 
   var traceurRuntimeRegEx = /\$traceurRuntime\s*\./;
   var babelHelpersRegEx = /babelHelpers\s*\./;
@@ -3612,9 +3596,6 @@ hookConstructor(function(constructor) {
         var curDefine = __global.define;
         
         __global.define = undefined;
-        __global.exports = undefined;
-        if (__global.module && __global.module.exports)
-          __global.module = undefined;
 
         // set globals
         var oldGlobals;
@@ -3768,28 +3749,31 @@ hookConstructor(function(constructor) {
           }
 
           // ensure meta deps execute first
-          for (var i = 0; i < metaDeps.length; i++)
-            require(metaDeps[i]);
-
-          // disable AMD detection
-          var define = __global.define;
-          __global.define = undefined;
+          if (!load.metadata.cjsDeferDepsExecute)
+            for (var i = 0; i < metaDeps.length; i++)
+              require(metaDeps[i]);
 
           var pathVars = loader.get('@@cjs-helpers').getPathVars(module.id);
-
-          __global.__cjsWrapper = {
+          var __cjsWrapper = {
             exports: exports,
             args: [require, exports, module, pathVars.filename, pathVars.dirname, __global, __global]
           };
 
-          var globals = '';
-          if (load.metadata.globals) {
-            for (var g in load.metadata.globals)
-              globals += 'var ' + g + ' = require("' + load.metadata.globals[g] + '");';
-          }
+          var cjsWrapper = "(function(require, exports, module, __filename, __dirname, global, GLOBAL";
 
-          load.source = "(function(require, exports, module, __filename, __dirname, global, GLOBAL) {" + globals
-              + load.source + "\n}).apply(__cjsWrapper.exports, __cjsWrapper.args);";
+          // add metadata.globals to the wrapper arguments
+          if (load.metadata.globals)
+            for (var g in load.metadata.globals) {
+              __cjsWrapper.args.push(require(load.metadata.globals[g]));
+              cjsWrapper += ", " + g;
+            }
+
+          // disable AMD detection
+          var define = __global.define;
+          __global.define = undefined;
+          __global.__cjsWrapper = __cjsWrapper;
+
+          load.source = cjsWrapper + ") {" + load.source + "\n}).apply(__cjsWrapper.exports, __cjsWrapper.args);";
 
           __exec.call(loader, load);
 
@@ -3851,6 +3835,16 @@ hookConstructor(function(constructor) {
  * Separated into its own file as this is the part needed for full AMD support in SFX builds
  * NB since implementations have now diverged this can be merged back with amd.js
  */
+
+hook('fetch', function(fetch) {
+  return function(load) {
+    // script load implies define global leak
+    if (load.metadata.scriptLoad && isBrowser)
+      __global.define = this.amdDefine;
+    return fetch.call(this, load);
+  };
+});
+ 
 hookConstructor(function(constructor) {
   return function() {
     var loader = this;
@@ -4042,9 +4036,8 @@ hookConstructor(function(constructor) {
           if (!curMeta)
             throw new TypeError('Unexpected anonymous AMD define.');
 
-          // already defined anonymously -> throw
-          if (curMeta.entry)
-            throw new TypeError('Multiple defines for anonymous module ' + load.name);
+          if (curMeta.entry && !curMeta.entry.name)
+            throw new Error('Multiple anonymous defines in module ' + load.name);
           
           curMeta.entry = entry;
         }
@@ -4060,7 +4053,7 @@ hookConstructor(function(constructor) {
           if (curMeta) {
             if (!curMeta.entry && !curMeta.bundle)
               curMeta.entry = entry;
-            else
+            else if (curMeta.entry && curMeta.entry.name)
               curMeta.entry = undefined;
 
             // note this is now a bundle
@@ -4074,29 +4067,6 @@ hookConstructor(function(constructor) {
       };
     });
 
-    // adds define as a global (potentially just temporarily)
-    function createDefine() {
-      // ensure no NodeJS environment detection
-      var oldModule = __global.module;
-      var oldExports = __global.exports;
-      var oldDefine = __global.define;
-
-      __global.module = undefined;
-      __global.exports = undefined;
-      __global.define = define;
-
-      return function() {
-        __global.define = oldDefine;
-        __global.module = oldModule;
-        __global.exports = oldExports;
-      };
-    }
-
-    loader.set('@@amd-helpers', loader.newModule({
-      createDefine: createDefine,
-      require: require,
-      define: define
-    }));
     loader.amdDefine = define;
     loader.amdRequire = require;
   };
@@ -4109,15 +4079,6 @@ hookConstructor(function(constructor) {
   // define(varName); || define(function(require, exports) {}); || define({})
   var amdRegEx = /(?:^\uFEFF?|[^$_a-zA-Z\xA0-\uFFFF.])define\s*\(\s*("[^"]+"\s*,\s*|'[^']+'\s*,\s*)?\s*(\[(\s*(("[^"]+"|'[^']+')\s*,|\/\/.*\r?\n|\/\*(.|\s)*?\*\/))*(\s*("[^"]+"|'[^']+')\s*,?)?(\s*(\/\/.*\r?\n|\/\*(.|\s)*?\*\/))*\s*\]|function\s*|{|[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*\))/;
 
-  hook('fetch', function(fetch) {
-    return function(load) {
-      // script load implies define global leak
-      if (load.metadata.scriptLoad && isBrowser)
-        this.get('@@amd-helpers').createDefine();
-      return fetch.call(this, load);
-    };
-  });
-
   hook('instantiate', function(instantiate) {
     return function(load) {
       var loader = this;
@@ -4126,13 +4087,14 @@ hookConstructor(function(constructor) {
         load.metadata.format = 'amd';
         
         if (!loader.builder && loader.execute !== false) {
-          var removeDefine = this.get('@@amd-helpers').createDefine();
+          var curDefine = __global.define;
+          __global.define = this.amdDefine;
 
           try {
             __exec.call(loader, load);
           }
           finally {
-            removeDefine();
+            __global.define = curDefine;
           }
 
           if (!load.metadata.entry && !load.metadata.bundle)
@@ -4254,7 +4216,7 @@ hookConstructor(function(constructor) {
 
       return Promise.all([
         loader.normalize(parsed.argument, parentName, true),
-        loader.normalize(parsed.plugin, parentName, true)
+        loader.normalize(parsed.plugin, parentName)
       ])
       .then(function(normalized) {
         return combinePluginParts(loader, normalized[0], normalized[1], checkDefaultExtension(loader, parsed.argument));
@@ -4457,6 +4419,9 @@ hookConstructor(function(constructor) {
         m = readMemberExpression(conditionObj.prop, m);
       else if (typeof m == 'object' && m + '' == 'Module')
         m = m['default'];
+
+      if (bool && typeof m != 'boolean')
+        throw new TypeError('Condition ' + serializeCondition(conditionObj) + ' did not resolve to a boolean.');
 
       return conditionObj.negate ? !m : m;
     });
@@ -4834,7 +4799,7 @@ hookConstructor(function(constructor) {
 System = new SystemJSLoader();
 
 __global.SystemJS = System;
-System.version = '0.19.18 Standard';
+System.version = '0.19.23 Standard';
   // -- exporting --
 
   if (typeof exports === 'object')

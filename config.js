@@ -34,17 +34,17 @@ System.config({
   },
 
   map: {
-    "angular2": "npm:angular2@2.0.0-beta.6",
+    "angular2": "npm:angular2@2.0.0-beta.7",
     "clean-css": "npm:clean-css@3.4.9",
     "css": "github:frankwallis/plugin-css@master",
-    "ng2-prism": "npm:ng2-prism@2.1.0",
+    "ng2-prism": "npm:ng2-prism@2.1.6",
     "node_modules/prismjs": "github:PrismJS/prism@gh-pages",
     "normalize.css": "github:necolas/normalize.css@3.0.3",
     "reflect-metadata": "npm:reflect-metadata@0.1.2",
     "rxjs": "npm:rxjs@5.0.0-beta.2",
     "ts": "github:frankwallis/plugin-typescript@3.0.2",
     "typescript": "npm:typescript@1.8.0",
-    "zone.js": "npm:zone.js@0.5.14",
+    "zone.js": "npm:zone.js@0.5.15",
     "github:frankwallis/plugin-typescript@3.0.2": {
       "typescript": "npm:typescript@1.9.0-dev.20160213"
     },
@@ -106,15 +106,6 @@ System.config({
       "module": "github:jspm/nodelibs-module@0.1.0",
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
-    },
-    "npm:angular2@2.0.0-beta.6": {
-      "crypto": "github:jspm/nodelibs-crypto@0.1.0",
-      "es6-promise": "npm:es6-promise@3.1.2",
-      "es6-shim": "npm:es6-shim@0.33.13",
-      "process": "github:jspm/nodelibs-process@0.1.2",
-      "reflect-metadata": "npm:reflect-metadata@0.1.2",
-      "rxjs": "npm:rxjs@5.0.0-beta.0",
-      "zone.js": "npm:zone.js@0.5.14"
     },
     "npm:angular2@2.0.0-beta.7": {
       "crypto": "github:jspm/nodelibs-crypto@0.1.0",
@@ -310,7 +301,7 @@ System.config({
       "bn.js": "npm:bn.js@4.10.5",
       "brorand": "npm:brorand@1.0.5"
     },
-    "npm:ng2-prism@2.1.0": {
+    "npm:ng2-prism@2.1.6": {
       "angular2": "npm:angular2@2.0.0-beta.7",
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "es6-promise": "npm:es6-promise@3.1.2",
@@ -382,10 +373,6 @@ System.config({
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:rxjs@5.0.0-beta.0": {
-      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
-      "process": "github:jspm/nodelibs-process@0.1.2"
-    },
     "npm:rxjs@5.0.0-beta.2": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
@@ -420,10 +407,6 @@ System.config({
     },
     "npm:vm-browserify@0.0.4": {
       "indexof": "npm:indexof@0.0.1"
-    },
-    "npm:zone.js@0.5.14": {
-      "es6-promise": "npm:es6-promise@3.1.2",
-      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:zone.js@0.5.15": {
       "es6-promise": "npm:es6-promise@3.1.2",

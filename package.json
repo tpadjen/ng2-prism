@@ -13,9 +13,9 @@
     "dependencies": {
       "angular2": "npm:angular2@2.0.0-beta.7",
       "clean-css": "npm:clean-css@^3.4.9",
-      "ng2-prism": "npm:ng2-prism@2.1.0",
+      "ng2-prism": "npm:ng2-prism@2.1.6",
       "normalize.css": "necolas/normalize.css@^3.0.3",
-      "reflect-metadata": "npm:reflect-metadata@^0.1.2",
+      "reflect-metadata": "npm:reflect-metadata@0.1.2",
       "rxjs": "npm:rxjs@^5.0.0-beta.2",
       "zone.js": "npm:zone.js@^0.5.15"
     },
