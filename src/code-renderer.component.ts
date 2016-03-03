@@ -212,10 +212,15 @@ export class CodeRenderer {
    * Adds back padding on output shells because of floated left prompt
    */
   _fixPromptOutputPadding() {
-    let promptWidth = this._codeEl.querySelector('.command-line-prompt').clientWidth;
-    let prePadding = parseInt(this._getStyle(this._pre.nativeElement,
-                              'padding-left').replace('px', ''), 10);
-    this._pre.nativeElement.style.paddingRight = (2 * prePadding + promptWidth / 2) + 'px';
+    if (this._codeEl) {
+      let clp = this._codeEl.querySelector('.command-line-prompt');
+      if (clp) {
+        let promptWidth = this._codeEl.querySelector('.command-line-prompt').clientWidth;
+        let prePadding = parseInt(this._getStyle(this._pre.nativeElement,
+          'padding-left').replace('px', ''), 10);
+          this._pre.nativeElement.style.paddingRight = (2 * prePadding + promptWidth / 2) + 'px';
+      }
+    }
   }
 
   /**
