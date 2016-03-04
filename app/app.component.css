@@ -12,7 +12,8 @@ p {
 
 select {
   -webkit-appearance: menulist-button;
-  // height: 50px;
+  -moz-appearance: menulist-button;
+  /*height: 50px;*/
   line-height: 1.5rem;
   font-size: 1.3rem;
 }
@@ -30,8 +31,20 @@ select {
   width: 90%; margin: 0 auto;
 }
 
+h2 {
+  margin-bottom: 0;
+}
+
+h2 + .feature > p:first-child {
+  margin-top: 20px;
+}
+
 .feature {
   margin-bottom: 2rem;
+}
+
+.feature h3 {
+  padding-top: 20px;
 }
 
 .feature h4 {
@@ -44,7 +57,7 @@ hr {
   margin: 26px auto 20px auto;
   border-style: solid;
   border-color: #9EAFB5;
-  background-color; #9EAFB5;
+  background-color: #9EAFB5;
   color: #9EAFB5;
 }
 

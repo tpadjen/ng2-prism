@@ -1,29 +1,45 @@
-import {Component, Input, ViewChild} from "angular2/core";
+import {
+  Component,
+  Input,
+  ViewChild
+} from "angular2/core";
 import {LinklistService} from "./linklist.service";
 import {Animator} from './animator.directive';
+
+import {Sticky} from '../sticky/sticky.directive';
 
 @Component({
   selector: 'linklist',
   template: `
-    <div class="background" [class.hidden]="menuHidden" (click)="hideMenu()"></div>
-    <button (click)="buttonClicked()">Sections <i class="fa fa-caret-down"></i></button>
-    <ul [class.hidden]="menuHidden" animate animDuration="0.33" (animEnd)="animEnded($event)">
-      <li *ngFor="#item of listService.list">
-        <a href="#{{item.id}}" (click)="sectionSelected(item, $event)"><span [style.padding-left]="padding(item)">{{item.text}}</span></a>
-      </li>
-    </ul>
+    <div class="linklist" sticky>
+      <div class="background" [class.hidden]="menuHidden" (click)="hideMenu()"></div>
+      <button (click)="buttonClicked()">Sections <i class="fa fa-caret-down"></i></button>
+      <ul [class.hidden]="menuHidden" animate animDuration="0.33" (animEnd)="animEnded($event)">
+        <li *ngFor="#item of listService.list">
+          <a
+            href="#{{item.id}}"
+            (click)="sectionSelected(item, $event)"
+          ><span
+            [style.padding-left]="padding(item)"
+          >{{item.text}}</span></a>
+        </li>
+      </ul>
+    </div>
   `,
   styleUrls: [`app/linklist/linklist.component.css`],
-  directives: [Animator]
+  directives: [Animator, Sticky]
 })
 export class LinklistComponent {
 
   @Input() indent: number = 8;
   menuHidden = true;
 
-  @ViewChild(Animator) private animator:Animator;
+  @ViewChild(Animator) private animator: Animator;
 
-  constructor(public listService: LinklistService) { }
+  topOffset: number;
+
+  constructor(
+    public listService: LinklistService) { }
 
   padding(item) {
     return item.level*this.indent + 'px';
@@ -50,5 +66,6 @@ export class LinklistComponent {
   animEnded(name) {
     // console.log("Animation finished: " + name);
   }
+
 
 }

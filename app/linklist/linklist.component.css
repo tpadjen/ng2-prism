@@ -61,3 +61,7 @@ li a {
   text-decoration: none;
   color: #1E95BD;
 }
+
+.linklist {
+  z-index: 555;
+}
