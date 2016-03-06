@@ -16,7 +16,7 @@ button i {
 }
 
 .hidden {
-  opacity: 0;
+  display: none;
 }
 
 .background {
