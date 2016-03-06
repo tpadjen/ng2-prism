@@ -44,4 +44,12 @@ export class AppComponent {
   bindingExpression = "{{cb.bind('expression')}}";
   highlighted = true;
 
+  ngOnInit() {
+    // replace hash because it might load too late
+    if (window.location.hash) {
+      history.replaceState("", document.title, window.location.pathname + window.location.search);
+      window.scrollTo(0, 0);
+    }
+  }
+
 }

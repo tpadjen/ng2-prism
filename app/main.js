@@ -13788,9 +13788,7 @@ $__System.register("a7", ["1a", "a8", "a6"], function(exports_1, context_1) {
           this.menuHidden = true;
           this.animator.finish();
         };
-        LinklistComponent.prototype.animEnded = function(name) {
-          console.log("Animation finished: " + name);
-        };
+        LinklistComponent.prototype.animEnded = function(name) {};
         __decorate([core_1.Input(), __metadata('design:type', Number)], LinklistComponent.prototype, "indent", void 0);
         __decorate([core_1.ViewChild(animator_directive_1.Animator), __metadata('design:type', (typeof(_a = typeof animator_directive_1.Animator !== 'undefined' && animator_directive_1.Animator) === 'function' && _a) || Object)], LinklistComponent.prototype, "animator", void 0);
         LinklistComponent = __decorate([core_1.Component({
@@ -32738,6 +32736,12 @@ $__System.register("131", ["1a", "a5", "a8", "a7", "a9", "e0", "e1", "e2", "e3",
           this.bindingExpression = "{{cb.bind('expression')}}";
           this.highlighted = true;
         }
+        AppComponent.prototype.ngOnInit = function() {
+          if (window.location.hash) {
+            history.replaceState("", document.title, window.location.pathname + window.location.search);
+            window.scrollTo(0, 0);
+          }
+        };
         AppComponent = __decorate([core_1.Component({
           selector: 'ng2-prism-app',
           templateUrl: 'app/app.component.html',
