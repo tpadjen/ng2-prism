@@ -17,7 +17,7 @@ var excludes = {
 
 var languages = fs.readdirSync('node_modules/prismjs/components')
                   .map(function(file) {
-                    var match = file.match(/(\w+)\.js$/);
+                    var match = file.match(/prism-(\w+)\.js$/);
                     return match ? match[1] : null;
                   })
                   .filter(function(name) {
