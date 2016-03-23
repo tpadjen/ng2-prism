@@ -1,7 +1,7 @@
 {
   "name": "ng2-prism",
   "version": "2.1.7",
-  "description": "An example repository for building your own Angular 2 library",
+  "description": "An Angular2 codeblock highlighting component using Prismjs.",
   "main": "codeblock.js",
   "scripts": {
     "make": "node tasks/make.js",
