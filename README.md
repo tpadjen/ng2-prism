@@ -24,7 +24,7 @@ No additional setup necessary.
 
 ### systemjs only (installed with npm)
 
-Systemjs needs to know the path to `ng2-prism`, along with the typical angular dependencies (including http). Use `map`, and make sure `defaultJSExtensions` is set to `true`. Here is an example config, for use with the angular2 quickstart:
+Systemjs needs to know the path to `ng2-prism` and `prismjs`, along with the typical angular dependencies (including http). Use `map`, and make sure `defaultJSExtensions` is set to `true`. Here is an example config, for use with the angular2 quickstart:
 
 ```html
 <script>
@@ -38,7 +38,8 @@ Systemjs needs to know the path to `ng2-prism`, along with the typical angular d
     map: {
       "angular2": "node_modules/angular2",
       "rxjs": "node_modules/rxjs",
-      "ng2-prism": "node_modules/ng2-prism"
+      "ng2-prism": "node_modules/ng2-prism",
+      "prismjs": "node_modules/prismjs"
     }
   });
   System.import('app/main')
