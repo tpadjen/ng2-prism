@@ -10,5 +10,8 @@ languages.d.ts
 languages.js
 **/*.d.ts
 src/*.js
+src/*.js.map
+src/languages
 codeblock.js
 typings
+*.js.map
