@@ -1,11 +1,11 @@
 import {Directive, ElementRef} from 'angular2/core';
 
-import 'prismjs/components/prism-{{lang}}';
+import 'prismjs/components/prism-processing';
 
 @Directive({
-  selector: 'codeblock[{{lang}}]'
+  selector: 'codeblock[processing]'
 })
-export class {{lang_title}} {
+export class Processing {
 
   codeblock:any;
 
@@ -14,7 +14,7 @@ export class {{lang_title}} {
   ngOnInit() {
     // get the host
     this.codeblock = (<any>this.el).internalElement.componentView.context;
-    this.codeblock.language = '{{lang}}';
+    this.codeblock.language = 'processing';
   }
 
 }

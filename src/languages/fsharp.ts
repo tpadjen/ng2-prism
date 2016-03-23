@@ -1,11 +1,11 @@
 import {Directive, ElementRef} from 'angular2/core';
 
-import 'prismjs/components/prism-{{lang}}';
+import 'prismjs/components/prism-fsharp';
 
 @Directive({
-  selector: 'codeblock[{{lang}}]'
+  selector: 'codeblock[fsharp]'
 })
-export class {{lang_title}} {
+export class Fsharp {
 
   codeblock:any;
 
@@ -14,7 +14,7 @@ export class {{lang_title}} {
   ngOnInit() {
     // get the host
     this.codeblock = (<any>this.el).internalElement.componentView.context;
-    this.codeblock.language = '{{lang}}';
+    this.codeblock.language = 'fsharp';
   }
 
 }

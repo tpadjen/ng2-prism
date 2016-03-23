@@ -1,11 +1,11 @@
 import {Directive, ElementRef} from 'angular2/core';
 
-import 'prismjs/components/prism-{{lang}}';
+import 'prismjs/components/prism-oz';
 
 @Directive({
-  selector: 'codeblock[{{lang}}]'
+  selector: 'codeblock[oz]'
 })
-export class {{lang_title}} {
+export class Oz {
 
   codeblock:any;
 
@@ -14,7 +14,7 @@ export class {{lang_title}} {
   ngOnInit() {
     // get the host
     this.codeblock = (<any>this.el).internalElement.componentView.context;
-    this.codeblock.language = '{{lang}}';
+    this.codeblock.language = 'oz';
   }
 
 }

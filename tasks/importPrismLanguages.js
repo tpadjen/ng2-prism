@@ -11,13 +11,13 @@ console.log("Cleaning languages folder");
 rimraf.sync('languages');
 fs.mkdirSync('languages');
 
-var requireImports = {
-  bison: 'c',
-  cpp: 'c',
-  crystal: 'ruby',
-  objectivec: 'c',
-  scala: 'java',
-};
+// var requireImports = {
+//   bison: 'c',
+//   cpp: 'c',
+//   crystal: 'ruby',
+//   objectivec: 'c',
+//   scala: 'java',
+// };
 
 var excludes = {
   core: true
@@ -40,7 +40,7 @@ languages.forEach(function(lang) {
   var file = "languages/" + lang + ".js";
   var original = 'node_modules/prismjs/components/prism-' + lang + '.js';
   var text = fs.readFileSync(original);
-  if (requireImports[lang]) { text = buildImport(requireImports[lang]) + text; }
+  // if (requireImports[lang]) { text = buildImport(requireImports[lang]) + text; }
   fs.writeFileSync(file, text);
 });
 console.log("\ndone");

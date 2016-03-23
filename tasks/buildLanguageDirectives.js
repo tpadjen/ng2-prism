@@ -11,7 +11,11 @@ rimraf.sync('src/languages');
 fs.mkdirSync('src/languages');
 
 
-var languages = fs.readdirSync('languages')
+var excludes = {
+  core: true
+};
+
+var languages = fs.readdirSync('node_modules/prismjs/components')
                   .map(function(file) {
                     var match = file.match(/(\w+)\.js$/);
                     return match ? match[1] : null;
@@ -32,6 +36,8 @@ var tsFiles = [
 ];
 
 languages.forEach(function(language) {
+  if (excludes[language]) return;
+
   var data = languageTemplate.replace(/{{lang}}/g, language);
   var title = language.charAt(0).toUpperCase() + language.slice(1);
   data = data.replace(/{{lang_title}}/g, title);
