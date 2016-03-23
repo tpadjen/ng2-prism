@@ -3,7 +3,6 @@ tasks
 config.js
 tsconfig.json
 *.ts
-languages
 tslint.json
 typings
 typings.json
