@@ -3,6 +3,7 @@ tasks
 config.js
 tsconfig.json
 *.ts
+!*.d.ts
 tslint.json
 typings
 typings.json
