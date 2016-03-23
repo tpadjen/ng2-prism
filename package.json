@@ -6,7 +6,7 @@
   "scripts": {
     "make": "node tasks/make.js",
     "watch": "tsc -w",
-    "build": "npm run build-directives && rm -rf bundle && tsc && npm run build-css && node tasks/make.js && npm run bundle-langs",
+    "build": "npm run build-directives && rm -rf bundle && tsc && npm run build-css && node tasks/make.js",
     "build-directives": "node tasks/buildLanguageDirectives.js",
     "bundle-langs": "node tasks/bundleCompiledLanguages.js",
     "build-css": "node tasks/buildCSS.js",

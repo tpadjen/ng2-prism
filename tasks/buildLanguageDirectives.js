@@ -7,8 +7,8 @@ var rimraf = require('rimraf');
 //  * languages.js
 //  * languages.d.ts
 
-rimraf.sync('src/languages');
-fs.mkdirSync('src/languages');
+rimraf.sync('languages');
+fs.mkdirSync('languages');
 
 
 var excludes = {
@@ -41,12 +41,12 @@ languages.forEach(function(language) {
   var data = languageTemplate.replace(/{{lang}}/g, language);
   var title = language.charAt(0).toUpperCase() + language.slice(1);
   data = data.replace(/{{lang_title}}/g, title);
-  var filename = "src/languages/" + language + ".ts";
+  var filename = "languages/" + language + ".ts";
   tsFiles.push(filename);
   fs.writeFileSync(filename, data);
-  jsExports.push("exports." + title + " = require('./src/languages/" +
+  jsExports.push("exports." + title + " = require('./languages/" +
                   language + "')." +  title + ';');
-  dtsExports.push("export * from './src/languages/" + language + "';");
+  dtsExports.push("export * from './languages/" + language + "';");
 });
 
 tsFiles = tsFiles.map(function(file) { return '"' + file + '"'; });

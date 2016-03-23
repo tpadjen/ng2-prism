@@ -6,3 +6,5 @@ tsconfig.json
 tslint.json
 typings
 typings.json
+!languages/*.js
+!languages/*.d.ts
