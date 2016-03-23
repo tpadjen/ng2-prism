@@ -11,3 +11,4 @@ languages.js
 **/*.d.ts
 src/*.js
 codeblock.js
+typings

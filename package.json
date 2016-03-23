@@ -11,7 +11,8 @@
     "import-langs": "node tasks/importPrismLanguages.js",
     "bundle-langs": "node tasks/bundleCompiledLanguages.js",
     "build-css": "node tasks/buildCSS.js",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "postinstall": "rimraf typings && typings i"
   },
   "repository": {
     "type": "git",
