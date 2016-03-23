@@ -1,6 +1,11 @@
 var fs = require('fs');
 var rimraf = require('rimraf');
 
+console.log("Bundling language directives...");
+
+rimraf.sync('bundles/languages');
+fs.mkdirSync('bundles/languages');
+
 var languages = fs.readdirSync('languages')
                   .map(function(file) {
                     var match = file.match(/(\w+)\.js$/);
@@ -12,9 +17,12 @@ var languages = fs.readdirSync('languages')
 
 languages.forEach(function(language) {
   var requires = fs.readFileSync('languages/' + language + ".js");
-  var file = "bundle/languages/" + language + ".js";
+  var file = "src/languages/" + language + ".js";
   var directive = fs.readFileSync(file);
-  fs.writeFileSync(file, requires + "\n\n" + directive);
+  var out = "bundles/languages/" + language + ".js";
+  fs.writeFileSync(out, requires + "\n\n" + directive);
 });
 
 rimraf.sync('languages');
+
+console.log("Languages Bundled");

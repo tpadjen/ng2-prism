@@ -1,6 +1,3 @@
-// Required in angular beta 6
-///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
-
 import {
   Component,
   AfterViewChecked,

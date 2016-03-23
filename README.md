@@ -256,10 +256,10 @@ If you choose to use the `language` attribute the language must still be importe
 *Currently all languages are automatically imported when **any** language is imported from ng2-prism/languages*. To import only the language(s) you want:
 ```js
 // if you want the directive:
-import {Ruby} from 'ng2-prism/bundle/languages/ruby';
+import {Ruby} from 'ng2-prism/bundles/languages/ruby';
 
 // If you just want the language:
-import 'ng2-prism/bundle/languages/ruby';
+import 'ng2-prism/bundles/languages/ruby';
 ```
 
 ### Line Numbers

@@ -6,11 +6,20 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "removeComments": true,
-    "sourceMap": false,
-    "outDir": "bundle",
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "declaration": true
   },
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "exclude": [
+    "node_modules",
+    "typings/main",
+    "typings/main.d.ts"
+  ],
   "files": [
+    "typings/browser.d.ts",
+    "codeblock.ts",
     "src/codeblock.component.ts",
     "src/code-renderer.component.ts",
     "src/src.service.ts",
