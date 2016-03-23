@@ -1,15 +1,3 @@
-System.register(['./src/codeblock.component'], function(exports_1, context_1) {
-    "use strict";
-    var __moduleName = context_1 && context_1.id;
-    return {
-        setters:[
-            function (codeblock_component_1_1) {
-                exports_1({
-                    "Codeblock": codeblock_component_1_1["CodeblockComponent"]
-                });
-            }],
-        execute: function() {
-        }
-    }
-});
-//# sourceMappingURL=codeblock.js.map
+var codeblock_component_1 = require('./src/codeblock.component');
+exports.Codeblock = codeblock_component_1.CodeblockComponent;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29kZWJsb2NrLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiY29kZWJsb2NrLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLG9DQUE4QywyQkFBMkIsQ0FBQztBQUFsRSw2REFBa0UiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQge0NvZGVibG9ja0NvbXBvbmVudCBhcyBDb2RlYmxvY2t9IGZyb20gJy4vc3JjL2NvZGVibG9jay5jb21wb25lbnQnO1xuIl19

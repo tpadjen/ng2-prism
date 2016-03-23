@@ -6,7 +6,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "removeComments": true,
-    "sourceMap": false,
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "declaration": true
   },
   "compileOnSave": false,
