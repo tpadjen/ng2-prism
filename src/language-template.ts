@@ -1,6 +1,6 @@
+import 'prismjs/components/prism-{{lang}}';
 import {Directive, ElementRef} from 'angular2/core';
 
-// import 'ng2-prism/languages/prism-{{lang}}';
 
 @Directive({
   selector: 'codeblock[{{lang}}]'

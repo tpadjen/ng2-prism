@@ -7,13 +7,29 @@ var rimraf = require('rimraf');
 //  * languages.js
 //  * languages.d.ts
 
-rimraf.sync('src/languages');
-fs.mkdirSync('src/languages');
 
+function buildImport(lang) {
+  return "import 'prismjs/components/prism-" + lang + "';\n";
+}
 
-var languages = fs.readdirSync('languages')
+rimraf.sync('languages');
+fs.mkdirSync('languages');
+
+var requireImports = {
+  bison: 'c',
+  cpp: 'c',
+  crystal: 'ruby',
+  objectivec: 'c',
+  scala: 'java',
+};
+
+var excludes = {
+  core: true
+};
+
+var languages = fs.readdirSync('node_modules/prismjs/components')
                   .map(function(file) {
-                    var match = file.match(/(\w+)\.js$/);
+                    var match = file.match(/prism-(\w+)\.js$/);
                     return match ? match[1] : null;
                   })
                   .filter(function(name) {
@@ -32,15 +48,18 @@ var tsFiles = [
 ];
 
 languages.forEach(function(language) {
+  if (excludes[language]) return;
+
   var data = languageTemplate.replace(/{{lang}}/g, language);
   var title = language.charAt(0).toUpperCase() + language.slice(1);
   data = data.replace(/{{lang_title}}/g, title);
-  var filename = "src/languages/" + language + ".ts";
+  if (requireImports[language]) { data = buildImport(requireImports[language]) + data; }
+  var filename = "languages/" + language + ".ts";
   tsFiles.push(filename);
   fs.writeFileSync(filename, data);
-  jsExports.push("exports." + title + " = require('./src/languages/" +
+  jsExports.push("exports." + title + " = require('./languages/" +
                   language + "')." +  title + ';');
-  dtsExports.push("export * from './src/languages/" + language + "';");
+  dtsExports.push("export * from './languages/" + language + "';");
 });
 
 tsFiles = tsFiles.map(function(file) { return '"' + file + '"'; });

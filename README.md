@@ -254,13 +254,13 @@ Codeblocks without a valid loaded `language` attribute or directive get everythi
 
 If you choose to use the `language` attribute the language must still be imported, but you do not have to list it in the directives array because the template does not need to know about it.
 
-*Currently all languages are automatically imported when **any** language is imported from ng2-prism/languages*. To import only the language(s) you want:
+*All languages are automatically loaded when **any** language is imported from ng2-prism/languages*. To import only the language(s) you want:
 ```js
 // if you want the directive:
-import {Ruby} from 'ng2-prism/bundles/languages/ruby';
+import {Ruby} from 'ng2-prism/languages/ruby';
 
 // If you just want the language:
-import 'ng2-prism/bundles/languages/ruby';
+import 'ng2-prism/languages/ruby';
 ```
 
 ### Line Numbers
