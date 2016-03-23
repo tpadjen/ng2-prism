@@ -12,17 +12,17 @@ import {
 /**
  * Language files that all components should recognize
  */
-require('prism/components/prism-bash');
-require('prism/components/prism-powershell');
-require('prism/components/prism-javascript');
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-powershell';
+import 'prismjs/components/prism-javascript';
 Prism.languages.undefined = {};
 
 /**
  * Prism plugins
  */
-require('prism/plugins/line-numbers/prism-line-numbers');
-require('prism/plugins/command-line/prism-command-line');
-require('prism/plugins/normalize-whitespace/prism-normalize-whitespace');
+import 'prismjs/plugins/line-numbers/prism-line-numbers';
+import 'prismjs/plugins/command-line/prism-command-line';
+import 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace';
 
 /**
  * Represent template tags added by angular structural directives

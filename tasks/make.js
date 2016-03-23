@@ -16,7 +16,7 @@ var config = {
     typescript: './node_modules/typescript/lib/typescript.js',
     angular2: path.resolve('node_modules/angular2'),
     rxjs: path.resolve('node_modules/rxjs'),
-    prism: path.resolve('node_modules/prismjs')
+    prismjs: path.resolve('node_modules/prismjs')
   },
   paths: {
     '*': '*.js'
