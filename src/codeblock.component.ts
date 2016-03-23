@@ -12,7 +12,8 @@ import {
 } from 'angular2/core';
 
 declare var require: any;
-let Prism = require('prism/prism');
+declare var Prism: any;
+import 'prismjs/prism';
 
 import {CodeRenderer} from './code-renderer.component';
 import {SrcService} from './src.service';
