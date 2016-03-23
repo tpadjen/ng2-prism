@@ -7,10 +7,12 @@
     "moduleResolution": "node",
     "removeComments": true,
     "sourceMap": false,
-    "outDir": "bundle",
     "declaration": true
   },
+  "compileOnSave": false,
+  "buildOnSave": false,
   "files": [
+    "codeblock.ts",
     "src/codeblock.component.ts",
     "src/code-renderer.component.ts",
     "src/src.service.ts",

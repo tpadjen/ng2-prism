@@ -24,6 +24,7 @@ var languageTemplate = fs.readFileSync('src/language-template.ts', 'utf8');
 var  jsExports = [];
 var dtsExports = [];
 var tsFiles = [
+  "codeblock.ts",
   "src/codeblock.component.ts",
   "src/code-renderer.component.ts",
   "src/src.service.ts"
@@ -36,9 +37,9 @@ languages.forEach(function(language) {
   var filename = "src/languages/" + language + ".ts";
   tsFiles.push(filename);
   fs.writeFileSync(filename, data);
-  jsExports.push("exports." + title + " = require('./bundle/languages/" +
+  jsExports.push("exports." + title + " = require('./src/languages/" +
                   language + "')." +  title + ';');
-  dtsExports.push("export * from './bundle/languages/" + language + "';");
+  dtsExports.push("export * from './src/languages/" + language + "';");
 });
 
 tsFiles = tsFiles.map(function(file) { return '"' + file + '"'; });

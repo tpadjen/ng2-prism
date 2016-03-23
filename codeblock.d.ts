@@ -1,1 +1,1 @@
-export {CodeblockComponent as Codeblock} from './bundle/codeblock.component';
+export { CodeblockComponent as Codeblock } from './src/codeblock.component';
