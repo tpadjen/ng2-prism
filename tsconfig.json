@@ -12,6 +12,11 @@
   },
   "compileOnSave": false,
   "buildOnSave": false,
+  "exclude": [
+    "node_modules",
+    "typings/main",
+    "typings/main.d.ts"
+  ],
   "files": [
     "typings/browser.d.ts",
     "codeblock.ts",
