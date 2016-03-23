@@ -7,9 +7,21 @@ var rimraf = require('rimraf');
 //  * languages.js
 //  * languages.d.ts
 
+
+function buildImport(lang) {
+  return "import 'prismjs/components/prism-" + lang + "';\n";
+}
+
 rimraf.sync('languages');
 fs.mkdirSync('languages');
 
+var requireImports = {
+  bison: 'c',
+  cpp: 'c',
+  crystal: 'ruby',
+  objectivec: 'c',
+  scala: 'java',
+};
 
 var excludes = {
   core: true
@@ -41,6 +53,7 @@ languages.forEach(function(language) {
   var data = languageTemplate.replace(/{{lang}}/g, language);
   var title = language.charAt(0).toUpperCase() + language.slice(1);
   data = data.replace(/{{lang_title}}/g, title);
+  if (requireImports[language]) { data = buildImport(requireImports[language]) + data; }
   var filename = "languages/" + language + ".ts";
   tsFiles.push(filename);
   fs.writeFileSync(filename, data);
