@@ -9,3 +9,5 @@ typings
 typings.json
 !languages/*.js
 !languages/*.d.ts
+src/*.scss
+src/language-template.js
