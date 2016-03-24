@@ -11,6 +11,9 @@ languages.js
 **/*.d.ts
 src/*.js
 src/*.js.map
-codeblock.js
 typings
 *.js.map
+
+# untracked
+codeblock.js
+codeblock.d.ts
