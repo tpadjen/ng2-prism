@@ -10,8 +10,7 @@
     "build-directives": "node tasks/buildLanguageDirectives.js",
     "bundle-langs": "node tasks/bundleCompiledLanguages.js",
     "build-css": "node tasks/buildCSS.js",
-    "prepublish": "npm run build",
-    "postinstall": "rimraf typings && typings i"
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
