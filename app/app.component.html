@@ -168,15 +168,15 @@
 
   <p>If you choose to use the <code>language</code> attribute the language must still be imported, but you do not have to list it under the directives array because the template does not need to know about it.</p>
   <hr>
-  <p><strong>Currently all languages are loaded when <em>any</em> language is imported from <code>ng2-prism/languages</code></strong>.</p>
+  <p><strong>All languages are loaded when <em>any</em> language is imported from <code>ng2-prism/languages</code></strong>.</p>
   <hr>
   <p>To import only the language you want specify the path to the language.</p>
   <codeblock class="solo" typescript>
     // if you want the directive:
-    import {Ruby} from 'ng2-prism/bundle/languages/ruby';
+    import {Ruby} from 'ng2-prism/languages/ruby';
 
     // If you just want the language:
-    import 'ng2-prism/bundle/languages/ruby';
+    import 'ng2-prism/languages/ruby';
   </codeblock>
 </section>
 <section class="feature">
