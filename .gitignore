@@ -16,4 +16,5 @@ typings
 
 # untracked
 codeblock.js
+codeblock.js.map
 codeblock.d.ts
