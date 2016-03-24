@@ -38,10 +38,11 @@ var languages = fs.readdirSync('node_modules/prismjs/components')
 
 var languageTemplate = fs.readFileSync('src/language-template.ts', 'utf8');
 var  jsExports = [];
-var dtsExports = [];
+var tsExports = [];
 var tsFiles = [
   "typings/browser.d.ts",
   "codeblock.ts",
+  "languages.ts",
   "src/codeblock.component.ts",
   "src/code-renderer.component.ts",
   "src/src.service.ts"
@@ -59,7 +60,7 @@ languages.forEach(function(language) {
   fs.writeFileSync(filename, data);
   jsExports.push("exports." + title + " = require('./languages/" +
                   language + "')." +  title + ';');
-  dtsExports.push("export * from './languages/" + language + "';");
+  tsExports.push("export * from './languages/" + language + "';");
 });
 
 tsFiles = tsFiles.map(function(file) { return '"' + file + '"'; });
@@ -74,6 +75,6 @@ var inject = function(filename, list) {
 }
 
 inject('languages.js', jsExports);
-inject('languages.d.ts', dtsExports);
+inject('languages.ts', tsExports);
 
 console.log("Language directives built");

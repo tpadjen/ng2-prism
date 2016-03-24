@@ -6,6 +6,7 @@ dist
 build
 bundles
 languages
+languages.ts
 languages.d.ts
 languages.js
 **/*.d.ts
