@@ -1,6 +1,3 @@
-declare var require: any;
-declare var Prism: any;
-
 import {
   Component,
   Input,
@@ -9,6 +6,7 @@ import {
 } from 'angular2/core';
 
 
+declare var Prism: any;
 /**
  * Language files that all components should recognize
  */

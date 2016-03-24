@@ -11,7 +11,6 @@ import {
   ViewChild
 } from 'angular2/core';
 
-declare var require: any;
 declare var Prism: any;
 import 'prismjs/prism';
 
