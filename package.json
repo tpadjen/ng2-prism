@@ -1,6 +1,6 @@
 {
   "name": "ng2-prism",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "An Angular2 codeblock highlighting component using Prismjs.",
   "main": "codeblock.js",
   "scripts": {
