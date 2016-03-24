@@ -15,7 +15,19 @@ import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/switchMap';
 
-import {CodeblockComponent} from './codeblock.component';
+export interface Source {
+  src: string;
+  ext: string;
+  text: string;
+}
+
+export interface Sourcable {
+  srcChanged: Observable<any>;
+  validatedSource: (string) => void;
+  showLoading: () => void;
+  message: (string) => void;
+  handleSourceChange: (Source) => void;
+}
 
 
 @Injectable()
@@ -26,14 +38,14 @@ export class SrcService implements OnDestroy {
   constructor(
     private _http: Http) { }
 
-  _host: CodeblockComponent;
+  _host: Sourcable;
 
-  set host(host: CodeblockComponent) {
+  set host(host: Sourcable) {
     this._host = host;
     this._handleSrcChanges();
   }
 
-  get host(): CodeblockComponent {
+  get host(): Sourcable {
     return this._host;
   }
 
@@ -45,9 +57,9 @@ export class SrcService implements OnDestroy {
       .map(source => { return this._addExtensionMatches(source); })
       .filter(req => { return this._nonFiles(req); })
       .distinctUntilChanged()
-      .do(() => { this.host.loading(); })
+      .do(() => { this.host.showLoading(); })
       .debounceTime(this.debounceTime)
-      .do((req: any) => { this.host._src = req.source; })
+      .do((req: any) => { this.host.validatedSource(req.source); })
       .switchMap(req => { return this._fetchSrc(req); })
       .catch((error) => {
         this.host.message("Error: Could not download file.");
@@ -55,7 +67,7 @@ export class SrcService implements OnDestroy {
         return Observable.empty();
       })
       .subscribe(
-        res => { this._handleResponseSuccess(res); },
+        (res: Source) => { this.host.handleSourceChange(res); },
         error => { this._handleResponseError(error); }
       );
   }
@@ -96,16 +108,10 @@ export class SrcService implements OnDestroy {
                 .map(res => {
                   return {
                     src: req.source,
-                    extMatches: req.extMatches,
+                    ext: req.extMatches[1],
                     text: res.text()
                   };
                 });
-  }
-
-  _handleResponseSuccess(res) {
-    let fileLang = CodeblockComponent.EXTENSION_MAP[res.extMatches[1]] || res.extMatches[1];
-    if (!this.host._languageSet) { this.host._language = fileLang; }
-    this.host.code = res.text;
   }
 
   _handleResponseError(error) {

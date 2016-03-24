@@ -15,7 +15,11 @@ declare var Prism: any;
 import 'prismjs/prism';
 
 import {CodeRenderer} from './code-renderer.component';
-import {SrcService} from './src.service';
+import {
+  SrcService,
+  Source,
+  Sourcable
+} from './src.service';
 
 @Component({
   selector: 'codeblock',
@@ -45,7 +49,9 @@ import {SrcService} from './src.service';
   providers: [SrcService]
 })
 export class CodeblockComponent implements
-              AfterViewChecked, AfterContentChecked {
+                                AfterViewChecked,
+                                AfterContentChecked,
+                                Sourcable {
 
   /** ViewChildren **/
 
@@ -259,6 +265,28 @@ export class CodeblockComponent implements
     return this._src;
   }
 
+  /**
+   * Set the source for real after it has been validated. Used by the
+   * SrcService to ensure the downloaded source is displayed.
+   *
+   * @param  {string} source - the url of the file being loaded
+   */
+  validatedSource(source: string) {
+    this._src = source;
+  }
+
+  /**
+   * Given the downloaded source, set the language and code to match it.
+   *
+   * @param  {Source} source - The downloaded source url, extension, and text
+   */
+  handleSourceChange(source: Source) {
+    let fileLang = CodeblockComponent.EXTENSION_MAP[source.ext] || source.ext;
+    if (!this._languageSet) {
+      this._language = fileLang;
+    }
+    this.code = source.text;
+  }
 
   /**
    * Map of file extensions to highlighting languages
@@ -419,9 +447,9 @@ export class CodeblockComponent implements
   }
 
   /**
-   * Display a loading message
+   * Display a loading message or indicator
    */
-  loading() {
+  showLoading() {
     this.message("Loading...");
   }
 
