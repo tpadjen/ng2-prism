@@ -284,6 +284,9 @@ export class CodeblockComponent implements
     let fileLang = CodeblockComponent.EXTENSION_MAP[source.ext] || source.ext;
     if (!this._languageSet) {
       this._language = fileLang;
+      if (fileLang === 'typescript') {
+        source.text = this._replaceTagsInMultiline(source.text);
+      }
     }
     this.code = source.text;
   }
@@ -483,5 +486,17 @@ export class CodeblockComponent implements
   _theme: string;
   _changed: boolean = false;
   _shellType: string = null;
+
+  /**
+   * Use html &lt; for leading < tags in multiline typescript strings
+   *
+   * @param  {string} text - the code
+   * @return {string}      - the code with < replaced by &lt; inside ``s
+   */
+  _replaceTagsInMultiline(text: string): string {
+    return text.replace(/`((.|[\r\n])*?)`/g, (match) => {
+      return match.replace(/(<)([!\/A-Za-z].*?>)/g, '&lt;$2');
+    });
+  }
 
 }
