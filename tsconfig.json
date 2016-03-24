@@ -1,4 +1,6 @@
 {
+  "compileOnSave": false,
+  "compileOnBuild": false,
   "compilerOptions": {
     "target": "es5",
     "emitDecoratorMetadata": true,

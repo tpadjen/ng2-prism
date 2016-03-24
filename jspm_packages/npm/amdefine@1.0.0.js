@@ -1,1 +1,1 @@
-module.exports = require("npm:amdefine@1.0.0/amdefine");
+module.exports = require("npm:amdefine@1.0.0/amdefine.js");

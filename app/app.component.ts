@@ -8,13 +8,13 @@ import {LinkDirective} from './linklist/link.directive';
 
 import {Codeblock} from 'ng2-prism/codeblock';
 
-import {Ruby} from       'ng2-prism/bundle/languages/ruby';
-import {Java} from       'ng2-prism/bundle/languages/java';
-import {Go} from         'ng2-prism/bundle/languages/go';
-import {Python} from     'ng2-prism/bundle/languages/python';
-import {Javascript} from 'ng2-prism/bundle/languages/javascript';
-import {Typescript} from 'ng2-prism/bundle/languages/typescript';
-import {Markup} from     'ng2-prism/bundle/languages/markup';
+import {Ruby} from       'ng2-prism/languages/ruby';
+import {Java} from       'ng2-prism/languages/java';
+import {Go} from         'ng2-prism/languages/go';
+import {Python} from     'ng2-prism/languages/python';
+import {Javascript} from 'ng2-prism/languages/javascript';
+import {Typescript} from 'ng2-prism/languages/typescript';
+import {Markup} from     'ng2-prism/languages/markup';
 
 
 @Component({

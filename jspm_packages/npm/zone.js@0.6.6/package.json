@@ -1,0 +1,58 @@
+{
+  "name": "zone.js",
+  "version": "0.6.6",
+  "description": "Zones for JavaScript",
+  "main": "dist/zone-node.js",
+  "browser": "dist/zone.js",
+  "typings": "dist/zone.js.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "prepublish": "./node_modules/.bin/typings install && ./node_modules/.bin/tsc && gulp build",
+    "typings": "./node_modules/.bin/typings install",
+    "tsc": "./node_modules/.bin/tsc",
+    "tsc:w": "./node_modules/.bin/tsc -w",
+    "test": "karma start karma.conf.js",
+    "serve": "python -m SimpleHTTPServer 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/angular/zone.js.git"
+  },
+  "author": "Brian Ford",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/angular/zone.js/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "es6-promise": "^3.0.2",
+    "gulp": "^3.8.11",
+    "gulp-rename": "^1.2.2",
+    "gulp-tsc": "^1.1.4",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.7",
+    "jasmine-core": "^2.2.0",
+    "karma": "^0.13.14",
+    "karma-chrome-launcher": "^0.2.1",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-jasmine": "^0.3.6",
+    "karma-safari-launcher": "^0.1.1",
+    "karma-sauce-launcher": "^0.2.10",
+    "karma-sourcemap-loader": "^0.3.6",
+    "karma-webpack": "^1.7.0",
+    "nodejs-websocket": "^1.2.0",
+    "ts-loader": "^0.6.0",
+    "typescript": "^1.8.0",
+    "typings": "^0.6.6",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "webpack": "^1.12.2"
+  }
+}

@@ -35,9 +35,6 @@
   },
   "github:jspm/nodelibs-module@0.1.0": {},
   "github:jspm/nodelibs-fs@0.1.2": {},
-  "npm:es6-shim@0.33.13": {
-    "process": "github:jspm/nodelibs-process@^0.1.0"
-  },
   "npm:source-map@0.4.4": {
     "amdefine": "npm:amdefine",
     "process": "github:jspm/nodelibs-process@^0.1.0"
@@ -59,8 +56,8 @@
     "http": "github:jspm/nodelibs-http@^1.7.0",
     "https": "github:jspm/nodelibs-https@^0.1.0",
     "os": "github:jspm/nodelibs-os@^0.1.0",
-    "buffer": "github:jspm/nodelibs-buffer@^0.1.0",
-    "util": "github:jspm/nodelibs-util@^0.1.0"
+    "util": "github:jspm/nodelibs-util@^0.1.0",
+    "buffer": "github:jspm/nodelibs-buffer@^0.1.0"
   },
   "npm:path-browserify@0.0.0": {
     "process": "github:jspm/nodelibs-process@^0.1.0"
@@ -78,10 +75,6 @@
   },
   "npm:inherits@2.0.1": {
     "util": "github:jspm/nodelibs-util@^0.1.0"
-  },
-  "npm:zone.js@0.5.15": {
-    "es6-promise": "npm:es6-promise@^3.0.2",
-    "process": "github:jspm/nodelibs-process@^0.1.0"
   },
   "npm:util@0.10.3": {
     "inherits": "npm:inherits@2.0.1",
@@ -168,15 +161,6 @@
   "npm:rxjs@5.0.0-beta.2": {
     "buffer": "github:jspm/nodelibs-buffer@^0.1.0",
     "process": "github:jspm/nodelibs-process@^0.1.0"
-  },
-  "npm:angular2@2.0.0-beta.7": {
-    "es6-promise": "npm:es6-promise@^3.0.2",
-    "es6-shim": "npm:es6-shim@^0.33.3",
-    "reflect-metadata": "npm:reflect-metadata@0.1.2",
-    "rxjs": "npm:rxjs@5.0.0-beta.2",
-    "zone.js": "npm:zone.js@0.5.15",
-    "process": "github:jspm/nodelibs-process@^0.1.0",
-    "crypto": "github:jspm/nodelibs-crypto@^0.1.0"
   },
   "github:jspm/nodelibs-crypto@0.1.0": {
     "crypto-browserify": "npm:crypto-browserify@^3.7.2"
@@ -311,9 +295,6 @@
   "npm:hash.js@1.0.3": {
     "inherits": "npm:inherits@^2.0.1"
   },
-  "npm:bn.js@4.10.5": {
-    "buffer": "github:jspm/nodelibs-buffer@^0.1.0"
-  },
   "npm:des.js@1.0.0": {
     "inherits": "npm:inherits@^2.0.1",
     "minimalistic-assert": "npm:minimalistic-assert@^1.0.0",
@@ -358,15 +339,6 @@
     "buffer": "github:jspm/nodelibs-buffer@^0.1.0",
     "systemjs-json": "github:systemjs/plugin-json@^0.1.0"
   },
-  "npm:asn1.js@4.5.1": {
-    "bn.js": "npm:bn.js@^4.0.0",
-    "inherits": "npm:inherits@^2.0.1",
-    "minimalistic-assert": "npm:minimalistic-assert@^1.0.0",
-    "buffer": "github:jspm/nodelibs-buffer@^0.1.0",
-    "vm": "github:jspm/nodelibs-vm@^0.1.0",
-    "assert": "github:jspm/nodelibs-assert@^0.1.0",
-    "fs": "github:jspm/nodelibs-fs@^0.1.0"
-  },
   "github:jspm/nodelibs-vm@0.1.0": {
     "vm-browserify": "npm:vm-browserify@0.0.4"
   },
@@ -374,15 +346,42 @@
     "indexof": "npm:indexof@0.0.1"
   },
   "npm:indexof@0.0.1": {},
-  "npm:ng2-prism@2.1.7": {
-    "angular2": "npm:angular2@2.0.0-beta.7",
-    "rxjs": "npm:rxjs@5.0.0-beta.2",
-    "es6-promise": "npm:es6-promise@^3.0.2",
-    "es6-shim": "npm:es6-shim@^0.33.3",
+  "npm:animate.css@3.5.1": {},
+  "npm:es6-shim@0.35.0": {
+    "process": "github:jspm/nodelibs-process@^0.1.0"
+  },
+  "npm:zone.js@0.6.6": {
+    "process": "github:jspm/nodelibs-process@^0.1.0"
+  },
+  "github:PrismJS/prism@gh-pages": {},
+  "npm:ng2-prism@2.2.1": {
+    "prismjs": "github:PrismJS/prism@gh-pages",
+    "angular2": "npm:angular2",
+    "es6-promise": "npm:es6-promise",
+    "es6-shim": "npm:es6-shim",
+    "reflect-metadata": "npm:reflect-metadata",
+    "rxjs": "npm:rxjs",
+    "zone.js": "npm:zone.js",
+    "process": "github:jspm/nodelibs-process@^0.1.0"
+  },
+  "npm:angular2@2.0.0-beta.12": {
+    "es6-shim": "npm:es6-shim@^0.35.0",
     "reflect-metadata": "npm:reflect-metadata@0.1.2",
-    "zone.js": "npm:zone.js@0.5.15",
-    "process": "github:jspm/nodelibs-process@^0.1.0",
+    "rxjs": "npm:rxjs@5.0.0-beta.2",
+    "zone.js": "npm:zone.js@^0.6.6",
+    "crypto": "github:jspm/nodelibs-crypto@^0.1.0",
+    "process": "github:jspm/nodelibs-process@^0.1.0"
+  },
+  "npm:bn.js@4.11.0": {
     "buffer": "github:jspm/nodelibs-buffer@^0.1.0"
   },
-  "npm:animate.css@3.5.1": {}
+  "npm:asn1.js@4.5.2": {
+    "bn.js": "npm:bn.js@^4.0.0",
+    "inherits": "npm:inherits@^2.0.1",
+    "minimalistic-assert": "npm:minimalistic-assert@^1.0.0",
+    "vm": "github:jspm/nodelibs-vm@^0.1.0",
+    "buffer": "github:jspm/nodelibs-buffer@^0.1.0",
+    "assert": "github:jspm/nodelibs-assert@^0.1.0",
+    "fs": "github:jspm/nodelibs-fs@^0.1.0"
+  }
 }

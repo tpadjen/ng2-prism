@@ -1,1 +1,1 @@
-module.exports = require("npm:source-map@0.4.4/lib/source-map");
+module.exports = require("npm:source-map@0.4.4/lib/source-map.js");

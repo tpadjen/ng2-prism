@@ -1,0 +1,7 @@
+MultipleErrors: /Users/tpadjen/.jspm/packages/npm/ng2-prism@2.2.1/src/language-template.js:24:10: Unexpected token =
+/Users/tpadjen/.jspm/packages/npm/ng2-prism@2.2.1/src/language-template.js:24:12: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/ng2-prism@2.2.1/src/language-template.js:30:17: private is a reserved identifier
+/Users/tpadjen/.jspm/packages/npm/ng2-prism@2.2.1/src/language-template.js:30:24: Unexpected token ,
+/Users/tpadjen/.jspm/packages/npm/ng2-prism@2.2.1/src/language-template.js:30:26: Unexpected token el
+/Users/tpadjen/.jspm/packages/npm/ng2-prism@2.2.1/src/language-template.js:30:47: Semi-colon expected
+/Users/tpadjen/.jspm/packages/npm/ng2-prism@2.2.1/src/language-template.js:30:47: Unexpected token )
