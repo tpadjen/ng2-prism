@@ -134,7 +134,7 @@ export class CodeRenderer {
    * Change all opening < changed to &lt; to render markup correctly inside pre tags
    */
   _replaceTags(text) {
-    return text.replace(/(<)([!\/A-Za-z].*?>)/g, '&lt;$2');
+    return text.replace(/(<)([!\/A-Za-z](.|[\n\r])*?>)/g, '&lt;$2');
   }
 
   /**
