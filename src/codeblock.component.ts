@@ -4,7 +4,6 @@ import {
   AfterContentChecked,
   ElementRef,
   EventEmitter,
-  HostBinding,
   Input,
   Output,
   ViewEncapsulation,
@@ -16,10 +15,9 @@ import 'prismjs/prism';
 
 import {CodeRenderer} from './code-renderer.component';
 import {
-  SrcService,
-  Source,
-  Sourcable
-} from './src.service';
+  Sourcable,
+  Response
+} from './sourcable';
 
 @Component({
   selector: 'codeblock',
@@ -44,9 +42,7 @@ import {
   // aren't applied to elements added by Prism.highlight
   encapsulation: ViewEncapsulation.None,
 
-  directives: [CodeRenderer],
-
-  providers: [SrcService]
+  directives: [CodeRenderer]
 })
 export class CodeblockComponent implements
                                 AfterViewChecked,
@@ -69,16 +65,13 @@ export class CodeblockComponent implements
   /** Lifecycle Events **/
 
   constructor(
-    private _elementRef: ElementRef,
-    private _srcService: SrcService) {
-      _srcService.host = this;
-  }
+    private _elementRef: ElementRef) { }
 
   /**
    * Update code when content changes
    */
   ngAfterContentChecked() {
-    if (!this.src) { this.code = this.content; }
+    if (!this._sourced && !this._showingMessage) { this.code = this.content; }
   }
 
   /**
@@ -122,7 +115,7 @@ export class CodeblockComponent implements
   set code(code: string) {
     if (this._code !== code) {
       this._changed = true;
-      this._showingMessage = false;
+      // this._showingMessage = false;
       this._code = code;
     }
   }
@@ -241,10 +234,12 @@ export class CodeblockComponent implements
 
 
   /**
-   * Load the code from a remote file. The file must have an extension to be
-   * loaded. Error/warning messages are displayed within the codeblock. The
+   * The code has been loaded from a remote file. The file must have an extension
+   * to be loaded. Error/warning messages are displayed within the codeblock. The
    * language is determined from the file extension, unless a language is
-   * provided.
+   * provided. Import and use the Source directive to apply it.
+   *
+   * Null means no source has been loaded.
    *
    * Examples:
    * ```
@@ -254,41 +249,51 @@ export class CodeblockComponent implements
    *  <codeblock
    *    src="http://meyerweb.com/eric/tools/css/reset/reset.css"></codeblock>
    * ```
-   *
-   * @param {string} source - Url for file to use as contents of codeblock
    */
-  @Input() set src(source: string) { this.srcChanged.next(source); }
-
-  _src: string;
-
-  get src(): string {
-    return this._src;
-  }
+  _sourced: boolean;
 
   /**
-   * Set the source for real after it has been validated. Used by the
-   * SrcService to ensure the downloaded source is displayed.
-   *
-   * @param  {string} source - the url of the file being loaded
+   * The source has been changed
    */
-  validatedSource(source: string) {
-    this._src = source;
+  sourceChanged() {
+    this.message("Loading...");
   }
 
   /**
    * Given the downloaded source, set the language and code to match it.
    *
-   * @param  {Source} source - The downloaded source url, extension, and text
+   * @param  {Response} res
    */
-  handleSourceChange(source: Source) {
-    let fileLang = CodeblockComponent.EXTENSION_MAP[source.ext] || source.ext;
+  sourceReceived(res: Response) {
+    let ext = res.url.match(/\.(\w+)$/)[1];
+    let fileLang = CodeblockComponent.EXTENSION_MAP[ext] || ext;
+    let text = res.text();
     if (!this._languageSet) {
       this._language = fileLang;
       if (fileLang === 'typescript') {
-        source.text = this._replaceTagsInMultiline(source.text);
+        text = this._replaceTagsInMultiline(res.text());
       }
     }
-    this.code = source.text;
+    this.code = text;
+    this._showingMessage = false;
+    this._sourced = true;
+  }
+
+  /**
+   * The source has started loading
+   */
+  sourceLoading() { }
+
+  /**
+   * An error occured while downloading from the src url
+   *
+   * @param  {Error} error
+   */
+  sourceError(error) {
+    this._sourced = false;
+    if (error.message) {
+      this.message(error.message);
+    }
   }
 
   /**
@@ -306,16 +311,6 @@ export class CodeblockComponent implements
     'ps1': 'powershell',
     'psm1': 'powershell'
   };
-
-  /**
-   * Set the amount of time in ms to wait before processing changes to the src input.
-   *
-   * This can prevent unnecessary http requests. The default is 300ms.
-   */
-  @Input() set debounceTime(time: any) {
-    let parsed = parseInt(time, 10);
-    if (!isNaN(parsed) && parsed >= 0) { this._srcService.debounceTime = parsed; }
-  }
 
 
   /**
@@ -424,17 +419,6 @@ export class CodeblockComponent implements
   // @Input() truncationMessage: string = "\n--- File Truncated ---\n";
 
 
-  /** Outputs **/
-
-  /**
-  * @Output() srChanged
-  *
-  *  Emits an event when the src Input has been changed. The SrcService
-  *  subscribes to this event to manage the change.
-  */
-  @Output() srcChanged: EventEmitter<string> = new EventEmitter();
-
-
   /** Methods **/
 
   /**
@@ -447,13 +431,6 @@ export class CodeblockComponent implements
   message(text: string) {
     this._showingMessage = true;
     this.code = text;
-  }
-
-  /**
-   * Display a loading message or indicator
-   */
-  showLoading() {
-    this.message("Loading...");
   }
 
   /**

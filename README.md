@@ -107,8 +107,24 @@ If you want to display the binding without processing place a `pre` tag around a
 
 ### Dynamic Loading
 
-Use the `src` attribute to set a file to download as the source code for a `codeblock`. The language of the `codeblock` will be determined from the file extension, unless a language is specified.
+Use the `src` directive to set a file to download as the source code for a `codeblock`. The language of the `codeblock` will be determined from the file extension, unless a language is specified.
 
+First, import the `Source` directive:
+
+```ts
+import {Codeblock, Source} from 'ng2-prism/codeblock';
+```
+
+Then add it to the list of directives:
+```ts
+@Component({
+  selector: 'my-component',
+  // ...
+  directives: [Codeblock, Source]
+})
+```
+
+Then use the `src` attribute on the codeblock in your template:
 ```html
 <!-- automatically loads as javascript -->
 <codeblock src="path/to/main.js"></codeblock>
@@ -117,13 +133,14 @@ Use the `src` attribute to set a file to download as the source code for a `code
 <codeblock typescript src="path/to/main.js"></codeblock>
 ```
 
-Noted on Dynamic loading:
+Notes on Dynamic loading:
 
   * The `codeblock` will automatically update on changes to `src`.
   * Updates to src are throttled at 300ms to prevent unnecessary http requests, you can change the time by setting `debounceTime` on the codeblock.
   * The `src` attribute must have a file extension.
   * Everything inside the dynamic codeblock will be replaced by the contents of the source file.
   * The source contents are treated as text only, not DOM elements. Components, directives, and bindings will not be processed by angular2.
+  * The source directive relies on the angular2 `Http` module. Make sure you have included the `HTTP_PROVIDERS` when bootstrapping your app.
 
 ### Themes
 

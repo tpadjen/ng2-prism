@@ -45,7 +45,8 @@ var tsFiles = [
   "languages.ts",
   "src/codeblock.component.ts",
   "src/code-renderer.component.ts",
-  "src/src.service.ts"
+  "src/src.directive.ts",
+  "src/sourcable.ts"
 ];
 
 languages.forEach(function(language) {
