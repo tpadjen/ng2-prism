@@ -16,14 +16,16 @@ var config = {
     typescript: './node_modules/typescript/lib/typescript.js',
     angular2: path.resolve('node_modules/angular2'),
     rxjs: path.resolve('node_modules/rxjs'),
-    prismjs: path.resolve('node_modules/prismjs')
+    prismjs: path.resolve('node_modules/prismjs'),
+    'ng2-src-directive': path.resolve('node_modules/ng2-src-directive')
   },
   paths: {
     '*': '*.js'
   },
   meta: {
     'node_modules/angular2/*': { build: false },
-    'node_modules/rxjs/*': { build: false }
+    'node_modules/rxjs/*': { build: false },
+    'node_modules/ng2-src-directive/*': { build: false }
   },
 };
 

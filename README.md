@@ -136,7 +136,7 @@ Then use the `src` attribute on the codeblock in your template:
 Notes on Dynamic loading:
 
   * The `codeblock` will automatically update on changes to `src`.
-  * Updates to src are throttled at 300ms to prevent unnecessary http requests, you can change the time by setting `debounceTime` on the codeblock.
+  * Updates to src are throttled at 300ms to prevent unnecessary http requests, you can change the time by setting `debounceTime` on the codeblock, or by providing `SourceDebounceTime` - [more details here](https://github.com/tpadjen/ng2-src-directive#debounce-time)
   * The `src` attribute must have a file extension.
   * Everything inside the dynamic codeblock will be replaced by the contents of the source file.
   * The source contents are treated as text only, not DOM elements. Components, directives, and bindings will not be processed by angular2.

@@ -1,2 +1,2 @@
 export {CodeblockComponent as Codeblock} from './src/codeblock.component';
-export {SrcDirective as Source} from './src/src.directive';
+export {Source, SourceDebounceTime} from 'ng2-src-directive/src';

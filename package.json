@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/tpadjen/ng2-prism#readme",
   "dependencies": {
-    "prismjs": "git://github.com/PrismJS/prism.git#gh-pages"
+    "ng2-src-directive": "0.0.5"
   },
   "devDependencies": {
     "angular2": "2.0.0-beta.12",

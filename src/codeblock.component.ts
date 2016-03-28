@@ -15,9 +15,11 @@ import 'prismjs/prism';
 
 import {CodeRenderer} from './code-renderer.component';
 import {
-  Sourcable,
+  OnSourceChanged,
+  OnSourceError,
+  OnSourceReceived,
   Response
-} from './sourcable';
+} from 'ng2-src-directive/src';
 
 @Component({
   selector: 'codeblock',
@@ -47,7 +49,9 @@ import {
 export class CodeblockComponent implements
                                 AfterViewChecked,
                                 AfterContentChecked,
-                                Sourcable {
+                                OnSourceChanged,
+                                OnSourceError,
+                                OnSourceReceived {
 
   /** ViewChildren **/
 
@@ -255,8 +259,8 @@ export class CodeblockComponent implements
   /**
    * The source has been changed
    */
-  sourceChanged() {
-    this.message("Loading...");
+  sourceChanged(url: string) {
+    this.message("Loading ...");
   }
 
   /**
@@ -278,11 +282,6 @@ export class CodeblockComponent implements
     this._showingMessage = false;
     this._sourced = true;
   }
-
-  /**
-   * The source has started loading
-   */
-  sourceLoading() { }
 
   /**
    * An error occured while downloading from the src url
