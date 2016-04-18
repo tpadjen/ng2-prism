@@ -91,7 +91,7 @@ export class CodeRenderer {
    * Clear the code.
    */
   empty() {
-    if (this._pre) { this._pre.innerHTML = ""; }
+    if (this._pre) { this._pre.nativeElement.innerHTML = ""; }
   }
 
 
@@ -133,7 +133,7 @@ export class CodeRenderer {
   /**
    * Change all opening < changed to &lt; to render markup correctly inside pre tags
    */
-  _replaceTags(text) {
+  _replaceTags(text): string {
     return text.replace(/(<)([!\/A-Za-z](.|[\n\r])*?>)/g, '&lt;$2');
   }
 
@@ -141,7 +141,7 @@ export class CodeRenderer {
    * Remove both template tags and styling attributes added by the angular2 parser
    * and fix indentation within code elements created by structural directives.
    */
-  _removeAngularMarkup(html) {
+  _removeAngularMarkup(html): string {
     // remove styling attributes (_ngcontent etc.)
     html = html.replace(/\s_ng[^-]+-[^-]+-[^=]+="[^"]*"/g, '');
 
@@ -181,7 +181,7 @@ export class CodeRenderer {
   }
 
   get lineNumbersClass(): string {
-    return this.lineNumbers ? "line-numbers " : "";
+    return this.lineNumbers ? "line-numbers" : "";
   }
 
   get shellClass(): string {
