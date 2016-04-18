@@ -29,26 +29,26 @@
   },
   "homepage": "https://github.com/tpadjen/ng2-prism#readme",
   "dependencies": {
-    "ng2-src-directive": "0.0.5"
+    "ng2-src-directive": "0.0.9"
   },
   "devDependencies": {
-    "angular2": "2.0.0-beta.12",
+    "angular2": "2.0.0-beta.15",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.35.0",
     "node-sass": "^3.4.2",
     "reflect-metadata": "0.1.2",
     "rimraf": "^2.5.2",
     "rxjs": "5.0.0-beta.2",
-    "systemjs-builder": "^0.15.7",
-    "typescript": "1.7.5",
-    "zone.js": "0.6.6"
+    "systemjs-builder": "^0.15.13",
+    "typescript": "1.8.10",
+    "zone.js": "0.6.10"
   },
   "peerDependencies": {
-    "angular2": ">= 2.0.0-beta.12",
+    "angular2": ">= 2.0.0-beta.15",
     "es6-promise": ">= 3.0.2",
     "es6-shim": ">= 0.35.0",
     "reflect-metadata": ">= 0.1.2",
     "rxjs": ">= 5.0.0-beta.2",
-    "zone.js": ">= 0.6.6"
+    "zone.js": ">= 0.6.10"
   }
 }
