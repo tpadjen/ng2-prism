@@ -14,6 +14,10 @@ src/*.js
 src/*.js.map
 typings
 *.js.map
+tests/*.js
+tests/*.js.map
+tests/*.d.ts
+src/*.js.map
 
 # untracked
 codeblock.js

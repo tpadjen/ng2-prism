@@ -11,3 +11,9 @@ typings.json
 !languages/*.d.ts
 src/*.scss
 src/language-template.js
+**/*.ktp.js
+
+tests
+karma-test-shim.js
+karma.conf.js
+**/*.ktp.js
