@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { provide } from 'angular2/core';
 import { Http, Jsonp } from './src/http/http';
 import { XHRBackend } from './src/http/backends/xhr_backend';

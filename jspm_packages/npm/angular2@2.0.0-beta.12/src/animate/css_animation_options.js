@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';var CssAnimationOptions = (function () {
     function CssAnimationOptions() {
         /** classes to be added to the element */

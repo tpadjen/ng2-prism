@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ChangeDetectionStrategy } from './constants';
 export class ChangeDetectorRef {
 }

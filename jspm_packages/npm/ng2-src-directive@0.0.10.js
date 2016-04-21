@@ -1,0 +1,1 @@
+module.exports = require("npm:ng2-src-directive@0.0.10/src.js");

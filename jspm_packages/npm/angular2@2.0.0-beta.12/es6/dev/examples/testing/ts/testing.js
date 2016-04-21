@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { describe, fdescribe, xdescribe, it, fit, xit, beforeEach, afterEach, beforeEachProviders, inject } from 'angular2/testing';
 import { provide } from 'angular2/core';
 var db;

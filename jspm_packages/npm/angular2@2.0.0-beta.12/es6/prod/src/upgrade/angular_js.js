@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 function noNg() {
     throw new Error('AngularJS v1.x is not loaded!');
 }

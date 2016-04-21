@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { DOM } from 'angular2/src/platform/dom/dom_adapter';
 import { global, isString } from 'angular2/src/facade/lang';
 import { StringMapWrapper } from 'angular2/src/facade/collection';

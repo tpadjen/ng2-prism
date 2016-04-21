@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { stringify, isBlank } from 'angular2/src/facade/lang';
 import { BaseException } from 'angular2/src/facade/exceptions';
 import { resolveForwardRef } from './forward_ref';

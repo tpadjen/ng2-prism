@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { CONST_EXPR, isPresent, isBlank, looseIdentical, isPrimitive } from 'angular2/src/facade/lang';
 import { BaseException } from 'angular2/src/facade/exceptions';
 import { StringMapWrapper, isListLikeIterable, areIterablesEqual } from 'angular2/src/facade/collection';

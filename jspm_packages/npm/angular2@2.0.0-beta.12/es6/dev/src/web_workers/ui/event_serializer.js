@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { Set } from 'angular2/src/facade/collection';
 import { isPresent } from 'angular2/src/facade/lang';
 const MOUSE_EVENT_PROPERTIES = [

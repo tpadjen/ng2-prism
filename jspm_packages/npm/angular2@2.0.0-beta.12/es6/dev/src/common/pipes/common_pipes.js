@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { AsyncPipe } from './async_pipe';
 import { UpperCasePipe } from './uppercase_pipe';
 import { LowerCasePipe } from './lowercase_pipe';

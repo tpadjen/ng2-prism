@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { XHR } from 'angular2/src/compiler/xhr';
 import { WebWorkerXHRImpl } from 'angular2/src/web_workers/worker/xhr_impl';
 import { WebWorkerRootRenderer } from 'angular2/src/web_workers/worker/renderer';

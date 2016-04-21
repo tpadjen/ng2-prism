@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 // Test library and utilities for internal use.
 export * from './src/testing/testing_internal';
 export * from './src/testing/test_component_builder';

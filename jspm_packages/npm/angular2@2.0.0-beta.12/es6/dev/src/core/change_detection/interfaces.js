@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export class DebugContext {
     constructor(element, componentElement, directive, context, locals, injector) {
         this.element = element;

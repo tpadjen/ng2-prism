@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export var ViewType;
 (function (ViewType) {
     // A view that contains the host element with bound component directive.

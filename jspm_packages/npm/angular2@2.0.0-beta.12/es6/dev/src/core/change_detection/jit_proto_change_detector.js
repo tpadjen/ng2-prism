@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ChangeDetectorJITGenerator } from './change_detection_jit_generator';
 export class JitProtoChangeDetector {
     constructor(definition) {

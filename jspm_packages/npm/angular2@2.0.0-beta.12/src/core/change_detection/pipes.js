@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';var SelectedPipe = (function () {
     function SelectedPipe(pipe, pure) {
         this.pipe = pipe;

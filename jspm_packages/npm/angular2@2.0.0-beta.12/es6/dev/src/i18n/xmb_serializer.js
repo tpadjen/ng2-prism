@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isPresent } from 'angular2/src/facade/lang';
 import { id } from './message';
 export function serialize(messages) {

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { global } from 'angular2/src/facade/lang';
 var trace;
 var events;

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ListWrapper } from 'angular2/src/facade/collection';
 import { StringWrapper, RegExpWrapper, RegExpMatcherWrapper, isPresent, isBlank } from 'angular2/src/facade/lang';
 /**

@@ -912,7 +912,7 @@
       function getNodeSystem() {
         var _fs = require('@empty');
         var _path = require('@empty');
-        var _os = require('@empty');
+        var _os = require('os');
         function createPollingWatchedFileSet(interval, chunkSize) {
           if (interval === void 0) {
             interval = 2500;

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { normalizeBool } from 'angular2/src/facade/lang';
 import { isDefaultChangeDetectionStrategy } from './constants';
 export class DirectiveIndex {

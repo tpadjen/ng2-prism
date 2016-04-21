@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 var parse5 = require('parse5/index');
 var parser = new parse5.Parser(parse5.TreeAdapters.htmlparser2);
 var serializer = new parse5.Serializer(parse5.TreeAdapters.htmlparser2);

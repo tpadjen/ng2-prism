@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 // TS does not have Observables
 /**
  * This module exists in Dart, but not in Typescript. This exported symbol

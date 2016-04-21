@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { DOM } from 'angular2/src/platform/dom/dom_adapter';
 /**
  * A service that can be used to get and set the title of a current HTML document.

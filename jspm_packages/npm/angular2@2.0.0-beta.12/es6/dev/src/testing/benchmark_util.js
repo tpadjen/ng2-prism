@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { BrowserDomAdapter } from 'angular2/src/platform/browser/browser_adapter';
 import { document, window } from 'angular2/src/facade/browser';
 import { NumberWrapper, isBlank } from 'angular2/src/facade/lang';

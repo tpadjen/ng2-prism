@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { StringMapWrapper } from 'angular2/src/facade/collection';
 import { global, isFunction, Math } from 'angular2/src/facade/lang';
 import { provide } from 'angular2/core';

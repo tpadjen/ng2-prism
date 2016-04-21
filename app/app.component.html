@@ -255,7 +255,22 @@
 </section>
 <section class="feature">
   <h3 link id="dynamic">Dynamic Loading</h3>
-  <p>Use the <code>src</code> attribute to set a file to download as the source code for a <code>codeblock</code>. The language of the <code>codeblock</code> will be determined from the file extension, unless a language is specified.</p>
+  <p>Use the <code>src</code> directive to set a file to download as the source code for a <code>codeblock</code>.</p>
+  <p>First, import the <code>Source</code> directive.</p>
+  <codeblock language="typescript" theme="okaidia">
+    import {Codeblock, Source} from 'ng2-prism/codeblock';
+  </codeblock>
+  <br>
+  <p>Then add it to the list of directives.</p>
+  <codeblock language="typescript" theme="okaidia">
+    @Component({
+      selector: 'my-component',
+      // ...
+      directives: [Codeblock, Source]
+    })
+  </codeblock>
+  <br>
+  <p>Then use the `src` attribute on the codeblock in your template.</p>
   <example>
     <div code>
       <codeblock markup theme="okaidia">
@@ -269,6 +284,7 @@
     </div>
   </example>
   <hr>
+  <p>The language of the <code>codeblock</code> will be determined from the file extension, unless a language is specified.</p>
   <example>
     <div code>
       <codeblock markup theme="okaidia">
@@ -285,11 +301,12 @@
 
   <h4 class="info">Notes on Dynamic loading</h4>
   <ul>
-    <li>The codeblock will automatically update on changes to src.</li>
-    <li>Updates to src are throttled at 300ms to prevent unnecessary http requests, you can change the time by setting <code>debounceTime</code> on the codeblock.</li>
+    <li>The <code>codeblock</code> will automatically update on changes to <code>src</code>.</li>
+    <li>Updates to <code>src</code> are throttled at 300ms to prevent unnecessary http requests, you can change the time by setting <code>debounceTime</code> on the codeblock, or by providing <code>SourceDebounceTime</code> - <a href="https://github.com/tpadjen/ng2-src-directive#debounce-time">more details here</a>.</li>
     <li>The src attribute must have a file extension.</li>
     <li>Everything inside the <code>codeblock</code> will be replaced by the contents of the source file.</li>
     <li>The source contents are treated as text only, not DOM elements. Components, directives, and bindings will not be processed by angular2.</li>
+    <li>The source directive relies on the angular2 <code>Http</code> module. Make sure you have included the <code>HTTP_PROVIDERS</code> when bootstrapping your app.</li>
   </ul>
 </section>
 <section class="feature">

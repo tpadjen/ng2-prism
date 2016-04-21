@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { Type } from 'angular2/src/facade/lang';
 import { LifecycleHooks } from './interfaces';
 export function hasLifecycleHook(lcInterface, token) {

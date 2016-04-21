@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isPresent, isBlank } from 'angular2/src/facade/lang';
 const DIRECTIVE_LIFECYCLE = "directiveLifecycle";
 const BINDING = "native";

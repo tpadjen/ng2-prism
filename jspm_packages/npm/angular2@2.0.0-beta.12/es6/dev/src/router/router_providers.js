@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ROUTER_PROVIDERS_COMMON } from './router_providers_common';
 import { Provider } from 'angular2/core';
 import { CONST_EXPR } from 'angular2/src/facade/lang';

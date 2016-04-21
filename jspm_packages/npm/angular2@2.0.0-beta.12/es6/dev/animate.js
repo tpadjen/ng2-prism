@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export { Animation } from './src/animate/animation';
 export { AnimationBuilder } from './src/animate/animation_builder';
 export { BrowserDetails } from './src/animate/browser_details';

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 // This file contains interface versions of browser types that can be serialized to Plain Old
 // JavaScript Objects
 export class LocationType {

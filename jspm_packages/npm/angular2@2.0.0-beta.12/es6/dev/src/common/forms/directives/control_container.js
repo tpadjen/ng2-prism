@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { AbstractControlDirective } from './abstract_control_directive';
 /**
  * A directive that contains multiple {@link NgControl}s.

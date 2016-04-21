@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isPresent } from 'angular2/src/facade/lang';
 import { Map, ListWrapper, isListLikeIterable } from 'angular2/src/facade/collection';
 function paramParser(rawParams = '') {

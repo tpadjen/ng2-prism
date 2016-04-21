@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ListWrapper } from 'angular2/src/facade/collection';
 import { unimplemented } from 'angular2/src/facade/exceptions';
 import { isPresent } from 'angular2/src/facade/lang';

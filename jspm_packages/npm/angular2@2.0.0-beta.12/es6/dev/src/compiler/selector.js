@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { Map, ListWrapper } from 'angular2/src/facade/collection';
 import { isPresent, isBlank, RegExpWrapper, RegExpMatcherWrapper, StringWrapper } from 'angular2/src/facade/lang';
 import { BaseException } from 'angular2/src/facade/exceptions';

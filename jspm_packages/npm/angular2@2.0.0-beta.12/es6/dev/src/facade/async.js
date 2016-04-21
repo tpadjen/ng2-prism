@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { global, noop } from 'angular2/src/facade/lang';
 export { PromiseWrapper, PromiseCompleter } from 'angular2/src/facade/promise';
 import { Subject } from 'rxjs/Subject';

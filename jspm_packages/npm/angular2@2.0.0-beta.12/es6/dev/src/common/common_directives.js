@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { CONST_EXPR } from 'angular2/src/facade/lang';
 import { FORM_DIRECTIVES } from './forms';
 import { CORE_DIRECTIVES } from './directives';

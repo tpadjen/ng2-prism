@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { Injector, PLATFORM_INITIALIZER } from 'angular2/core';
 import { BaseException } from 'angular2/src/facade/exceptions';
 import { ListWrapper } from 'angular2/src/facade/collection';

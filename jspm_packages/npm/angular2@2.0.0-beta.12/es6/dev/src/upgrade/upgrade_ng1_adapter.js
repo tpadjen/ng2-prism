@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { Directive, ElementRef, EventEmitter, Inject } from 'angular2/core';
 import { NG1_COMPILE, NG1_SCOPE, NG1_HTTP_BACKEND, NG1_TEMPLATE_CACHE, NG1_CONTROLLER } from './constants';
 import { controllerKey } from './util';

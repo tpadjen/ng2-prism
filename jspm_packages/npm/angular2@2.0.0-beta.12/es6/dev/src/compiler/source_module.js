@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { StringWrapper, isBlank } from 'angular2/src/facade/lang';
 var MODULE_REGEXP = /#MODULE\[([^\]]*)\]/g;
 export function moduleRef(moduleUrl) {

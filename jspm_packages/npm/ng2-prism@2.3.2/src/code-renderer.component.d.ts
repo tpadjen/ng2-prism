@@ -1,0 +1,37 @@
+import { Renderer } from 'angular2/core';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-powershell';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/plugins/line-numbers/prism-line-numbers';
+import 'prismjs/plugins/command-line/prism-command-line';
+import 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace';
+export declare class CodeRenderer {
+    private _renderer;
+    code: string;
+    language: string;
+    lineNumbers: boolean;
+    shell: string;
+    prompt: string;
+    outputLines: string;
+    _pre: any;
+    constructor(_renderer: Renderer);
+    render(): void;
+    empty(): void;
+    _replaceCode(): void;
+    _highlight(): void;
+    _processedCode: string;
+    _processMarkup(text: any): string;
+    _replaceTags(text: any): string;
+    _removeAngularMarkup(html: any): string;
+    _isMarkup(language: any): boolean;
+    _buildCodeElement(): string;
+    languageClass: string;
+    lineNumbersClass: string;
+    shellClass: string;
+    codeClasses: string;
+    preClasses: string;
+    _codeEl: any;
+    _fixPromptOutputPadding(): void;
+    _getStyle(oElm: any, strCssRule: any): string;
+    _fixIndentation(html: string): Array<string>;
+}

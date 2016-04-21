@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isString } from 'angular2/src/facade/lang';
 import { RequestMethod } from './enums';
 import { makeTypeError } from 'angular2/src/facade/exceptions';

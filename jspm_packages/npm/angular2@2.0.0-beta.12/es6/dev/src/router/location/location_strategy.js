@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { CONST_EXPR } from 'angular2/src/facade/lang';
 import { OpaqueToken } from 'angular2/core';
 /**

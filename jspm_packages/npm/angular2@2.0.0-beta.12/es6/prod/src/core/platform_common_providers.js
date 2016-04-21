@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { CONST_EXPR } from 'angular2/src/facade/lang';
 import { Provider } from 'angular2/src/core/di';
 import { Console } from 'angular2/src/core/console';

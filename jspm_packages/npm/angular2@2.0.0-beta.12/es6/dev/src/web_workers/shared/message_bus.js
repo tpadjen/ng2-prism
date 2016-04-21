@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export { EventEmitter, Observable } from 'angular2/src/facade/async';
 /**
  * Message Bus is a low level API used to communicate between the UI and the background.

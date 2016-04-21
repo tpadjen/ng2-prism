@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export class RenderComponentType {
     constructor(id, encapsulation, styles) {
         this.id = id;

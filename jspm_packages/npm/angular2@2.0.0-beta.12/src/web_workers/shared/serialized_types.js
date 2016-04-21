@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';// This file contains interface versions of browser types that can be serialized to Plain Old
 // JavaScript Objects
 var LocationType = (function () {

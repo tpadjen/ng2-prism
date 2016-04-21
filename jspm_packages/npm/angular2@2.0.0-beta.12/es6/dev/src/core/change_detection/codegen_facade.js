@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 /**
  * Converts `funcOrValue` to a string which can be used in generated code.
  */

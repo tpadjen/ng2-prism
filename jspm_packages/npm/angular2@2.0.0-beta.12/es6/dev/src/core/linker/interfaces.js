@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export var LifecycleHooks;
 (function (LifecycleHooks) {
     LifecycleHooks[LifecycleHooks["OnInit"] = 0] = "OnInit";

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { BaseException, WrappedException } from "angular2/src/facade/exceptions";
 /**
  * An error thrown if application changes model breaking the top-down data flow.

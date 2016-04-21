@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ParseError } from 'angular2/src/compiler/parse_util';
 import { HtmlElementAst, HtmlCommentAst, htmlVisitAll } from 'angular2/src/compiler/html_ast';
 import { isPresent, isBlank } from 'angular2/src/facade/lang';

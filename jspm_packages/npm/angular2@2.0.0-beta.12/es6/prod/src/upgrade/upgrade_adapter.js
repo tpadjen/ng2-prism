@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { provide, platform, AppViewManager, Compiler, NgZone } from 'angular2/core';
 import { ObservableWrapper } from 'angular2/src/facade/async';
 import { BROWSER_PROVIDERS, BROWSER_APP_PROVIDERS } from 'angular2/platform/browser';

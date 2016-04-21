@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isBlank, isPresent, CONST_EXPR, isString } from 'angular2/src/facade/lang';
 import { PromiseWrapper } from 'angular2/src/facade/promise';
 import { ObservableWrapper } from 'angular2/src/facade/async';

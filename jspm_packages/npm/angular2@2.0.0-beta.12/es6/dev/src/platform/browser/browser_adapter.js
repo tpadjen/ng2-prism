@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ListWrapper } from 'angular2/src/facade/collection';
 import { isBlank, isPresent, global, setValueOnPath, DateWrapper } from 'angular2/src/facade/lang';
 import { setRootDomAdapter } from 'angular2/src/platform/dom/dom_adapter';

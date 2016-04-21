@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { RuntimeCompiler_ } from "./runtime_compiler";
 export { TemplateCompiler } from './template_compiler';
 export { CompileDirectiveMetadata, CompileTypeMetadata, CompileTemplateMetadata } from './directive_metadata';

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { AbstractControlDirective } from './abstract_control_directive';
 import { unimplemented } from 'angular2/src/facade/exceptions';
 /**

@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';(function (ViewType) {
     // A view that contains the host element with bound component directive.
     // Contains a COMPONENT view

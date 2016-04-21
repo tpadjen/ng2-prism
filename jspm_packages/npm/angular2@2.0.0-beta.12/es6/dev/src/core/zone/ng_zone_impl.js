@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 /**
  * Stores error information; delivered via [NgZone.onError] stream.
  */

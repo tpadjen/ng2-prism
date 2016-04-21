@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export const $EOF = 0;
 export const $TAB = 9;
 export const $LF = 10;

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { expect } from 'angular2/testing';
 var value;
 var element;

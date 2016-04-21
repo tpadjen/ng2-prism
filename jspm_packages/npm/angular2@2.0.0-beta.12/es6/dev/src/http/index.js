@@ -1,3 +1,5 @@
+/* */ 
+"format cjs";
 // Index to be used if Http is ever configured as a standalone npm package.
 // require('reflect-metadata');
 // require('es6-shim');

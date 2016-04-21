@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isString, Json } from 'angular2/src/facade/lang';
 import { BaseException } from 'angular2/src/facade/exceptions';
 import { isJsObject } from './http_utils';

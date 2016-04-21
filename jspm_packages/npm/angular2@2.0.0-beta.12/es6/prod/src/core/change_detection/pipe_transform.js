@@ -1,2 +1,2 @@
 /* */ 
-"format cjs";
+"format global";

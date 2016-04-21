@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';/**
  * JS version of browser APIs. This library can only run in the browser.
  */

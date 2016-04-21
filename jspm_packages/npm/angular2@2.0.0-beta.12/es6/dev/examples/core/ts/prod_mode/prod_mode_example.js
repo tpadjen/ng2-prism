@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { enableProdMode } from 'angular2/core';
 import { bootstrap } from 'angular2/platform/browser';
 import { MyComponent } from './my_component';

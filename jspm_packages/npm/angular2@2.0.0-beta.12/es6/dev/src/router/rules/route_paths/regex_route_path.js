@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { RegExpWrapper, RegExpMatcherWrapper, isBlank } from 'angular2/src/facade/lang';
 import { MatchedUrl } from './route_path';
 export class RegexRoutePath {

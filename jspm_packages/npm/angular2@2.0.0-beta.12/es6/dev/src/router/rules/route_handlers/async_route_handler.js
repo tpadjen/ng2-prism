@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isPresent } from 'angular2/src/facade/lang';
 import { RouteData, BLANK_ROUTE_DATA } from '../../instruction';
 export class AsyncRouteHandler {

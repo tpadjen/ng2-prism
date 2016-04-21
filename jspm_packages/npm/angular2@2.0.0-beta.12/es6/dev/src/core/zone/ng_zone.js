@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { EventEmitter } from 'angular2/src/facade/async';
 import { NgZoneImpl } from './ng_zone_impl';
 import { BaseException } from '../../facade/exceptions';

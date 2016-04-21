@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ListWrapper } from "angular2/src/facade/collection";
 export class AST {
     visit(visitor) { return null; }

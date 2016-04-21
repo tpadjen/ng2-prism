@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { BaseWrappedException } from './base_wrapped_exception';
 import { ExceptionHandler } from './exception_handler';
 export { ExceptionHandler } from './exception_handler';

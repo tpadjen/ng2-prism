@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isPresent, isBlank, normalizeBool } from 'angular2/src/facade/lang';
 import { EventEmitter, ObservableWrapper } from 'angular2/src/facade/async';
 import { PromiseWrapper } from 'angular2/src/facade/promise';

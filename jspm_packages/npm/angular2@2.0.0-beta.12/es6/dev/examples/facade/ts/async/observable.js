@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { Observable } from 'rxjs/Rx';
 var obs = new Observable((obs) => {
     var i = 0;

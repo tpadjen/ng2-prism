@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';var MatchedUrl = (function () {
     function MatchedUrl(urlPath, urlParams, allParams, auxiliary, rest) {
         this.urlPath = urlPath;

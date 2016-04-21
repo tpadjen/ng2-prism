@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { RouteConfig as RouteConfigAnnotation } from './route_config_impl';
 import { makeDecorator } from 'angular2/src/core/util/decorators';
 export { Route, Redirect, AuxRoute, AsyncRoute } from './route_config_impl';

@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';function implementsOnDestroy(pipe) {
     return pipe.constructor.prototype.ngOnDestroy;
 }

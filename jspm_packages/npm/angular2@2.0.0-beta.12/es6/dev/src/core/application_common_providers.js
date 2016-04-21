@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { CONST_EXPR } from 'angular2/src/facade/lang';
 import { Provider } from 'angular2/src/core/di';
 import { APP_ID_RANDOM_PROVIDER } from './application_tokens';

@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';exports.$EOF = 0;
 exports.$TAB = 9;
 exports.$LF = 10;

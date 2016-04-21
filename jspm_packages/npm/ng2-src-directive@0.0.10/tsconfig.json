@@ -1,0 +1,23 @@
+{
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "target": "es5",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "declaration": true,
+    "moduleResolution": "node"
+  },
+  "files": [
+    "typings/browser.d.ts",
+    "src.ts",
+    "./src/src.directive.ts",
+    "./src/sourcable.ts",
+    "tests/spec-setup.ts",
+    "tests/src.directive.spec.ts"
+  ]
+}

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { AsyncRoute, AuxRoute, Route, Redirect } from './route_config_decorator';
 import { isType } from 'angular2/src/facade/lang';
 import { BaseException } from 'angular2/src/facade/exceptions';

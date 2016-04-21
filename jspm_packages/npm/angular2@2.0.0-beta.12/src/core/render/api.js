@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';var RenderComponentType = (function () {
     function RenderComponentType(id, encapsulation, styles) {
         this.id = id;

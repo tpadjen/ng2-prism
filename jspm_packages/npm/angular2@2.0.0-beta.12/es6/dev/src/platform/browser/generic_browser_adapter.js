@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { StringMapWrapper } from 'angular2/src/facade/collection';
 import { isPresent, isFunction } from 'angular2/src/facade/lang';
 import { DomAdapter } from 'angular2/src/platform/dom/dom_adapter';

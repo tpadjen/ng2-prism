@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { PromiseWrapper } from 'angular2/src/facade/promise';
 import { isPresent } from 'angular2/src/facade/lang';
 import { XHR } from 'angular2/src/compiler/xhr';

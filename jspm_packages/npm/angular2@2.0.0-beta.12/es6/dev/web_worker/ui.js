@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export * from 'angular2/src/facade/facade';
 export * from '../src/core/di';
 export { platform, PlatformRef, ApplicationRef } from '../src/core/application_ref';

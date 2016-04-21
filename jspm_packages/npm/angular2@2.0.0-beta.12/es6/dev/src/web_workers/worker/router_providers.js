@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { Provider, NgZone, APP_INITIALIZER } from 'angular2/core';
 import { PlatformLocation } from 'angular2/src/router/location/platform_location';
 import { WebWorkerPlatformLocation } from './platform_location';

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { By } from 'angular2/platform/browser';
 var debugElement;
 class MyDirective {

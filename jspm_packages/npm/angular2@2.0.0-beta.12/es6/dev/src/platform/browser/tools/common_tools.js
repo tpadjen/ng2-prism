@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ApplicationRef } from 'angular2/src/core/application_ref';
 import { isPresent, NumberWrapper } from 'angular2/src/facade/lang';
 import { window } from 'angular2/src/facade/browser';

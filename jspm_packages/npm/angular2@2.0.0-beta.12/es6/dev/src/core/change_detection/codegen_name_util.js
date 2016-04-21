@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { StringWrapper } from 'angular2/src/facade/lang';
 import { ListWrapper, Map } from 'angular2/src/facade/collection';
 // The names of these fields must be kept in sync with abstract_change_detector.ts or change

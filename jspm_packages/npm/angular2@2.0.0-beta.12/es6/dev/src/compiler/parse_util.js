@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export class ParseLocation {
     constructor(file, offset, line, col) {
         this.file = file;

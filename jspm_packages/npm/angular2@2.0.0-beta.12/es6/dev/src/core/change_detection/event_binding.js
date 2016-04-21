@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export class EventBinding {
     constructor(eventName, elIndex, dirIndex, records) {
         this.eventName = eventName;

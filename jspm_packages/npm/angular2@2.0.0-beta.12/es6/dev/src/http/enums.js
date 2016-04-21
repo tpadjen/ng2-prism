@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 /**
  * Supported http methods.
  */

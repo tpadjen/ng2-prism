@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 /**
  * Abstract class from which real backends are derived.
  *

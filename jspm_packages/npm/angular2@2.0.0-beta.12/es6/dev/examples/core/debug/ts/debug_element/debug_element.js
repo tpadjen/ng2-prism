@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format global";
 var debugElement;
 var predicate;
 // #docregion scope_all

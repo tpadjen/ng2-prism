@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { IterableDiffers } from './differs/iterable_differs';
 import { DefaultIterableDifferFactory } from './differs/default_iterable_differ';
 import { KeyValueDiffers } from './differs/keyvalue_differs';

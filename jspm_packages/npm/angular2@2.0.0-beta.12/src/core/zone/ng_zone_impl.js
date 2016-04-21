@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';/**
  * Stores error information; delivered via [NgZone.onError] stream.
  */

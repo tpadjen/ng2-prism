@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export var NumberFormatStyle;
 (function (NumberFormatStyle) {
     NumberFormatStyle[NumberFormatStyle["Decimal"] = 0] = "Decimal";

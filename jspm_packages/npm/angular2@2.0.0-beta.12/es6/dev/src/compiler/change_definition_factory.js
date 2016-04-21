@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ListWrapper, StringMapWrapper } from 'angular2/src/facade/collection';
 import { isPresent } from 'angular2/src/facade/lang';
 import { reflector } from 'angular2/src/core/reflection/reflection';

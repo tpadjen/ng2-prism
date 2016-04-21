@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 /**
  * JS version of browser APIs. This library can only run in the browser.
  */

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isPresent, escape } from 'angular2/src/facade/lang';
 /**
  * A message extracted from a template.

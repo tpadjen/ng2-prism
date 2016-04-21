@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { IS_DART, StringWrapper, isBlank, isPresent, isString, isArray } from 'angular2/src/facade/lang';
 var CAMEL_CASE_REGEXP = /([A-Z])/g;
 var DASH_CASE_REGEXP = /-([a-z])/g;

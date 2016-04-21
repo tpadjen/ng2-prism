@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { unimplemented } from 'angular2/src/facade/exceptions';
 export class ViewRef {
     /**

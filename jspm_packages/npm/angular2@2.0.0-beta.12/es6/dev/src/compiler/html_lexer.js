@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { StringWrapper, NumberWrapper, isPresent, isBlank } from 'angular2/src/facade/lang';
 import { ListWrapper } from 'angular2/src/facade/collection';
 import { ParseLocation, ParseError, ParseSourceFile, ParseSourceSpan } from './parse_util';

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { global } from 'angular2/src/facade/lang';
 import { FunctionWithParamTokens, getTestInjector } from './test_injector';
 export { inject, injectAsync } from './test_injector';

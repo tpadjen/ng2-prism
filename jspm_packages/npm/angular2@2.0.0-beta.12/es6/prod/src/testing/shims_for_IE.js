@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format global";
 // function.name (all IE)
 /*! @source http://stackoverflow.com/questions/6903762/function-name-not-supported-in-ie*/
 if (!Object.hasOwnProperty('name')) {

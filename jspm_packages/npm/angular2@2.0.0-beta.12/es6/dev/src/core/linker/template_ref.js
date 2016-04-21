@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 /**
  * Represents an Embedded Template that can be used to instantiate Embedded Views.
  *

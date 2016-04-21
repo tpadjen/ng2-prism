@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export class PromiseCompleter {
     constructor() {
         this.promise = new Promise((res, rej) => {

@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';function getTypeOf(instance) {
     return instance.constructor;
 }

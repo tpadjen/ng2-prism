@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ListWrapper } from 'angular2/src/facade/collection';
 import { global, isPresent } from 'angular2/src/facade/lang';
 import { DOM } from 'angular2/src/platform/dom/dom_adapter';

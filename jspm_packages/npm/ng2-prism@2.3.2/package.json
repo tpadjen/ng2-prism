@@ -1,0 +1,68 @@
+{
+  "name": "ng2-prism",
+  "version": "2.3.2",
+  "description": "An Angular2 codeblock highlighting component using Prismjs.",
+  "main": "codeblock.js",
+  "scripts": {
+    "make": "node tasks/make.js",
+    "watch": "tsc -w",
+    "build": "npm run build-directives && rm -rf bundle && tsc && npm run build-css && node tasks/make.js",
+    "build-directives": "node tasks/buildLanguageDirectives.js",
+    "bundle-langs": "node tasks/bundleCompiledLanguages.js",
+    "build-css": "node tasks/buildCSS.js",
+    "prepublish": "npm run build",
+    "test": "tsc && karma start",
+    "test-single": "tsc && karma start --no-single-run",
+    "test-watch": "tsc && karma start --no-single-run --auto-watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tpadjen/ng2-prism.git"
+  },
+  "keywords": [
+    "Angular",
+    "2",
+    "Prism"
+  ],
+  "author": "Tim Padjen",
+  "license": "MIT",
+  "typings": "./codeblock.d.ts",
+  "bugs": {
+    "url": "https://github.com/tpadjen/ng2-prism/issues"
+  },
+  "homepage": "https://github.com/tpadjen/ng2-prism#readme",
+  "dependencies": {
+    "ng2-src-directive": "0.0.10",
+    "prismjs": "git://github.com/PrismJS/prism.git#gh-pages"
+  },
+  "devDependencies": {
+    "angular2": "2.0.0-beta.15",
+    "es6-promise": "^3.0.2",
+    "es6-shim": "^0.35.0",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.8",
+    "karma-mocha-reporter": "github:tpadjen/karma-mocha-reporter",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-spec-reporter": "0.0.25",
+    "karma-typescript-preprocessor": "0.0.21",
+    "node-sass": "^3.4.2",
+    "phantomjs-prebuilt": "^2.1.7",
+    "reflect-metadata": "0.1.2",
+    "rimraf": "^2.5.2",
+    "rxjs": "5.0.0-beta.2",
+    "systemjs-builder": "^0.15.13",
+    "typescript": "1.8.10",
+    "zone.js": "0.6.10"
+  },
+  "peerDependencies": {
+    "angular2": ">= 2.0.0-beta.15",
+    "es6-promise": ">= 3.0.2",
+    "es6-shim": ">= 0.35.0",
+    "reflect-metadata": ">= 0.1.2",
+    "rxjs": ">= 5.0.0-beta.2",
+    "zone.js": ">= 0.6.10"
+  }
+}

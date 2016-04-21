@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { global, isFunction, stringify } from 'angular2/src/facade/lang';
 var _nextClassId = 0;
 function extractAnnotation(annotation) {

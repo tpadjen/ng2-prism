@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { verifyNoBrowserErrors } from 'angular2/src/testing/e2e_util';
 function waitForElement(selector) {
     var EC = protractor.ExpectedConditions;

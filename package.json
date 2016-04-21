@@ -11,15 +11,15 @@
   "jspm": {
     "registry": "github",
     "dependencies": {
-      "angular2": "npm:angular2@2.0.0-beta.11",
+      "angular2": "npm:angular2@2.0.0-beta.15",
       "animate.css": "npm:animate.css@^3.5.1",
       "clean-css": "npm:clean-css@^3.4.9",
       "es6-shim": "npm:es6-shim@^0.35.0",
-      "ng2-prism": "npm:ng2-prism@^2.2.1",
+      "ng2-prism": "npm:ng2-prism@2.3.2",
       "normalize.css": "necolas/normalize.css@^3.0.3",
       "reflect-metadata": "npm:reflect-metadata@0.1.2",
       "rxjs": "npm:rxjs@^5.0.0-beta.2",
-      "zone.js": "npm:zone.js@^0.6.6"
+      "zone.js": "npm:zone.js@^0.6.10"
     },
     "devDependencies": {
       "css": "frankwallis/plugin-css@master",
@@ -36,13 +36,14 @@
     "run-sequence": "^1.1.5"
   },
   "dependencies": {
-    "angular2": "2.0.0-beta.11",
+    "angular2": "2.0.0-beta.15",
     "animate.css": "git+ssh://git@github.com/daneden/animate.css.git",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.35.0",
-    "ng2-prism": "^2.2.0",
+    "ng2-prism": "^2.3.2",
+    "ng2-src-directive": "0.0.10",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
-    "zone.js": "0.6.6"
+    "zone.js": "0.6.10"
   }
 }

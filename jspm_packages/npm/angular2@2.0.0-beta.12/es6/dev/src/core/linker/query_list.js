@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ListWrapper } from 'angular2/src/facade/collection';
 import { getSymbolIterator } from 'angular2/src/facade/lang';
 import { EventEmitter } from 'angular2/src/facade/async';

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { provide } from 'angular2/core';
 import { NG1_SCOPE } from './constants';
 const INITIAL_VALUE = {

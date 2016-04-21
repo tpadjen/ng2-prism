@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { APP_ID, DirectiveResolver, NgZone, Provider, ViewResolver, PLATFORM_COMMON_PROVIDERS, PLATFORM_INITIALIZER, APPLICATION_COMMON_PROVIDERS } from 'angular2/core';
 import { Parse5DomAdapter } from 'angular2/src/platform/server/parse5_adapter';
 import { AnimationBuilder } from 'angular2/src/animate/animation_builder';

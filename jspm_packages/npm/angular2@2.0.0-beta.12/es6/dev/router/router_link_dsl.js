@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { TEMPLATE_TRANSFORMS } from 'angular2/compiler';
 import { Provider } from 'angular2/core';
 import { RouterLinkTransform } from 'angular2/src/router/directives/router_link_transform';

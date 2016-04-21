@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 var globalScope;
 if (typeof window === 'undefined') {
     if (typeof WorkerGlobalScope !== 'undefined' && self instanceof WorkerGlobalScope) {

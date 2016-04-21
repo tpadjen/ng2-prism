@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export var RecordType;
 (function (RecordType) {
     RecordType[RecordType["Self"] = 0] = "Self";

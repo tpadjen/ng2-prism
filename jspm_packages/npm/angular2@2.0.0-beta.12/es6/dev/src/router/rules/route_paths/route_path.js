@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export class MatchedUrl {
     constructor(urlPath, urlParams, allParams, auxiliary, rest) {
         this.urlPath = urlPath;

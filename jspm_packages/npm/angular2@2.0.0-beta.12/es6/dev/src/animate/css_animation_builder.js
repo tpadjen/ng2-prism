@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { CssAnimationOptions } from './css_animation_options';
 import { Animation } from './animation';
 export class CssAnimationBuilder {

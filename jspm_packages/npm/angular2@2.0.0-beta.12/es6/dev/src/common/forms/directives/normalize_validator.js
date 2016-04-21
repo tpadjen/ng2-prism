@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export function normalizeValidator(validator) {
     if (validator.validate !== undefined) {
         return (c) => validator.validate(c);

@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';/**
  * Abstract class from which real backends are derived.
  *

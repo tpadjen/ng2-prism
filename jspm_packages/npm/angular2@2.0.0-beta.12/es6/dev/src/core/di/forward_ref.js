@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { stringify, isFunction } from 'angular2/src/facade/lang';
 /**
  * Allows to refer to references which are not yet defined.

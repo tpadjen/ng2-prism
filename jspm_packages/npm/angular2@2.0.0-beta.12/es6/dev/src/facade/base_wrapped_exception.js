@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 /**
  * A base class for the WrappedException that can be used to identify
  * a WrappedException from ExceptionHandler without adding circular

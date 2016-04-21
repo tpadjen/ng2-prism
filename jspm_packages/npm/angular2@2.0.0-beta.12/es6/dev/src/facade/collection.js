@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isJsObject, global, isPresent, isBlank, isArray, getSymbolIterator } from 'angular2/src/facade/lang';
 export var Map = global.Map;
 export var Set = global.Set;

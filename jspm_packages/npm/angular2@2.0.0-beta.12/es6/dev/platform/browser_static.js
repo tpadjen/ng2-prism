@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export { AngularEntrypoint } from 'angular2/src/core/angular_entrypoint';
 export { BROWSER_PROVIDERS, ELEMENT_PROBE_PROVIDERS, ELEMENT_PROBE_PROVIDERS_PROD_MODE, inspectNativeElement, BrowserDomAdapter, By, Title, enableDebugTools, disableDebugTools } from 'angular2/src/platform/browser_common';
 import { isPresent } from 'angular2/src/facade/lang';

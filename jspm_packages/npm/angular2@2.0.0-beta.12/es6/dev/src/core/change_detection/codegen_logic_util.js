@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { IS_DART, isPresent, isBlank } from 'angular2/src/facade/lang';
 import { codify, combineGeneratedStrings, rawString } from './codegen_facade';
 import { RecordType } from './proto_record';

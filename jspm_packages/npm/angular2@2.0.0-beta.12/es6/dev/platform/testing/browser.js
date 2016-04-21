@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { TEST_BROWSER_STATIC_PLATFORM_PROVIDERS, ADDITIONAL_TEST_BROWSER_PROVIDERS } from 'angular2/platform/testing/browser_static';
 import { BROWSER_APP_PROVIDERS } from 'angular2/platform/browser';
 import { CONST_EXPR } from 'angular2/src/facade/lang';

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 /**
  * This class should not be used directly by an application developer. Instead, use
  * {@link Location}.

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 // Public API for compiler
 export { DirectiveResolver } from './linker/directive_resolver';
 export { ViewResolver } from './linker/view_resolver';

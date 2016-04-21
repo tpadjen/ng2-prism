@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';function bind(fn, scope) {
     return fn.bind(scope);
 }

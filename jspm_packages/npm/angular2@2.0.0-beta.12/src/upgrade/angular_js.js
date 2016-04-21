@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';function noNg() {
     throw new Error('AngularJS v1.x is not loaded!');
 }

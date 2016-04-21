@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';var ParseLocation = (function () {
     function ParseLocation(file, offset, line, col) {
         this.file = file;

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { EventManagerPlugin } from './event_manager';
 import { StringMapWrapper } from 'angular2/src/facade/collection';
 var _eventNames = {

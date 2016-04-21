@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';/**
  * This class should not be used directly by an application developer. Instead, use
  * {@link Location}.

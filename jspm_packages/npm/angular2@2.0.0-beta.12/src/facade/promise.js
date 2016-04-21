@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';var PromiseCompleter = (function () {
     function PromiseCompleter() {
         var _this = this;

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 // Public API for Facade
 export { Type } from './lang';
 export { EventEmitter } from './async';

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import * as webdriver from 'selenium-webdriver';
 export var browser = global['browser'];
 export var $ = global['$'];

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isPresent, isBlank } from 'angular2/src/facade/lang';
 import { BaseWrappedException } from 'angular2/src/facade/base_wrapped_exception';
 import { isListLikeIterable } from 'angular2/src/facade/collection';

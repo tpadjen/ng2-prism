@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { CONST_EXPR } from 'angular2/src/facade/lang';
 import { NgControlName } from './directives/ng_control_name';
 import { NgFormControl } from './directives/ng_form_control';

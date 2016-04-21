@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { PromiseWrapper } from 'angular2/src/facade/async';
 export class Rectangle {
     constructor(left, top, width, height) {

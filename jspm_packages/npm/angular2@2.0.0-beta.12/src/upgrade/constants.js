@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';exports.NG2_APP_VIEW_MANAGER = 'ng2.AppViewManager';
 exports.NG2_COMPILER = 'ng2.Compiler';
 exports.NG2_INJECTOR = 'ng2.Injector';

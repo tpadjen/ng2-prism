@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { StringWrapper, isPresent, resolveEnumToken } from "angular2/src/facade/lang";
 import { BaseException } from 'angular2/src/facade/exceptions';
 import { isWhitespace, $EOF, $HASH, $TILDA, $CARET, $PERCENT, $$, $_, $COLON, $SQ, $DQ, $EQ, $SLASH, $BACKSLASH, $PERIOD, $STAR, $PLUS, $LPAREN, $RPAREN, $PIPE, $COMMA, $SEMICOLON, $MINUS, $BANG, $QUESTION, $AT, $AMPERSAND, $GT, $a, $A, $z, $Z, $0, $9, $FF, $CR, $LF, $VTAB } from "angular2/src/compiler/chars";

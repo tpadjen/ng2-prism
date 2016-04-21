@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isBlank } from 'angular2/src/facade/lang';
 export var DOM = null;
 export function setRootDomAdapter(adapter) {

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { Headers } from './headers';
 import { normalizeMethodName } from './http_utils';
 import { isPresent, StringWrapper } from 'angular2/src/facade/lang';

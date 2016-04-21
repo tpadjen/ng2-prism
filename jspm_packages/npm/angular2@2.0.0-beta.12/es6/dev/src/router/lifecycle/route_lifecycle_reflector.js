@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { Type } from 'angular2/src/facade/lang';
 import { CanActivate } from './lifecycle_annotations_impl';
 import { reflector } from 'angular2/src/core/reflection/reflection';

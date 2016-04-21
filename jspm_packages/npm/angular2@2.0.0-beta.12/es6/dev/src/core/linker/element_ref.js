@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { unimplemented } from 'angular2/src/facade/exceptions';
 /**
  * Represents a location in a View that has an injection, change-detection and render context

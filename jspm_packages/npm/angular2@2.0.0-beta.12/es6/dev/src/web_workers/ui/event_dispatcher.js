@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { RenderStoreObject } from 'angular2/src/web_workers/shared/serializer';
 import { serializeMouseEvent, serializeKeyboardEvent, serializeGenericEvent, serializeEventWithTarget, serializeTransitionEvent } from 'angular2/src/web_workers/ui/event_serializer';
 import { BaseException } from 'angular2/src/facade/exceptions';

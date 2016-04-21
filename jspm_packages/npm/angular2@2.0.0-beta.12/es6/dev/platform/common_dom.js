@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 /**
  * This is a set of classes and objects that can be used both in the browser and on the server.
  */

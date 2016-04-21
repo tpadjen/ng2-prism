@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';var webdriver = require('selenium-webdriver');
 exports.browser = global['browser'];
 exports.$ = global['$'];

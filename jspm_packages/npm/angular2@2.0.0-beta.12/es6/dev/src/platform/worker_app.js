@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { NgZone } from 'angular2/src/core/zone/ng_zone';
 import { Provider } from 'angular2/src/core/di';
 import { Parse5DomAdapter } from 'angular2/src/platform/server/parse5_adapter';

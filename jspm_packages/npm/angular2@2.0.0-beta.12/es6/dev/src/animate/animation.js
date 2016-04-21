@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { DateWrapper, StringWrapper, RegExpWrapper, NumberWrapper, isPresent } from 'angular2/src/facade/lang';
 import { Math } from 'angular2/src/facade/math';
 import { camelCaseToDashCase } from 'angular2/src/platform/dom/util';

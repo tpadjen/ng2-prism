@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 /**
  * See {@link bootstrap} for more information.
  * @deprecated

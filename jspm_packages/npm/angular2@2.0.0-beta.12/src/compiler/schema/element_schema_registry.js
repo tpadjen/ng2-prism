@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';var ElementSchemaRegistry = (function () {
     function ElementSchemaRegistry() {
     }

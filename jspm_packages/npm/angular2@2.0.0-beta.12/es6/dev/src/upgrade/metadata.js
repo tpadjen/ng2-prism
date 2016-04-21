@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { DirectiveResolver } from 'angular2/core';
 var COMPONENT_SELECTOR = /^[\w|-]*$/;
 var SKEWER_CASE = /-(\w)/g;

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { assertionsEnabled, isPresent, isBlank } from 'angular2/src/facade/lang';
 import { ListWrapper } from 'angular2/src/facade/collection';
 import { ChangeDetectionUtil } from './change_detection_util';

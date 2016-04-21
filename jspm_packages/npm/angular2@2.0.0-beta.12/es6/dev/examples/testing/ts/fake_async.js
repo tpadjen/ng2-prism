@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { describe, it, fakeAsync, expect, tick, clearPendingTimers } from 'angular2/testing';
 // #docregion basic
 describe('this test', () => {

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isBlank } from 'angular2/src/facade/lang';
 import { splitNsName } from './html_tags';
 const NG_CONTENT_SELECT_ATTR = 'select';

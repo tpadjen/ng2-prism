@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export * from './src/common/pipes';
 export * from './src/common/directives';
 export * from './src/common/forms';

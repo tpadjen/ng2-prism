@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { LocationStrategy } from 'angular2/src/router/location/location_strategy';
 import { PathLocationStrategy } from 'angular2/src/router/location/path_location_strategy';
 import { Router, RootRouter } from 'angular2/src/router/router';

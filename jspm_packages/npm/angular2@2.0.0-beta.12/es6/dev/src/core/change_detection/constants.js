@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { isBlank } from 'angular2/src/facade/lang';
 /**
  * Describes the current state of the change detector.

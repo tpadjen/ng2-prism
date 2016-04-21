@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export function stringify(obj) {
     if (typeof obj == 'function')
         return obj.name || obj.toString();

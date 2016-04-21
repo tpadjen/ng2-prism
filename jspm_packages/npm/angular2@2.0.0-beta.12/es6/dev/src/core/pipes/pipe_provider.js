@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { resolveProvider, ResolvedProvider_ } from 'angular2/src/core/di/provider';
 import { Provider } from 'angular2/src/core/di';
 export class PipeProvider extends ResolvedProvider_ {

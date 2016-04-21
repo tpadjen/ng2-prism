@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { StringMapWrapper } from 'angular2/src/facade/collection';
 import { isPresent, isBlank, normalizeBlank, CONST_EXPR } from 'angular2/src/facade/lang';
 import { PromiseWrapper } from 'angular2/src/facade/async';

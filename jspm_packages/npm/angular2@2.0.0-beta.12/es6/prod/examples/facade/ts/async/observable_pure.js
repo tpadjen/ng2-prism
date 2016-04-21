@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { Observable } from 'rxjs/Rx';
 import { map } from 'rxjs/operator/map';
 var obs = new Observable((sub) => {

@@ -6,7 +6,7 @@ import {LinklistService} from './linklist/linklist.service';
 import {LinklistComponent} from './linklist/linklist.component';
 import {LinkDirective} from './linklist/link.directive';
 
-import {Codeblock} from 'ng2-prism/codeblock';
+import {Codeblock, Source} from 'ng2-prism/codeblock';
 
 import {Ruby} from       'ng2-prism/languages/ruby';
 import {Java} from       'ng2-prism/languages/java';
@@ -24,6 +24,7 @@ import {Markup} from     'ng2-prism/languages/markup';
   directives: [
     ExampleComponent,
     Codeblock,
+    Source,
     Ruby,
     Java,
     Go,

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export class SelectedPipe {
     constructor(pipe, pure) {
         this.pipe = pipe;

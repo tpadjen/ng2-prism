@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';(function (RecordType) {
     RecordType[RecordType["Self"] = 0] = "Self";
     RecordType[RecordType["Const"] = 1] = "Const";

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export { verifyNoBrowserErrors } from './e2e_util';
 var benchpress = global['benchpress'];
 var bind = benchpress.bind;

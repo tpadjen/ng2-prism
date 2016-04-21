@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';var EventBinding = (function () {
     function EventBinding(eventName, elIndex, dirIndex, records) {
         this.eventName = eventName;

@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { XHR } from 'angular2/src/compiler/xhr';
 import { ListWrapper, Map } from 'angular2/src/facade/collection';
 import { isBlank, normalizeBlank } from 'angular2/src/facade/lang';

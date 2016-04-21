@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { NgZone } from 'angular2/src/core/zone/ng_zone';
 import { isPresent, assertionsEnabled, print } from 'angular2/src/facade/lang';
 import { provide, Injector } from 'angular2/src/core/di';

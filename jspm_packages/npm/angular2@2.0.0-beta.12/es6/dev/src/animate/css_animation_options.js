@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export class CssAnimationOptions {
     constructor() {
         /** classes to be added to the element */

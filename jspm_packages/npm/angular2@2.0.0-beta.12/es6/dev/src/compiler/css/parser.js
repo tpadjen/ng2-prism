@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { ParseSourceSpan, ParseSourceFile, ParseLocation, ParseError } from "angular2/src/compiler/parse_util";
 import { bitWiseOr, bitWiseAnd, isPresent } from "angular2/src/facade/lang";
 import { CssLexerMode, CssToken, CssTokenType, generateErrorMessage, $AT, $EOF, $RBRACE, $LBRACE, $LBRACKET, $RBRACKET, $LPAREN, $RPAREN, $COMMA, $COLON, $SEMICOLON, isNewline } from "angular2/src/compiler/css/lexer";

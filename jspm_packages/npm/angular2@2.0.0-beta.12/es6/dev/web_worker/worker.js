@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 export * from '../common';
 export * from '../core';
 export * from '../platform/worker_app';

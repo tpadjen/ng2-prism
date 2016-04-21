@@ -1,5 +1,5 @@
 /* */ 
-"format cjs";
+"format esm";
 import { CONST_EXPR, assertionsEnabled } from 'angular2/src/facade/lang';
 import { Provider } from 'angular2/src/core/di';
 import { DOM } from 'angular2/src/platform/dom/dom_adapter';

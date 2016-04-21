@@ -1,4 +1,5 @@
 /* */ 
+"format cjs";
 'use strict';/**
  * Supported http methods.
  */
