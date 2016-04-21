@@ -290,9 +290,7 @@ export class CodeblockComponent implements
    */
   sourceError(error) {
     this._sourced = false;
-    if (error.message) {
-      this.message(error.message);
-    }
+    this.message(error.message ? error.message : 'An error occured.');
   }
 
   /**

@@ -46,6 +46,7 @@ var tsFiles = [
   "src/codeblock.component.ts",
   "src/code-renderer.component.ts",
   "tests/spec-setup.ts",
+  "tests/codeblock.component.spec.ts",
   "tests/code-renderer.component.spec.ts"
 ];
 
