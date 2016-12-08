@@ -1,11 +1,11 @@
 import 'prismjs/components/prism-{{lang}}';
-import {Directive, ElementRef} from 'angular2/core';
+import {Directive, ElementRef, OnInit} from '@angular/core';
 
 
 @Directive({
   selector: 'codeblock[{{lang}}]'
 })
-export class {{lang_title}} {
+export class {{lang_title}} implements OnInit {
 
   codeblock:any;
 

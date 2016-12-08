@@ -40,7 +40,7 @@ var languageTemplate = fs.readFileSync('src/language-template.ts', 'utf8');
 var  jsExports = [];
 var tsExports = [];
 var tsFiles = [
-  "typings/browser.d.ts",
+  "typings/index.d.ts",
   "codeblock.ts",
   "languages.ts",
   "src/codeblock.component.ts",

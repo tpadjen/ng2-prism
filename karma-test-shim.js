@@ -11,13 +11,13 @@ System.config({
   baseURL: '/base/',
   defaultJSExtensions: true,
   map: {
-    'angular2': 'node_modules/angular2',
+    '@angular': 'node_modules/@angular',
     'rxjs': 'node_modules/rxjs',
     'prismjs': 'node_modules/prismjs'
   }
 });
 
-System.import('angular2/src/platform/browser/browser_adapter').then(function(browser_adapter) {
+System.import('@angular/src/platform/browser/browser_adapter').then(function(browser_adapter) {
   browser_adapter.BrowserDomAdapter.makeCurrent();
 }).then(function() {
   return Promise.all(

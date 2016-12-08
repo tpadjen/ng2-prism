@@ -3,23 +3,15 @@ import {
   AfterViewChecked,
   AfterContentChecked,
   ElementRef,
-  EventEmitter,
   Input,
-  Output,
   ViewEncapsulation,
   ViewChild
-} from 'angular2/core';
+} from '@angular/core';
+import 'prismjs/prism';
+import { CodeRenderer } from './code-renderer.component';
+import { OnSourceChanged, OnSourceError, OnSourceReceived, Response } from 'ng2-src-directive/src';
 
 declare var Prism: any;
-import 'prismjs/prism';
-
-import {CodeRenderer} from './code-renderer.component';
-import {
-  OnSourceChanged,
-  OnSourceError,
-  OnSourceReceived,
-  Response
-} from 'ng2-src-directive/src';
 
 @Component({
   selector: 'codeblock',
@@ -38,20 +30,17 @@ import {
   `,
 
   // CSS injected in build step
-  styles: [`{{CSS}}`],
+  styles: [ `{{CSS}}` ],
 
   // necessary to make component styles apply because unique ng attributes
   // aren't applied to elements added by Prism.highlight
-  encapsulation: ViewEncapsulation.None,
-
-  directives: [CodeRenderer]
+  encapsulation: ViewEncapsulation.None
 })
-export class CodeblockComponent implements
-                                AfterViewChecked,
-                                AfterContentChecked,
-                                OnSourceChanged,
-                                OnSourceError,
-                                OnSourceReceived {
+export class CodeblockComponent implements AfterViewChecked,
+  AfterContentChecked,
+  OnSourceChanged,
+  OnSourceError,
+  OnSourceReceived {
 
   /** ViewChildren **/
 
@@ -68,14 +57,16 @@ export class CodeblockComponent implements
 
   /** Lifecycle Events **/
 
-  constructor(
-    private _elementRef: ElementRef) { }
+  constructor(private _elementRef: ElementRef) {
+  }
 
   /**
    * Update code when content changes
    */
   ngAfterContentChecked() {
-    if (!this._sourced && !this._showingMessage) { this.code = this.content; }
+    if (!this._sourced && !this._showingMessage) {
+      this.code = this.content;
+    }
   }
 
   /**
@@ -168,7 +159,7 @@ export class CodeblockComponent implements
    * @return {boolean} - whether or not lineNumbers should be displayed
    */
   shouldDisplayLineNumbers(): boolean {
-    return this.lineNumbers && ! this._showingMessage;
+    return this.lineNumbers && !this._showingMessage;
   }
 
 
@@ -185,9 +176,11 @@ export class CodeblockComponent implements
    * @param {string} - language used for highlighting
    */
   @Input() set language(lang: string) {
-    if (this.isShell()) { return; }
+    if (this.isShell()) {
+      return;
+    }
     this._languageSet = lang && lang.length > 0 ? true : false;
-    this._language = Prism.languages[lang] ? lang : undefined;
+    this._language = Prism.languages[ lang ] ? lang : undefined;
     this._changed = true;
   }
 
@@ -206,7 +199,9 @@ export class CodeblockComponent implements
   }
 
   get theme(): string {
-    if (this._theme) { return this._theme; }
+    if (this._theme) {
+      return this._theme;
+    }
 
     return this.isShell() ? this.DEFAULT_SHELL_THEME : this.DEFAULT_THEME;
   }
@@ -233,7 +228,7 @@ export class CodeblockComponent implements
     "twilight"
   ];
 
-  DEFAULT_THEME       = "standard";
+  DEFAULT_THEME = "standard";
   DEFAULT_SHELL_THEME = "okaidia";
 
 
@@ -269,8 +264,8 @@ export class CodeblockComponent implements
    * @param  {Response} res
    */
   sourceReceived(res: Response) {
-    let ext = res.url.match(/\.(\w+)$/)[1];
-    let fileLang = CodeblockComponent.EXTENSION_MAP[ext] || ext;
+    let ext = res.url.match(/\.(\w+)$/)[ 1 ];
+    let fileLang = CodeblockComponent.EXTENSION_MAP[ ext ] || ext;
     let text = res.text();
     if (!this._languageSet) {
       this._language = fileLang;
@@ -354,7 +349,7 @@ export class CodeblockComponent implements
   /**
    * Possible shell types
    */
-  static SHELL_TYPES: Array<string>  = ['bash', 'powershell'];
+  static SHELL_TYPES: Array<string> = [ 'bash', 'powershell' ];
 
   /**
    * The prompt to display in a shell codeblock. Default is $.
@@ -407,7 +402,7 @@ export class CodeblockComponent implements
    */
   @Input() set output(lines: string) {
     console.warn("DEPRECATION WARNING: The CodeblockComponent Input property 'output'" +
-            " is no longer supported and will be removed in a future release. Use 'outputLines'");
+      " is no longer supported and will be removed in a future release. Use 'outputLines'");
     this.outputLines = lines;
   }
 

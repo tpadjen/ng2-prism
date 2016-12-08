@@ -3,7 +3,7 @@ import {
   Input,
   Renderer,
   ViewChild
-} from 'angular2/core';
+} from '@angular/core';
 
 
 declare var Prism: any;
