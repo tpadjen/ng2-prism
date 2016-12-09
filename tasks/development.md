@@ -2,5 +2,4 @@
 
 ```
 $ npm i
-$ typings i
 ```

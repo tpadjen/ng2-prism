@@ -1,7 +1,6 @@
 import 'prismjs/components/prism-{{lang}}';
 import {Directive, ElementRef, OnInit} from '@angular/core';
 
-
 @Directive({
   selector: 'codeblock[{{lang}}]'
 })

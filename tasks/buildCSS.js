@@ -1,12 +1,12 @@
-var sass = require('node-sass');
-var fs = require('fs');
+let sass = require('node-sass');
+let fs = require('fs');
 
-var buildSass = function(js) {
+let buildSass = function (js) {
   sass.render({
     file: 'src/codeblock.component.scss',
     outputStyle: 'compressed'
-  }, function(error, result) {
-    if(!error){
+  }, function (error, result) {
+    if (!error) {
       writeJS(replaceCSS(js, result.css));
     } else {
       console.log("Sass compilation error");
@@ -14,14 +14,14 @@ var buildSass = function(js) {
     }
   });
 };
-//
-var replaceCSS = function(source, css) {
-  return source.replace("{{CSS}}", css.toString('utf8').replace(/\"/g,'\\"').trim());
+
+let replaceCSS = function (source, css) {
+  return source.replace("{{CSS}}", css.toString('utf8').replace(/\"/g, '\\"').trim());
 };
-//
-var writeJS = function(js) {
-  fs.writeFile('src/codeblock.component.js', js, function(err){
-    if(!err){
+
+let writeJS = function (js) {
+  fs.writeFile('src/codeblock.component.js', js, function (err) {
+    if (!err) {
       console.log("CSS injected");
     } else {
       console.log("Could not write css to js file");
@@ -30,6 +30,6 @@ var writeJS = function(js) {
   });
 };
 
-fs.readFile('src/codeblock.component.js', 'utf8', function(err, js) {
+fs.readFile('src/codeblock.component.js', 'utf8', function (err, js) {
   buildSass(js);
-})
+});

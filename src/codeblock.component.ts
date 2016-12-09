@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import 'prismjs/prism';
 import { CodeRenderer } from './code-renderer.component';
-import { OnSourceChanged, OnSourceError, OnSourceReceived, Response } from 'ng2-src-directive/src';
+import { OnSourceChanged, OnSourceError, OnSourceReceived, Response } from './ng2-src-directive/sourcable';
 
 declare var Prism: any;
 
