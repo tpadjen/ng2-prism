@@ -14,18 +14,19 @@ import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/switchMap';
 
-export var SourceDebounceTime: number = 300;
+export const SourceDebounceTime: number = 300;
 
 @Directive({selector: '[src]'})
 export class SrcDirective implements OnInit, OnDestroy {
 
-  host: Sourcable;
-  _src: string;
+  public host: Sourcable;
+
   @Input() set src(source: string) {
     this._src = source;
     this.sourceChanged.next(source);
   }
 
+  private _src: string;
   constructor(private _element: ElementRef,
               private _http: Http,
               private _renderer: Renderer,
@@ -60,7 +61,7 @@ export class SrcDirective implements OnInit, OnDestroy {
   _debounceTime: number = 300;
 
   sourceChanged: Subject<string> = new Subject();
-  _subscription;
+  _subscription:any;
   _firstRequest: boolean = true;
 
   _handleSourceChanges() {
@@ -111,18 +112,18 @@ export class SrcDirective implements OnInit, OnDestroy {
     this._subscription.dispose();
   }
 
-  _emptySources(source) {
+  _emptySources(source:any) {
     return !(source === undefined || source === null || source === '');
   }
 
-  _addExtensionMatches(source) {
+  _addExtensionMatches(source:any) {
     return {
       source: source,
       extMatches: source.match(/\.(\w+)$/)
     };
   }
 
-  _nonFiles(req) {
+  _nonFiles(req:any) {
     if (!req.extMatches) {
       if (req.source && req.source.length > 0) {
         if (this.host.sourceError) {
@@ -138,7 +139,7 @@ export class SrcDirective implements OnInit, OnDestroy {
     return true;
   }
 
-  _fetchSrc(req) {
+  _fetchSrc(req:any) {
     return this._http.get(req.source)
       .catch((error) => {
         if (this.host.sourceError) {
@@ -147,5 +148,4 @@ export class SrcDirective implements OnInit, OnDestroy {
         return Observable.empty();
       });
   }
-
 }

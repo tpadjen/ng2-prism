@@ -1,23 +1,7 @@
-import {
-  Component,
-  Input,
-  Renderer,
-  ViewChild
-} from '@angular/core';
-
-
-declare var Prism: any;
-/**
- * Language files that all components should recognize
- */
+import { Component, Input, Renderer, ViewChild } from '@angular/core';
 import 'prismjs/components/prism-bash';
 import 'prismjs/components/prism-powershell';
 import 'prismjs/components/prism-javascript';
-Prism.languages.undefined = {};
-
-/**
- * Prism plugins
- */
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/plugins/command-line/prism-command-line';
 import 'prismjs/plugins/normalize-whitespace/prism-normalize-whitespace';
@@ -35,13 +19,10 @@ const TEMPLATE_REGEX = /<!--template\sbindings={[^\}]*}-->/g;
 @Component({
   selector: 'code-renderer',
   template: `
-    <pre #preEl [class]="preClasses"
-      [attr.data-prompt]="prompt"
-      [attr.data-output]="outputLines"
-    ></pre>
+<pre #preEl [class]="preClasses" [attr.data-prompt]="prompt" [attr.data-output]="outputLines"></pre>
   `
 })
-export class CodeRenderer {
+export class CodeRendererComponent {
 
   /**
    * The code to highlight
@@ -77,12 +58,11 @@ export class CodeRenderer {
   /**
    * The template <pre> that will contain the code.
    */
-  @ViewChild('preEl') _pre;
+  @ViewChild('preEl') _pre:any;
 
-  constructor(
-    private _renderer: Renderer) { }
+  constructor(private _renderer: Renderer) { }
 
-  render() {
+  public render() {
     this._replaceCode();
     this._highlight();
   }
@@ -90,11 +70,9 @@ export class CodeRenderer {
   /**
    * Clear the code.
    */
-  empty() {
+  public empty() {
     if (this._pre) { this._pre.nativeElement.innerHTML = ""; }
   }
-
-
 
   /**
    * Place the new code element in the template
@@ -120,28 +98,32 @@ export class CodeRenderer {
    * Code prepared for highlighting and display
    */
   get _processedCode() {
-    return this._isMarkup(this.language) ? this._processMarkup(this.code) : this.code;
+    return this._isMarkup(this.language)
+      ? this._processMarkup(this.code)
+      : this.code;
   }
 
   /**
    * Format markup for display.
    */
-  _processMarkup(text) {
+  _processMarkup(text:string):string {
     return this._replaceTags(this._removeAngularMarkup(text));
   }
 
   /**
-   * Change all opening < changed to &lt; to render markup correctly inside pre tags
+   * Change all opening < changed to &lt; to render markup correctly inside pre
+   * tags
    */
-  _replaceTags(text): string {
+  _replaceTags(text:string): string {
     return text.replace(/(<)([!\/A-Za-z](.|[\n\r])*?>)/g, '&lt;$2');
   }
 
   /**
-   * Remove both template tags and styling attributes added by the angular2 parser
-   * and fix indentation within code elements created by structural directives.
+   * Remove both template tags and styling attributes added by the angular2
+   * parser and fix indentation within code elements created by structural
+   * directives.
    */
-  _removeAngularMarkup(html): string {
+  _removeAngularMarkup(html:string): string {
     // remove styling attributes (_ngcontent etc.)
     html = html.replace(/\s_ng[^-]+-[^-]+-[^=]+="[^"]*"/g, '');
 
@@ -150,7 +132,8 @@ export class CodeRenderer {
     // remove empty <!--template--> lines
     lines = lines.filter(line => {
       if (line.trim() === '') { return true; }
-      let replaced = line.replace(TEMPLATE_REGEX, '').trim();
+      let replaced = line.replace(TEMPLATE_REGEX, '')
+        .trim();
       return replaced !== '';
     });
 
@@ -163,7 +146,7 @@ export class CodeRenderer {
   /**
    * Is the language given a markup language?
    */
-  _isMarkup(language): boolean {
+  _isMarkup(language:string): boolean {
     return language === 'markup' || language === 'markdown';
   }
 
@@ -196,7 +179,6 @@ export class CodeRenderer {
     return this.lineNumbersClass + ' ' + this.languageClass + ' ' + this.shellClass;
   }
 
-
   /** Code Styling **/
 
   /**
@@ -215,8 +197,9 @@ export class CodeRenderer {
       if (clp) {
         let promptWidth = this._codeEl.querySelector('.command-line-prompt').clientWidth;
         let prePadding = parseInt(this._getStyle(this._pre.nativeElement,
-          'padding-left').replace('px', ''), 10);
-          this._pre.nativeElement.style.paddingRight = (2 * prePadding + promptWidth / 2) + 'px';
+          'padding-left')
+          .replace('px', ''), 10);
+        this._pre.nativeElement.style.paddingRight = (2 * prePadding + promptWidth / 2) + 'px';
       }
     }
   }
@@ -224,12 +207,13 @@ export class CodeRenderer {
   /**
    * Get the actually applied style of an element
    */
-  _getStyle(oElm, strCssRule) {
+  _getStyle(oElm:any, strCssRule:string):string {
     let strValue = "";
     if (document.defaultView && document.defaultView.getComputedStyle) {
-      strValue = document.defaultView.getComputedStyle(oElm, "").getPropertyValue(strCssRule);
+      strValue = document.defaultView.getComputedStyle(oElm, "")
+        .getPropertyValue(strCssRule);
     } else if (oElm.currentStyle) {
-      strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1){
+      strCssRule = strCssRule.replace(/\-(\w)/g, function (strMatch, p1) {
         return p1.toUpperCase();
       });
       strValue = oElm.currentStyle[strCssRule];
@@ -239,10 +223,8 @@ export class CodeRenderer {
 
   // _truncateLargeFiles() {
   //   if (this._codeEl.innerHTML.length > this.truncationSize) {
-  //     this._codeEl.innerHTML = this._codeEl.innerHTML.slice(0, this.truncationSize) +
-  //                             "\n" + this.truncationMessage + "\n";
-  //   }
-  // }
+  //     this._codeEl.innerHTML = this._codeEl.innerHTML.slice(0,
+  // this.truncationSize) + "\n" + this.truncationMessage + "\n"; } }
 
   /**
    * Remove extra indentation in ngSwitches
@@ -250,30 +232,32 @@ export class CodeRenderer {
   _fixIndentation(html: string): Array<string> {
     let indent = 0;
     let diff = 0;
-    let removeLines = [];
-    let lines = html.split("\n").map((line, index) => {
-      if (line.trim() === '') { // empty line
-        if (indent > 0) { removeLines.push(index); }
-        indent = 0;
-        return '';
-      }
-      let a = line.replace(TEMPLATE_REGEX, '').trim();
-      if (a === '') { // template line
-        indent = line.match(/^\s*/)[0].length;
-        return line;
-      } else if (indent > 0) { // lines after template need fixing
-        length = line.match(/^\s*/)[0].length;
-        if (diff === 0) { // find the amount to fix indentation
-          diff = length - indent;
-        }
-        if (length >= indent) { // fix it
-          return line.slice(diff);
-        } else { // stop indenting
+    let removeLines:number[] = [];
+    let lines = html.split("\n")
+      .map((line, index) => {
+        if (line.trim() === '') { // empty line
+          if (indent > 0) { removeLines.push(index); }
           indent = 0;
+          return '';
         }
-      }
-      return line;
-    });
+        let a = line.replace(TEMPLATE_REGEX, '')
+          .trim();
+        if (a === '') { // template line
+          indent = line.match(/^\s*/)[0].length;
+          return line;
+        } else if (indent > 0) { // lines after template need fixing
+          length = line.match(/^\s*/)[0].length;
+          if (diff === 0) { // find the amount to fix indentation
+            diff = length - indent;
+          }
+          if (length >= indent) { // fix it
+            return line.slice(diff);
+          } else { // stop indenting
+            indent = 0;
+          }
+        }
+        return line;
+      });
 
     // remove empty lines added by ngSwitch
     removeLines.forEach(removalIndex => {

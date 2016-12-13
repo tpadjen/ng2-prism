@@ -1,24 +1,10 @@
 // import './spec-setup';
 // import {
-//   expect,
-//   it, iit, xit,
-//   describe,
-//   inject,
-//   injectAsync,
-//   fakeAsync,
-//   TestComponentBuilder,
-//   beforeEach,
-//   beforeEachProviders,
-// } from '@angular/core/testing';
-// import {
-//   Renderer,
-//   Component
-// } from '@angular/core';
-// import {CodeRenderer} from '../src/code-renderer.component';
-//
-// declare var Prism: any;
-//
-// export function main() {
+  expect, it, iit, describe, inject, injectAsync, TestComponentBuilder,
+  beforeEach, beforeEachProviders
+} from '@angular/core/testing';
+import { provide, Injectable, Renderer, Component } from 'angular2/core';
+import { CodeRendererComponent } from '../src/code-renderer.component';
 //
 //   describe('CodeRenderer', () => {
 //     let tcb;
@@ -27,7 +13,7 @@
 //       TestComponentBuilder,
 //       CodeRenderer,
 //       Renderer
-//     ]);
+      CodeRendererComponent,
 //
 //     beforeEach(inject([TestComponentBuilder, Renderer], (_tcb, r) => {
 //       tcb = _tcb;
@@ -38,117 +24,117 @@
 //       it('sets the innerHTML to the code', done => {
 //         tcb.createAsync(CodeRenderer).then(fixture => {
 //           let codeRenderer = fixture.componentInstance;
-//           let el = fixture.nativeElement;
-//           codeRenderer.code = "Hello World";
-//           spyOn(Prism, 'highlightElement');
-//
-//           fixture.detectChanges();
-//
+        tcb.createAsync(CodeRendererComponent)
+          .then(fixture => {
+            let codeRenderer = fixture.componentInstance;
+            let el = fixture.nativeElement;
+            codeRenderer.code = "Hello World";
+            spyOn(Prism, 'highlightElement');
 //           codeRenderer.render();
-//
+            fixture.detectChanges();
 //           expect(el.querySelector('pre code').innerHTML).toBe('Hello World');
-//           done();
+            codeRenderer.render();
 //         })
-//         .catch(e => done.fail(e));
-//       });
-//
-//       it('uses Prism to highlight the code', done => {
-//         tcb.createAsync(CodeRenderer).then(fixture => {
+            expect(el.querySelector('pre code').innerHTML)
+              .toBe('Hello World');
+            done();
+          })
+          .catch(e => done.fail(e));
 //           let codeRenderer = fixture.componentInstance;
 //           let el = fixture.nativeElement;
 //           codeRenderer.code = "Hello World";
-//           spyOn(Prism, 'highlightElement');
-//
-//           fixture.detectChanges();
-//
-//           codeRenderer.render();
-//
+        tcb.createAsync(CodeRendererComponent)
+          .then(fixture => {
+            let codeRenderer = fixture.componentInstance;
+            let el = fixture.nativeElement;
+            codeRenderer.code = "Hello World";
+            spyOn(Prism, 'highlightElement');
 //           expect(Prism.highlightElement).toHaveBeenCalledWith(
-//             el.querySelector('pre code'), false, null);
+            fixture.detectChanges();
 //           done();
-//         })
+            codeRenderer.render();
 //         .catch(e => done.fail(e));
-//       });
-//
-//       describe('Markup', () => {
-//
-//         it('handles inline tags', done => {
-//           tcb.createAsync(CodeRenderer).then(fixture => {
+            expect(Prism.highlightElement)
+              .toHaveBeenCalledWith(
+                el.querySelector('pre code'), false, null);
+            done();
+          })
+          .catch(e => done.fail(e));
 //             let codeRenderer = fixture.componentInstance;
 //             let el = fixture.nativeElement;
 //             codeRenderer.language = 'markup';
 //             codeRenderer.code = '<div></div>';
 //             spyOn(Prism, 'highlightElement');
-//
-//             fixture.detectChanges();
-//
-//             codeRenderer.render();
-//
-//             expect(el.querySelector('pre code').textContent).toBe('<div></div>');
-//
+          tcb.createAsync(CodeRendererComponent)
+            .then(fixture => {
+              let codeRenderer = fixture.componentInstance;
+              let el = fixture.nativeElement;
+              codeRenderer.language = 'markup';
+              codeRenderer.code = '<div></div>';
+              spyOn(Prism, 'highlightElement');
 //             done();
-//           })
+              fixture.detectChanges();
 //           .catch(e => done.fail(e));
-//         });
+              codeRenderer.render();
 //
-//         it('handles multiline tags', done => {
-//           tcb.createAsync(CodeRenderer).then(fixture => {
+              expect(el.querySelector('pre code').textContent)
+                .toBe('<div></div>');
 //             let codeRenderer = fixture.componentInstance;
-//             let el = fixture.nativeElement;
-//             codeRenderer.language = 'markup';
-//             let list = `
+              done();
+            })
+            .catch(e => done.fail(e));
 //               <ul class="list">
 //                 <li>A</li>
 //                 <li>B</li>
-//                 <li>C</li>
-//               </div>
-//             `;
-//             codeRenderer.code = list;
-//             spyOn(Prism, 'highlightElement');
-//
+          tcb.createAsync(CodeRendererComponent)
+            .then(fixture => {
+              let codeRenderer = fixture.componentInstance;
+              let el = fixture.nativeElement;
+              codeRenderer.language = 'markup';
+              let list = `
 //             fixture.detectChanges();
 //
 //             codeRenderer.render();
 //
 //             let text = el.querySelector('pre code').textContent.trim();
 //             expect(text).toBe(list.trim());
-//
-//             done();
+              codeRenderer.code = list;
+              spyOn(Prism, 'highlightElement');
 //           })
-//           .catch(e => done.fail(e));
+              fixture.detectChanges();
 //         });
-//
+              codeRenderer.render();
 //         it('is processed in Markdown', done => {
-//           tcb.createAsync(CodeRenderer).then(fixture => {
-//             let codeRenderer = fixture.componentInstance;
-//             let el = fixture.nativeElement;
-//             codeRenderer.language = 'markdown';
-//             codeRenderer.code = '<div></div>';
+              let text = el.querySelector('pre code')
+                .textContent
+                .trim();
+              expect(text)
+                .toBe(list.trim());
 //             spyOn(Prism, 'highlightElement');
-//
-//             fixture.detectChanges();
-//
+              done();
+            })
+            .catch(e => done.fail(e));
 //             codeRenderer.render();
 //
 //             expect(el.querySelector('pre code').textContent).toBe('<div></div>');
+          tcb.createAsync(CodeRendererComponent)
+            .then(fixture => {
+              let codeRenderer = fixture.componentInstance;
+              let el = fixture.nativeElement;
+              codeRenderer.language = 'markdown';
+              codeRenderer.code = '<div></div>';
+              spyOn(Prism, 'highlightElement');
 //
-//             done();
-//           })
-//           .catch(e => done.fail(e));
-//         });
+              fixture.detectChanges();
 //
-//         describe('Angular templates', () => {
-//
-//           describe('ngFor', () => {
-//
-//             @Component({
+              codeRenderer.render();
 //               selector: 'for-component',
-//               template: `
-//                 <ul>
+              expect(el.querySelector('pre code').textContent)
+                .toBe('<div></div>');
 //                   <li *ngFor="#i of [1,2,3]">Item {{ i }}</li>
-//                 </ul>
-//               `
-//             })
+              done();
+            })
+            .catch(e => done.fail(e));
 //             class ForComponent {}
 //
 //             it('removes template tags', done => {
@@ -163,45 +149,45 @@
 //                   codeRenderer.code = forFixture.nativeElement.innerHTML;
 //                   spyOn(Prism, 'highlightElement');
 //
-//                   fixture.detectChanges();
-//
+            class ForComponent {
+            }
 //                   codeRenderer.render();
 //
-//                   let text = el.querySelector('pre code').textContent.replace(/\s+/g, '');
-//                   let processed = `
-//                     <ul>
-//                       <li>Item 1</li>
-//                       <li>Item 2</li>
+              tcb.createAsync(CodeRendererComponent)
+                .then(fixture => {
+                  let codeRenderer = fixture.componentInstance;
+                  let el = fixture.nativeElement;
+                  codeRenderer.language = 'markup';
 //                       <li>Item 3</li>
-//                     </ul>
-//                   `;
-//                   expect(text).toBe(processed.replace(/\s+/g, ''));
+                  tcb.createAsync(ForComponent)
+                    .then(forFixture => {
+                      forFixture.detectChanges();
 //
-//                   done();
-//
+                      codeRenderer.code = forFixture.nativeElement.innerHTML;
+                      spyOn(Prism, 'highlightElement');
 //                 });
-//               })
+                      fixture.detectChanges();
 //               .catch(e => done.fail(e));
-//             });
+                      codeRenderer.render();
 //
-//           });
-//
-//           describe('ngSwitch', () => {
-//
+                      let text = el.querySelector('pre code')
+                        .textContent
+                        .replace(/\s+/g, '');
+                      let processed = `
 //             @Component({
 //               selector: 'switch-component',
 //               template: `
 //               <div [ngSwitch]="3">
 //                 <template [ngSwitchWhen]="1">A</template>
 //                 <template ngSwitchWhen="2">B</template>
-//                 <template ngSwitchDefault>C</template>
-//               </div>
+                      expect(text)
+                        .toBe(processed.replace(/\s+/g, ''));
 //               `
-//             })
+                      done();
 //             class SwitchComponent {}
-//
-//             it('removes template tags', done => {
-//               tcb.createAsync(CodeRenderer).then(fixture => {
+                    });
+                })
+                .catch(e => done.fail(e));
 //                 let codeRenderer = fixture.componentInstance;
 //                 let el = fixture.nativeElement;
 //                 codeRenderer.language = 'markup';
@@ -218,41 +204,41 @@
 //
 //                   let text = el.querySelector('pre code').textContent.replace(/\s+/g, '');
 //                   let processed = `
-//                     <div>C</div>
-//                   `;
+            class SwitchComponent {
+            }
 //                   expect(text).toBe(processed.replace(/\s+/g, ''));
 //
-//                   done();
-//
-//                 });
-//               })
-//               .catch(e => done.fail(e));
+              tcb.createAsync(CodeRendererComponent)
+                .then(fixture => {
+                  let codeRenderer = fixture.componentInstance;
+                  let el = fixture.nativeElement;
+                  codeRenderer.language = 'markup';
 //             });
-//
-//           });
-//
+                  tcb.createAsync(SwitchComponent)
+                    .then(switchFixture => {
+                      switchFixture.detectChanges();
 //           describe('ngIf', () => {
-//
-//             @Component({
+                      codeRenderer.code = switchFixture.nativeElement.innerHTML;
+                      spyOn(Prism, 'highlightElement');
 //               selector: 'if-component',
-//               template: `
+                      fixture.detectChanges();
 //                 <div *ngIf="false">var y = 3;</div>
-//                 <div *ngIf="true">var y = 4;</div>
+                      codeRenderer.render();
 //               `
-//             })
-//             class IfComponent {}
-//
-//             it('removes template tags', done => {
+                      let text = el.querySelector('pre code')
+                        .textContent
+                        .replace(/\s+/g, '');
+                      let processed = `
 //               tcb.createAsync(CodeRenderer).then(fixture => {
 //                 let codeRenderer = fixture.componentInstance;
-//                 let el = fixture.nativeElement;
-//                 codeRenderer.language = 'markup';
+                      expect(text)
+                        .toBe(processed.replace(/\s+/g, ''));
 //
-//                 tcb.createAsync(IfComponent).then(ifFixture => {
+                      done();
 //                   ifFixture.detectChanges();
-//
-//                   codeRenderer.code = ifFixture.nativeElement.innerHTML;
-//                   spyOn(Prism, 'highlightElement');
+                    });
+                })
+                .catch(e => done.fail(e));
 //
 //                   fixture.detectChanges();
 //
@@ -266,70 +252,68 @@
 //                 });
 //               })
 //               .catch(e => done.fail(e));
-//             });
-//
+            class IfComponent {
+            }
 //           });
 //
+              tcb.createAsync(CodeRendererComponent)
+                .then(fixture => {
+                  let codeRenderer = fixture.componentInstance;
+                  let el = fixture.nativeElement;
+                  codeRenderer.language = 'markup';
 //
-//         });
+                  tcb.createAsync(IfComponent)
+                    .then(ifFixture => {
+                      ifFixture.detectChanges();
 //
-//       });
-//
-//
-//     });
-//
-//     describe("Empty", () => {
-//
-//       it('clears the code', done => {
-//         tcb.createAsync(CodeRenderer).then(fixture => {
+                      codeRenderer.code = ifFixture.nativeElement.innerHTML;
+                      spyOn(Prism, 'highlightElement');
 //           let codeRenderer = fixture.componentInstance;
-//           let el = fixture.nativeElement;
+                      fixture.detectChanges();
 //           codeRenderer.code = "Hello World";
-//           spyOn(Prism, 'highlightElement');
+                      codeRenderer.render();
 //
-//           fixture.detectChanges();
-//
-//           codeRenderer.render();
-//           codeRenderer.empty();
-//
+                      let text = el.querySelector('pre code')
+                        .textContent
+                        .trim();
+                      expect(text)
+                        .toBe('<div>var y = 4;</div>');
 //           expect(el.querySelector('pre').innerHTML).toBe('');
-//           done();
+                      done();
 //         })
-//         .catch(e => done.fail(e));
-//       });
-//
+                    });
+                })
+                .catch(e => done.fail(e));
 //     });
 //
 //     describe('Inputs', () => {
 //
-//       it('sets the prompt as a data attribute', done => {
 //         tcb.createAsync(CodeRenderer).then(fixture => {
 //           let codeRenderer = fixture.componentInstance;
 //           let el = fixture.nativeElement;
 //           codeRenderer.prompt = "&";
-//           spyOn(Prism, 'highlightElement');
 //
 //           fixture.detectChanges();
 //
 //           codeRenderer.render();
 //
-//           expect(el.querySelector('pre').getAttribute('data-prompt')).toBe('&');
-//           done();
-//         })
-//         .catch(e => done.fail(e));
-//       });
-//
+        tcb.createAsync(CodeRendererComponent)
+          .then(fixture => {
+            let codeRenderer = fixture.componentInstance;
+            let el = fixture.nativeElement;
+            codeRenderer.code = "Hello World";
+            spyOn(Prism, 'highlightElement');
 //       it('sets the outputLines as a data attribute', done => {
-//         tcb.createAsync(CodeRenderer).then(fixture => {
+            fixture.detectChanges();
 //           let codeRenderer = fixture.componentInstance;
-//           let el = fixture.nativeElement;
-//           codeRenderer.outputLines = "1-3,4";
+            codeRenderer.render();
+            codeRenderer.empty();
 //           spyOn(Prism, 'highlightElement');
-//
-//           fixture.detectChanges();
-//
-//           codeRenderer.render();
-//
+            expect(el.querySelector('pre').innerHTML)
+              .toBe('');
+            done();
+          })
+          .catch(e => done.fail(e));
 //           expect(el.querySelector('pre').getAttribute('data-output')).toBe('1-3,4');
 //           done();
 //         })
@@ -337,43 +321,43 @@
 //       });
 //
 //     });
-//
-//     describe('Styling classes', () => {
-//
-//       describe("Language", () => {
-//
-//         it('is set if input is present', done => {
+        tcb.createAsync(CodeRendererComponent)
+          .then(fixture => {
+            let codeRenderer = fixture.componentInstance;
+            let el = fixture.nativeElement;
+            codeRenderer.prompt = "&";
+            spyOn(Prism, 'highlightElement');
 //           tcb.createAsync(CodeRenderer).then(fixture => {
-//             let codeRenderer = fixture.componentInstance;
+            fixture.detectChanges();
 //             codeRenderer.language = 'javascript';
-//
+            codeRenderer.render();
 //             expect(codeRenderer.languageClass).toBe('language-javascript');
-//             done();
-//           })
-//           .catch(e => done.fail(e));
-//         });
-//
-//         it('is undefined if input is missing', done => {
+            expect(el.querySelector('pre')
+              .getAttribute('data-prompt'))
+              .toBe('&');
+            done();
+          })
+          .catch(e => done.fail(e));
 //           tcb.createAsync(CodeRenderer).then(fixture => {
 //             let codeRenderer = fixture.componentInstance;
 //
-//             expect(codeRenderer.languageClass).toBe('language-undefined');
-//             done();
-//           })
-//           .catch(e => done.fail(e));
-//         });
-//
+        tcb.createAsync(CodeRendererComponent)
+          .then(fixture => {
+            let codeRenderer = fixture.componentInstance;
+            let el = fixture.nativeElement;
+            codeRenderer.outputLines = "1-3,4";
+            spyOn(Prism, 'highlightElement');
 //       });
-//
+            fixture.detectChanges();
 //       describe("Line Numbers", () => {
-//
+            codeRenderer.render();
 //         it('is set if input is present', done => {
-//           tcb.createAsync(CodeRenderer).then(fixture => {
-//             let codeRenderer = fixture.componentInstance;
-//             codeRenderer.lineNumbers = true;
-//
-//             expect(codeRenderer.lineNumbersClass).toBe('line-numbers');
-//             done();
+            expect(el.querySelector('pre')
+              .getAttribute('data-output'))
+              .toBe('1-3,4');
+            done();
+          })
+          .catch(e => done.fail(e));
 //           })
 //           .catch(e => done.fail(e));
 //         });
@@ -383,28 +367,28 @@
 //             let codeRenderer = fixture.componentInstance;
 //             codeRenderer.lineNumbers = false;
 //
-//             expect(codeRenderer.lineNumbersClass).toBe('');
-//             done();
-//           })
-//           .catch(e => done.fail(e));
+          tcb.createAsync(CodeRendererComponent)
+            .then(fixture => {
+              let codeRenderer = fixture.componentInstance;
+              codeRenderer.language = 'javascript';
 //         });
-//
-//       });
-//
-//       describe("Shell", () => {
-//
+              expect(codeRenderer.languageClass)
+                .toBe('language-javascript');
+              done();
+            })
+            .catch(e => done.fail(e));
 //         it('is set if input is present', done => {
 //           tcb.createAsync(CodeRenderer).then(fixture => {
 //             let codeRenderer = fixture.componentInstance;
-//             codeRenderer.shell = 'bash';
-//
-//             expect(codeRenderer.shellClass).toBe('command-line');
+          tcb.createAsync(CodeRendererComponent)
+            .then(fixture => {
+              let codeRenderer = fixture.componentInstance;
 //             done();
-//           })
-//           .catch(e => done.fail(e));
-//         });
-//
-//         it('is not set if input is missing', done => {
+              expect(codeRenderer.languageClass)
+                .toBe('language-undefined');
+              done();
+            })
+            .catch(e => done.fail(e));
 //           tcb.createAsync(CodeRenderer).then(fixture => {
 //             let codeRenderer = fixture.componentInstance;
 //
@@ -412,29 +396,29 @@
 //             done();
 //           })
 //           .catch(e => done.fail(e));
-//         });
-//
-//       });
-//
+          tcb.createAsync(CodeRendererComponent)
+            .then(fixture => {
+              let codeRenderer = fixture.componentInstance;
+              codeRenderer.lineNumbers = true;
 //       describe("Code", () => {
-//
-//         it('are set', done => {
-//           tcb.createAsync(CodeRenderer).then(fixture => {
-//             let codeRenderer = fixture.componentInstance;
-//             codeRenderer.language = 'javascript';
+              expect(codeRenderer.lineNumbersClass)
+                .toBe('line-numbers');
+              done();
+            })
+            .catch(e => done.fail(e));
 //
 //             expect(codeRenderer.codeClasses).toBe('language-javascript javascript');
 //             done();
-//           })
-//           .catch(e => done.fail(e));
-//         });
-//
+          tcb.createAsync(CodeRendererComponent)
+            .then(fixture => {
+              let codeRenderer = fixture.componentInstance;
+              codeRenderer.lineNumbers = false;
 //       });
-//
-//       describe("Pre", () => {
-//
-//         it('are set', done => {
-//           tcb.createAsync(CodeRenderer).then(fixture => {
+              expect(codeRenderer.lineNumbersClass)
+                .toBe('');
+              done();
+            })
+            .catch(e => done.fail(e));
 //             let codeRenderer = fixture.componentInstance;
 //             codeRenderer.lineNumbers = true;
 //             codeRenderer.language = 'javascript';
@@ -442,14 +426,43 @@
 //
 //             expect(codeRenderer.preClasses).toBe('line-numbers language-javascript command-line');
 //             done();
-//           })
-//           .catch(e => done.fail(e));
-//         });
-//
+          tcb.createAsync(CodeRendererComponent)
+            .then(fixture => {
+              let codeRenderer = fixture.componentInstance;
+              codeRenderer.shell = 'bash';
 //       });
-//
-//     });
-//
-//   });
-//
+              expect(codeRenderer.shellClass)
+                .toBe('command-line');
+              done();
+            })
+            .catch(e => done.fail(e));
 // };
+
+          tcb.createAsync(CodeRendererComponent)
+            .then(fixture => {
+              let codeRenderer = fixture.componentInstance;
+              expect(codeRenderer.shellClass)
+                .toBe('');
+              done();
+            })
+            .catch(e => done.fail(e));
+          tcb.createAsync(CodeRendererComponent)
+            .then(fixture => {
+              let codeRenderer = fixture.componentInstance;
+              codeRenderer.language = 'javascript';
+              expect(codeRenderer.codeClasses)
+                .toBe('language-javascript javascript');
+              done();
+            })
+            .catch(e => done.fail(e));
+          tcb.createAsync(CodeRendererComponent)
+            .then(fixture => {
+              let codeRenderer = fixture.componentInstance;
+              codeRenderer.lineNumbers = true;
+              codeRenderer.language = 'javascript';
+              codeRenderer.shell = 'bash';
+              expect(codeRenderer.preClasses)
+                .toBe('line-numbers language-javascript command-line');
+              done();
+            })
+            .catch(e => done.fail(e));

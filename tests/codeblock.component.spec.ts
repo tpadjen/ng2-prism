@@ -9,11 +9,11 @@
 //   TestComponentBuilder,
 //   beforeEach,
 //   beforeEachProviders,
-// } from 'angular2/testing';
+} from '@angular/core/testing';
 // import {
 //   Response,
 //   ResponseOptions
-// } from 'angular2/http';
+} from '@angular/http';
 // import {
 //   provide,
 //   Injectable,
@@ -21,11 +21,8 @@
 //   Component,
 //   ViewChild,
 //   Input
-// } from 'angular2/core';
+} from '@angular/core';
 // import {CodeblockComponent} from '../src/codeblock.component';
-//
-// declare var Prism: any;
-//
 //
 // @Component({
 //   selector: 'code-renderer',
