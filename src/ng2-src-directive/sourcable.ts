@@ -1,25 +1,25 @@
-import {Response} from '@angular/http';
-export {Response} from '@angular/http';
+import { Response } from '@angular/http';
+export { Response } from '@angular/http';
 
 export interface OnSourceChanged {
-  sourceChanged: (string:string) => void;
+  sourceChanged: (val: string) => void;
 }
 
 export interface OnSourceLoading {
-  sourceLoading: (string:string) => void;
+  sourceLoading: (val: string) => void;
 }
 
 export interface OnSourceError {
-  sourceError: (any:any) => void;
+  sourceError: (val: any) => void;
 }
 
 export interface OnSourceReceived {
-  sourceReceived: (Response:Response) => void;
+  sourceReceived: (Response: Response) => void;
 }
 
 export interface Sourcable {
-  sourceChanged?: (string:string) => void;
-  sourceLoading?: (string:string) => void;
-  sourceError?: (any:any) => void;
-  sourceReceived?: (Response:Response) => void;
+  sourceChanged?: (val: string) => void;
+  sourceLoading?: (val: string) => void;
+  sourceError?: (val: any) => void;
+  sourceReceived?: (Response: Response) => void;
 }

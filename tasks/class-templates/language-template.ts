@@ -1,5 +1,7 @@
+// tslint:disable
 import 'prismjs/components/prism-__lang__';
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive, ElementRef, OnInit, Host } from '@angular/core';
+import { CodeblockComponent } from '../codeblock.component';
 
 @Directive({
   selector: 'codeblock[__lang__]'
@@ -7,16 +9,12 @@ import { Directive, ElementRef, OnInit } from '@angular/core';
 export class __lang_title__ implements OnInit {
 
   public codeblock: any;
-  public el: ElementRef;
 
-  constructor(el: ElementRef) {
-    this.el = el;
+  public constructor(@Host() codeblockComponent: CodeblockComponent) {
+    this.codeblock = codeblockComponent;
   }
 
-  ngOnInit() {
-    // get the host
-    this.codeblock = (<any>this.el).internalElement.componentView.context;
-    this.codeblock.language = '{{lang}}';
+  public ngOnInit():any {
+    this.codeblock.language = '__lang__';
   }
-
 }
