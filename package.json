@@ -1,5 +1,5 @@
 {
-  "name": "ng2-prism",
+  "name": "ng2-prism-base",
   "private" :true,
   "version": "2.3.1-0",
   "description": "An Angular2 codeblock highlighting component using Prismjs.",
@@ -7,7 +7,13 @@
     "build:lang": "node ./tasks/build-language-directives.js",
     "build:lib": "ngm build -p src",
     "build": "run-s build:lang build:lib",
-    "test": "karma start"
+    "build.watch": "ngm build -p src --watch --skip-bundles",
+    "link": "ngm link -p src --here",
+    "lint": "tslint \"**/*.ts\" -c tslint.json --fix --type-check -t prose -e \"node_modules/**\" -e \"dist/**\" -e \"temp/**\" -e \"scripts/docs/**\"",
+    "pretest": "run-s lint build link",
+    "test": "ng test -sr",
+    "test-coverage": "ng test -sr -cc",
+    "start": "ng serve"
   },
   "repository": {
     "type": "git",
@@ -28,16 +34,16 @@
     "prismjs": "^1.6.0"
   },
   "devDependencies": {
-    "@angular/common": "^2.0.0",
-    "@angular/compiler": "^2.0.0",
-    "@angular/compiler-cli": "^2.0.0",
-    "@angular/core": "^2.0.0",
-    "@angular/forms": "^2.0.0",
-    "@angular/http": "2.3.0",
-    "@angular/platform-browser": "^2.0.0",
-    "@angular/platform-browser-dynamic": "^2.0.0",
-    "@angular/platform-server": "^2.0.0",
-    "@angular/router": "^3.0.0",
+    "@angular/common": "^2.2.0",
+    "@angular/compiler": "^2.2.0",
+    "@angular/compiler-cli": "^2.2.0",
+    "@angular/core": "^2.2.0",
+    "@angular/forms": "^2.2.0",
+    "@angular/http": "^2.2.0",
+    "@angular/platform-browser": "^2.2.0",
+    "@angular/platform-browser-dynamic": "^2.2.0",
+    "@angular/platform-server": "^2.2.0",
+    "@angular/router": "^3.2.0",
     "@angular/tsc-wrapped": "0.4.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "6.0.48",
@@ -45,6 +51,7 @@
     "@types/webpack": "2.0.0",
     "angular-cli": "1.0.0-beta.22-1",
     "codelyzer": "2.0.0-beta.3",
+    "codecov": "1.0.1",
     "core.js": "0.4.2",
     "jasmine": "2.5.2",
     "jasmine-core": "2.5.2",
@@ -55,20 +62,19 @@
     "karma-cli": "1.0.1",
     "karma-jasmine": "1.1.0",
     "karma-remap-istanbul": "0.2.1",
-    "ngm-cli": "0.3.4",
+    "ngm-cli": "0.3.7",
     "node-sass": "^3.4.2",
     "npm-run-all": "3.1.2",
     "rimraf": "^2.5.2",
     "rxjs": "5.0.0-beta.12",
-    "systemjs-builder": "^0.15.13",
     "tslint": "4.0.2",
     "tslint-config-valorsoft": "1.2.0",
     "typescript": "2.0.10",
     "zone.js": "0.6.26"
   },
   "peerDependencies": {
-    "@angular/core": "^2.0.0",
-    "@angular/forms": "^2.0.0",
-    "@angular/http": "^2.0.0"
+    "@angular/core": "^2.2.0",
+    "@angular/forms": "^2.2.0",
+    "@angular/http": "^2.2.0"
   }
 }

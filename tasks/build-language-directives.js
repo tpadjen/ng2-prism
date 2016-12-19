@@ -47,14 +47,13 @@ const tsExports = languages
 
     fs.writeFileSync(filename, data);
 
-    return `import {${title}} from './${language}';
-export {${title}} from './${language}';`;
+    return `import { ${title} } from './${language}';\nexport { ${title} } from './${language}';`;
   });
 
 const langDirectives = languages
   .map(_title);
 
-const index = `${tsExports.join("\n")} \n export const DIRECTIVES = [${langDirectives.join(',')}]`;
+const index = `${tsExports.join("\n")}\nexport const DIRECTIVES = [${langDirectives.join(',')}];\n`;
 
 fs.writeFileSync(`${baseDir}/index.ts`, index);
 

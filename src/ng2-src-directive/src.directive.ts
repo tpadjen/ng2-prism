@@ -21,25 +21,10 @@ export class SrcDirective implements OnInit, OnDestroy {
 
   public host: Sourcable;
 
-  @Input() set src(source: string) {
+  @Input()
+  public set src(source: string) {
     this._src = source;
     this.sourceChanged.next(source);
-  }
-
-  private _src: string;
-  constructor(private _element: ElementRef,
-              private _http: Http,
-              private _renderer: Renderer,
-              @Optional() @Inject(SourceDebounceTime) private _sourceDebounceTime: number) {
-  }
-
-  ngOnInit() {
-    this.host = <Sourcable>this._element;
-    if (<any>this.host === this) this.host = this._element;
-    if (this._sourceDebounceTime) this.debounceTime = this._sourceDebounceTime;
-
-    this._handleSourceChanges();
-    if (this._src) this.sourceChanged.next(this._src);
   }
 
   /**
@@ -47,48 +32,89 @@ export class SrcDirective implements OnInit, OnDestroy {
    *
    * This can prevent unnecessary http requests. The default is 300ms.
    */
-  @Input() set debounceTime(time: any) {
+  @Input()
+  public set debounceTime(time: any) {
     let parsed = parseInt(time, 10);
     if (!isNaN(parsed) && parsed >= 0) {
       this._debounceTime = parsed;
     }
   }
 
-  get debounceTime(): number | any {
+  public get debounceTime(): number | any {
     return this._debounceTime;
   }
 
-  _debounceTime: number = 300;
+  public sourceChanged: Subject<string> = new Subject();
 
-  sourceChanged: Subject<string> = new Subject();
-  _subscription:any;
-  _firstRequest: boolean = true;
+  private _debounceTime: number = 300;
+  private _subscription: any;
+  private _firstRequest: boolean = true;
 
-  _handleSourceChanges() {
+  private _src: string;
+  private _element: ElementRef;
+  private _http: Http;
+  private _renderer: Renderer;
+  private _sourceDebounceTime: number;
+
+  public constructor(_element: ElementRef, _http: Http, _renderer: Renderer,
+                     @Optional() @Inject(SourceDebounceTime) _sourceDebounceTime: number) {
+    this._element = _element;
+    this._http = _http;
+    this._renderer = _renderer;
+    this._sourceDebounceTime = _sourceDebounceTime;
+  }
+
+  public ngOnInit(): any {
+    this.host = this._element as Sourcable;
+    if (this.host as any === this) {
+      this.host = this._element;
+    }
+    if (this._sourceDebounceTime) {
+      this.debounceTime = this._sourceDebounceTime;
+    }
+
+    this._handleSourceChanges();
+
+    if (this._src) {
+      this.sourceChanged.next(this._src);
+    }
+  }
+
+  public ngOnDestroy(): any {
+    this._subscription.dispose();
+  }
+
+  private _handleSourceChanges(): any {
     this._subscription = this.sourceChanged
-      .do(source => {
-        if (this.host.sourceChanged) this.host.sourceChanged(source);
+      .do((source: string) => {
+        if (this.host.sourceChanged) {
+          this.host.sourceChanged(source);
+        }
       })
-      .filter(source => {
+      .filter((source: string) => {
         return this._emptySources(source);
       })
-      .map(source => {
+      .map((source: string) => {
         return this._addExtensionMatches(source);
       })
-      .filter(req => {
+      .filter((req: any) => {
         return this._nonFiles(req);
       })
       .distinctUntilChanged()
-      .do(req => {
-        if (this.host.sourceLoading) this.host.sourceLoading(req.source);
+      .do((req: any) => {
+        if (this.host.sourceLoading) {
+          this.host.sourceLoading(req.source);
+        }
       })
       .debounce(() => Observable.timer(this._firstRequest ? 0 : this.debounceTime))
       .do(() => this._firstRequest = false)
-      .switchMap(req => {
+      .switchMap((req: any) => {
         return this._fetchSrc(req);
       })
-      .catch((error) => {
-        if (this.host.sourceError) this.host.sourceError(error);
+      .catch((error: any) => {
+        if (this.host.sourceError) {
+          this.host.sourceError(error);
+        }
         console.error(error);
         return Observable.empty();
       })
@@ -101,29 +127,24 @@ export class SrcDirective implements OnInit, OnDestroy {
               this._element.nativeElement, 'innerHTML', res.text());
           }
         },
-        error => {
-          if (this.host.sourceError) this.host.sourceError(error);
+        (error: any) => {
+          if (this.host.sourceError) {
+            this.host.sourceError(error);
+          }
           console.error(error);
         }
       );
   }
 
-  ngOnDestroy() {
-    this._subscription.dispose();
-  }
-
-  _emptySources(source:any) {
+  private _emptySources(source: any): boolean {
     return !(source === undefined || source === null || source === '');
   }
 
-  _addExtensionMatches(source:any) {
-    return {
-      source: source,
-      extMatches: source.match(/\.(\w+)$/)
-    };
+  private _addExtensionMatches(source: any): Object {
+    return {source, extMatches: source.match(/\.(\w+)$/)};
   }
 
-  _nonFiles(req:any) {
+  private _nonFiles(req: any): boolean {
     if (!req.extMatches) {
       if (req.source && req.source.length > 0) {
         if (this.host.sourceError) {
@@ -139,9 +160,10 @@ export class SrcDirective implements OnInit, OnDestroy {
     return true;
   }
 
-  _fetchSrc(req:any) {
-    return this._http.get(req.source)
-      .catch((error) => {
+  private _fetchSrc(req: any): Observable<Response> {
+    return this._http
+      .get(req.source)
+      .catch((error: any) => {
         if (this.host.sourceError) {
           this.host.sourceError({message: `${req.source} not found.`});
         }
