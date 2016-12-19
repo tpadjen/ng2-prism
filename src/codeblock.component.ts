@@ -9,7 +9,7 @@ import { OnSourceChanged, OnSourceError, OnSourceReceived, Response } from './ng
 @Component({
   selector: 'codeblock',
   template: `
-    <div #contentEl class="codeblock-content"><ng-content></ng-content></div>
+    <div #contentEl class="codeblock-content" style="display: none"><ng-content></ng-content></div>
     <div class="codeblock {{theme}}">
       <code-renderer
         [code]="code"
@@ -125,10 +125,12 @@ export class CodeblockComponent implements AfterViewChecked,
   @Input()
   public set language(lang: string) {
     if (this.isShell()) {
-      this._languageSet = !!(lang && lang.length > 0);
-      this._language = (Prism.languages as any)[lang] ? lang : undefined;
-      this._changed = true;
+      return;
     }
+
+    this._languageSet = !!(lang && lang.length > 0);
+    this._language = (Prism.languages as any)[lang] ? lang : undefined;
+    this._changed = true;
   }
 
   public get language(): string {
@@ -198,16 +200,6 @@ export class CodeblockComponent implements AfterViewChecked,
    * ```
    */
   @Input() public outputLines: string;
-
-  /**
-   * @deprecated  Use outputLines instead
-   */
-  @Input()
-  public set output(lines: string) {
-    console.warn(`DEPRECATION WARNING: The CodeblockComponent Input property 'output'
-      ' is no longer supported and will be removed in a future release. Use 'outputLines'`);
-    this.outputLines = lines;
-  }
 
   /**
    * Turn this codeblock into a shell display with a prompt.
