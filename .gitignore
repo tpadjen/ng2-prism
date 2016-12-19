@@ -1,25 +1,46 @@
 npm-debug.log
 node_modules/
+
 .idea
-app
 dist
-build
-bundles
-languages
-languages.ts
-languages.d.ts
-languages.js
+temp
+
 **/*.d.ts
 src/*.js
 src/*.js.map
-typings
-*.js.map
+
 tests/*.js
 tests/*.js.map
 tests/*.d.ts
-src/*.js.map
 
-# untracked
-codeblock.js
-codeblock.js.map
-codeblock.d.ts
+src/languages
+
+# IDEs and editors
+/.idea
+/.vscode
+.project
+.classpath
+*.launch
+.settings/
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+
+# ignore build and dist for now
+/dist
+/temp
+/demo/dist
+/demo/temp
+/logs
+
+# e2e
+/demo/e2e/*.js
+/demo/e2e/*.map
+
+#System Files
+.DS_Store
+Thumbs.db

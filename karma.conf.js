@@ -1,104 +1,43 @@
-// Karma configuration
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/0.13/config/configuration-file.html
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
-
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: './',
-
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
-
-    // list of files / patterns to load in the browser
+    basePath: '',
+    frameworks: ['jasmine', 'angular-cli'],
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-remap-istanbul'),
+      require('angular-cli/plugins/karma')
+    ],
     files: [
-      // for Travis
-      'node_modules/es6-shim/es6-shim.js',
-      'node_modules/zone.js/dist/zone.js',
-      'node_modules/zone.js/dist/long-stack-trace-zone.js',
-      'node_modules/zone.js/dist/jasmine-patch.js',
-      'node_modules/systemjs/dist/system.src.js',
-      'node_modules/reflect-metadata/Reflect.js',
-
-      'node_modules/prismjs/prism.js',
-      'node_modules/prismjs/components/prism-bash.js',
-      'node_modules/prismjs/components/prism-powershell.js',
-      'node_modules/prismjs/components/prism-javascript.js',
-      'node_modules/prismjs/plugins/line-numbers/prism-line-numbers.js',
-      'node_modules/prismjs/plugins/command-line/prism-command-line.js',
-      'node_modules/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js',
-
-      { pattern: 'node_modules/angular2/**/*.js', included: false, watched: false, served: true },
-      { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false, served: true },
-      { pattern: 'node_modules/systemjs/dist/system-polyfills.js', included: false, watched: false, served: true }, // PhantomJS2 (and possibly others) might require it
-
-      { pattern: 'codeblock.ts', included: false, watched: true }, // source files
-      { pattern: 'languages.ts', included: false, watched: true }, // source files
-      { pattern: 'src/codeblock.component.ts', included: false, watched: true }, // source files
-      { pattern: 'src/code-renderer.component.ts', included: false, watched: true }, // source files
-      { pattern: 'tests/**/*.ts', included: false, watched: true }, // test files
-      'karma-test-shim.js'
+      { pattern: './tests/test.ts', watched: false }
     ],
-
-    // list of files to exclude
-    exclude: [
-      'node_modules/angular2/**/*_spec.js'
-    ],
-
     preprocessors: {
-      '**/*.ts': ['typescript']
+      './tests/test.ts': ['angular-cli']
     },
-
-    typescriptPreprocessor: {
-      options: require('./tsconfig.json').compilerOptions,
-      typings: [
-        "typings/main.d.ts"
-      ]
+    mime: {
+      'text/x-typescript': ['ts','tsx']
     },
-
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
-
-    mochaReporter: {
-      removePwd: true,
-      removeNodeModules: true
+    remapIstanbulReporter: {
+      reports: {
+        html: 'coverage',
+        lcovonly: './coverage/coverage.lcov'
+      }
     },
-
-    // web server port
+    angularCli: {
+      config: './angular-cli.json',
+      environment: 'dev'
+    },
+    reporters: config.angularCli && config.angularCli.codeCoverage
+              ? ['progress', 'karma-remap-istanbul']
+              : ['progress'],
     port: 9876,
-
-    // enable / disable colors in the output (reporters and logs)
     colors: true,
-
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_ERROR,
-
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
-
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: [process.env.TRAVIS ? 'Firefox' : 'PhantomJS'],
-    // browsers: [process.env.TRAVIS ? 'Firefox' : 'Chrome'],
-
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
-
-    // Concurrency level
-    // how many browser should be started simultanous
-    concurrency: Infinity,
-
-    phantomjsLauncher: {
-      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom)
-      exitOnResourceError: true
-    },
-
-    client: {
-      captureConsole: true
-    }
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: ['Chrome'],
+    singleRun: false
   });
 };
